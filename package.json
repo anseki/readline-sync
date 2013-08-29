@@ -1,7 +1,7 @@
 {
   "name": "readline-sync",
-  "description": "Synchronous Readline.question",
-  "version": "0.1.0",
+  "description": "Synchronous Readline",
+  "version": "0.2.0",
   "homepage": "https://github.com/anseki/readline-sync",
   "author": {
     "name": "anseki"
@@ -25,9 +25,9 @@
   },
   "keywords": [
     "readline",
-    "question",
     "synchronous",
     "prompt",
+    "question",
     "wait",
     "block"
   ]
