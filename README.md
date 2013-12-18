@@ -52,9 +52,19 @@ readlineSync.setPrompt(encoding)
 Set the encoding method of input (user's response) and output (`prompt`). Defaults to 'utf8'.
 
 ## Note
-The your Node and OS may not support interactively reading from stdin. The stdin interfaces are different by platforms.
+The your Node and OS may not support interactively reading from stdin. The stdin interfaces are different by platforms.  
+If in those platforms, an error is thrown.
+
+```js
+try {
+  answer = readlineSync.question('What is your favorite food? :');
+} catch (e) {
+  console.error(e);
+  process.exit(1);
+}
+```
 
 ## Release History
- * 2013-12-18			v0.2.1			Error handle for the environment which don't support interactively reading from stdin.
+ * 2013-12-18			v0.2.2			Error handle for the environment which don't support interactively reading from stdin.
  * 2013-08-30			v0.2.0			Rewrite exporting methods.
  * 2013-08-29			v0.1.0			Initial release.
