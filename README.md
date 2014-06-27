@@ -65,6 +65,7 @@ try {
 ```
 
 ## Release History
+ * 2014-06-27			v0.2.3			Add alternative reading via shell on the environment which don't support interactively reading.
  * 2013-12-18			v0.2.2			Error handle for the environment which don't support interactively reading from stdin.
  * 2013-08-30			v0.2.0			Rewrite exporting methods.
  * 2013-08-29			v0.1.0			Initial release.

@@ -1,7 +1,7 @@
 {
   "name": "readline-sync",
   "description": "Synchronous Readline",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "homepage": "https://github.com/anseki/readline-sync",
   "author": {
     "name": "anseki"
@@ -22,6 +22,9 @@
   "main": "./lib/readline-sync.js",
   "engines": {
     "node": ">= 0.8.0"
+  },
+  "dependencies": {
+    "sync-exec": "~0.3.2"
   },
   "keywords": [
     "readline",
