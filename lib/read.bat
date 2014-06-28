@@ -1,6 +1,6 @@
-@ECHO OFF
-SETLOCAL
-SET /P LINE=
-SET /P DUM=%LINE%<NUL
-ENDLOCAL
-EXIT /B 0
+@echo off
+setlocal
+set /p LINE=<CON >CON
+set /p DUM="%LINE%"<NUL
+endlocal
+exit /b 0
