@@ -1,3 +1,3 @@
 read LINE </dev/tty
-echo -n $LINE
+printf '%s' "$LINE"
 exit 0
