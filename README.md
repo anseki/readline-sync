@@ -46,7 +46,7 @@ Displays the `query` to the user, and then returns the user's response after it 
 ### setEncoding
 
 ```js
-readlineSync.setPrompt(encoding)
+readlineSync.setEncoding(encoding)
 ```
 
 Set the encoding method of input (user's response) and output (`prompt`). Defaults to 'utf8'.
