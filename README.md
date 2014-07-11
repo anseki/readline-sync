@@ -30,18 +30,20 @@ Sets the prompt, for example when you run `node` on the command line, you see `>
 ### prompt
 
 ```js
-line = readlineSync.prompt()
+line = readlineSync.prompt([options])
 ```
 
-Readies readline for input from the user, putting the current `setPrompt` options on a new line, giving the user a new spot to write.
+Readies readline for input from the user, putting the current `setPrompt` options on a new line, giving the user a new spot to write.  
+If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the password which is typed by user on screen. *See [Note](#note) for security.*
 
 ### question
 
 ```js
-line = readlineSync.question(query)
+line = readlineSync.question(query[, options])
 ```
 
-Displays the `query` to the user, and then returns the user's response after it has been typed.
+Displays the `query` to the user, and then returns the user's response after it has been typed.  
+If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the password which is typed by user on screen. *See [Note](#note) for security.*
 
 ### setEncoding
 
@@ -74,7 +76,7 @@ readlineSync.setPrint(function(display, encoding) {
 
 console.log('Your account required.'.grey);
 user = readlineSync.question('USER NAME'.white.inverse + ': ');
-pw = readlineSync.question('PASSWORD'.white.inverse + ': ', true);
+pw = readlineSync.question('PASSWORD'.white.inverse + ': ', {noEchoBack: true});
 // Authorization ...
 console.log(('Welcome, ' + user + '!').green.bold);
 
@@ -82,8 +84,8 @@ readlineSync.setPrompt('> '.bold.red);
 cmd = readlineSync.prompt();
 ```
 
-## Note
-The your Node and OS may not support interactively reading from stdin. The stdin interfaces are different by platforms.  
+## <a name ="note">Note</a>
++ The your Node and OS may not support interactively reading from stdin. The stdin interfaces are different by platforms.  
 If in those platforms, an error is thrown.
 
 ```js
@@ -95,8 +97,11 @@ try {
 }
 ```
 
++ If `options.noEchoBack` is used, the text that input by user is saved to temporary file (e.g. `/tmp/readline-sync.stdout`). This file is removed immediately after reading is done, but you have to be careful about it because this text is *plain*. Removing the file might fail, or the file might be peeped before it is removed.
+
 ## Release History
- * 2014-07-12			v0.3.0			Add setPrint().
+ * 2014-07-12			v0.4.0			Add `options.noEchoBack`.
+ * 2014-07-12			v0.3.0			Add `setPrint()`.
  * 2014-06-27			v0.2.3			Add alternative reading via shell on the environment which don't support interactively reading.
  * 2013-12-18			v0.2.2			Error handle for the environment which don't support interactively reading from stdin.
  * 2013-08-30			v0.2.0			Rewrite exporting methods.
