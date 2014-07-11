@@ -22,10 +22,16 @@ npm install readline-sync
 ### setPrompt
 
 ```js
-readlineSync.setPrompt(prompt)
+currentValue = readlineSync.setPrompt([prompt])
 ```
 
-Sets the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt.
+Sets the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt.  
+This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
+For example: like bash `[foo-directory]# `
+
+```js
+readlineSync.setPrompt({toString: function() {return '[' + require('path').basename(process.cwd()) + ']# '; }})
+```
 
 ### prompt
 
@@ -39,16 +45,17 @@ If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is u
 ### question
 
 ```js
-line = readlineSync.question(query[, options])
+line = readlineSync.question([query[, options]])
 ```
 
 Displays the `query` to the user, and then returns the user's response after it has been typed.  
+`query` is converted to string (i.e. `toString` method is called) before it is displayed every time.  
 If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the password which is typed by user on screen. *See [Note](#note) for security.*
 
 ### setEncoding
 
 ```js
-readlineSync.setEncoding(encoding)
+currentValue = readlineSync.setEncoding([encoding])
 ```
 
 Set the encoding method of input (user's response) and output (`prompt`). Defaults to 'utf8'.
@@ -100,6 +107,7 @@ try {
 + If `options.noEchoBack` is used, the text that input by user is saved to temporary file (e.g. `/tmp/readline-sync.stdout`). This file is removed immediately after reading is done, but you have to be careful about it because this text is *plain*. Removing the file might fail, or the file might be peeped before it is removed.
 
 ## Release History
+ * 2014-07-12			v0.4.2			`setPrompt()` and `setEncoding()` return current value.
  * 2014-07-12			v0.4.1			`setPrompt()` and `question()` accept the value which is not string too (e.g. number, Date, Object, etc.).
  * 2014-07-12			v0.4.0			Add `options.noEchoBack`.
  * 2014-07-12			v0.3.0			Add `setPrint()`.

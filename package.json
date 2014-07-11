@@ -1,7 +1,7 @@
 {
   "name": "readline-sync",
   "description": "Synchronous Readline",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "homepage": "https://github.com/anseki/readline-sync",
   "author": {
     "name": "anseki"
