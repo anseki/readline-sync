@@ -14,7 +14,7 @@ console.log('Oh, so your favorite food is ' + answer);
 ## Installation
 
 ```
-npm install -g readline-sync
+npm install readline-sync
 ```
 
 ## Usage
@@ -100,6 +100,7 @@ try {
 + If `options.noEchoBack` is used, the text that input by user is saved to temporary file (e.g. `/tmp/readline-sync.stdout`). This file is removed immediately after reading is done, but you have to be careful about it because this text is *plain*. Removing the file might fail, or the file might be peeped before it is removed.
 
 ## Release History
+ * 2014-07-12			v0.4.1			`setPrompt()` and `question()` accept the value which is not string too (e.g. number, Date, Object, etc.).
  * 2014-07-12			v0.4.0			Add `options.noEchoBack`.
  * 2014-07-12			v0.3.0			Add `setPrint()`.
  * 2014-06-27			v0.2.3			Add alternative reading via shell on the environment which don't support interactively reading.
