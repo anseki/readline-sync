@@ -27,7 +27,7 @@ currentValue = readlineSync.setPrompt([prompt])
 
 Sets the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt.  
 `prompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
-For example: like bash `[foo-directory]# `
+For example: `[foo-directory]# ` like bash
 
 ```js
 readlineSync.setPrompt({toString:
