@@ -30,7 +30,8 @@ This is converted to string (i.e. `toString` method is called) before it is disp
 For example: like bash `[foo-directory]# `
 
 ```js
-readlineSync.setPrompt({toString: function() {return '[' + require('path').basename(process.cwd()) + ']# '; }})
+readlineSync.setPrompt({toString:
+  function() { return '[' + require('path').basename(process.cwd()) + ']# '; }})
 ```
 
 ### prompt
