@@ -40,7 +40,7 @@ line = readlineSync.prompt([options])
 ```
 
 Readies readline for input from the user, putting the current `setPrompt` options on a new line, giving the user a new spot to write.  
-If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the password which is typed by user on screen. *See [Note](#note) for security.*
+If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the password which is typed by user on screen.
 
 ### question
 
@@ -50,7 +50,7 @@ line = readlineSync.question([query[, options]])
 
 Displays the `query` to the user, and then returns the user's response after it has been typed.  
 `query` is converted to string (i.e. `toString` method is called) before it is displayed every time.  
-If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the password which is typed by user on screen. *See [Note](#note) for security.*
+If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the password which is typed by user on screen.
 
 ### setEncoding
 
@@ -104,9 +104,8 @@ try {
 }
 ```
 
-+ If `options.noEchoBack` is used, the text that input by user is saved to temporary file (e.g. `/tmp/readline-sync.stdout`). This file is removed immediately after reading is done, but you have to be careful about it because this text is *plain*. Removing the file might fail, or the file might be peeped before it is removed.
-
 ## Release History
+ * 2014-07-13			v0.4.3			fixed #6: Crypto input data.
  * 2014-07-12			v0.4.2			`setPrompt()` and `setEncoding()` return current value.
  * 2014-07-12			v0.4.1			`setPrompt()` and `question()` accept the value which is not string too (e.g. number, Date, Object, etc.).
  * 2014-07-12			v0.4.0			Add `options.noEchoBack`.
