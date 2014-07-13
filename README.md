@@ -59,22 +59,23 @@ If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is u
 currentValue = readlineSync.setEncoding([encoding])
 ```
 
-Set the encoding method of input (user's response) and output (`prompt`). Defaults to 'utf8'.
+Set the encoding method of input (user's response) and output (`prompt` and `question`). Defaults to 'utf8'.
 
 ### setPrint
 
 ```js
-readlineSync.setPrint(funcPrint)
+readlineSync.setPrint([funcPrint])
 ```
 
-The specified Function is called when any texts are outputed (`prompt` and `question`). Two arguments the text which is outputed and `encoding` are passed. Defaults to `undefined`.
+The specified Function is called when any output (`prompt` and `question`). Defaults to `undefined`.  
+The Function is given two arguments the output text and `encoding`.
 
 ![sample](cl_01.png)
 
-For example, this is used to pass plain texts to Logger, when prompt texts are colored.
+For example, this is used to pass plain texts to Logger, when texts are colored.
 
 ```js
-var readlineSync = require('readline-sync');
+var readlineSync = require('readline-sync'),
   user, pw, cmd;
 require('colors');
 
