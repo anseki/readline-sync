@@ -26,7 +26,7 @@ currentValue = readlineSync.setPrompt([prompt])
 ```
 
 Sets the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt.  
-This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
+`prompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
 For example: like bash `[foo-directory]# `
 
 ```js
@@ -41,7 +41,7 @@ line = readlineSync.prompt([options])
 ```
 
 Readies readline for input from the user, putting the current `setPrompt` options on a new line, giving the user a new spot to write.  
-If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the password which is typed by user on screen.
+If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen.
 
 ### question
 
@@ -50,8 +50,8 @@ line = readlineSync.question([query[, options]])
 ```
 
 Displays the `query` to the user, and then returns the user's response after it has been typed.  
-`query` is converted to string (i.e. `toString` method is called) before it is displayed every time.  
-If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the password which is typed by user on screen.
+`query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed.  
+If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen.
 
 ### setEncoding
 
