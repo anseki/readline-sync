@@ -93,7 +93,7 @@ readlineSync.setPrompt('> '.bold.red);
 cmd = readlineSync.prompt();
 ```
 
-## <a name ="note">Note</a>
+## Note
 + The your Node and OS may not support interactively reading from stdin. The stdin interfaces are different by platforms.  
 If in those platforms, an error is thrown.
 
