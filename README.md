@@ -1,7 +1,7 @@
 # readlineSync
 
 Synchronous [Readline](http://nodejs.org/api/readline.html) for interactively running.  
-The interface is used with process.stdin and process.stdout in order to accept user input.
+The interface is used with `process.stdin` and `process.stdout` in order to accept user input.
 
 ## Example
 
@@ -27,11 +27,13 @@ currentValue = readlineSync.setPrompt([prompt])
 
 Sets the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt.  
 `prompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
-For example: `[foo-directory]# ` like bash
+For example: `[foo-directory]#` like a bash
 
 ```js
-readlineSync.setPrompt({toString:
-  function() { return '[' + require('path').basename(process.cwd()) + ']# '; }})
+// Object that has toString method.
+readlineSync.setPrompt({toString: function() {
+  return '[' + require('path').basename(process.cwd()) + ']# ';
+}})
 ```
 
 ### prompt
