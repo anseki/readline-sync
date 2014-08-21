@@ -120,7 +120,7 @@ Why did I choose it? :
 
 + The best solution is [child_process.execSync](https://github.com/joyent/node/blob/master/doc/api/child_process.markdown#child_processexecsynccommand-options) in core modules of Node. But it is not supported by current version.
 + The good modules (native addon) for synchronous execution exist. But node-gyp can't compile those in some platforms or Node versions.
-+ I think that the security is important more than the speed. Some modules have problem about security. (It don't protect data.) I think that the speed is not needed usually, because readlineSync is used while user types keys.
++ I think that the security is important more than the speed. Some modules have problem about security. (Those don't protect data.) I think that the speed is not needed usually, because readlineSync is used while user types keys.
 
 Someday, I may rewrite readlineSync to use child_process.execSync, or safety module.
 
