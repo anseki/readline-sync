@@ -96,7 +96,10 @@ cmd = readlineSync.prompt();
 ```
 
 ## Note
-+ The your Node and OS may not support interactively reading from stdin. The stdin interfaces are different by platforms.  
+
+### Platforms
+
+The your Node and OS may not support interactively reading from stdin. The stdin interfaces are different by platforms.  
 If in those platforms, an error is thrown.
 
 ```js
@@ -107,6 +110,19 @@ try {
   process.exit(1);
 }
 ```
+
+### Reading by shell
+
+readlineSync tries reading from stdin by shell if it is needed. And, it use "piping via files" for synchronous running.  
+As everyone knows, "piping via files" is no good. It blocks event loop and a process. It may make your script be slow.
+
+Why did I choose it? :
+
++ The best solution is [child_process.execSync](https://github.com/joyent/node/blob/master/doc/api/child_process.markdown#child_processexecsynccommand-options) in core modules of Node. But it is not supported by current version.
++ The good modules (native addon) for synchronous execution exist. But node-gyp can't compile those in some platforms or Node versions.
++ I think that the security is important more than the speed. Some modules have problem about security. (It don't protect data.) I think that the speed is not needed usually, because readlineSync is used while user types keys.
+
+Someday, I may rewrite readlineSync to use child_process.execSync, or safety module.
 
 ## Release History
  * 2014-07-13			v0.4.3			fixed #6: Crypto input data.
