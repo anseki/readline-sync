@@ -95,6 +95,50 @@ readlineSync.setPrompt('> '.bold.red);
 cmd = readlineSync.prompt();
 ```
 
+## With Task Runner
+
+If you want to control the flow of task runner (e.g. [Grunt](http://gruntjs.com/)), call readlineSync in a task callback that is called by task runner. Then the flow of tasks is paused and it is controlled by user.
+
+Example: by using [grunt-task-helper](https://www.npmjs.org/package/grunt-task-helper)
+
+```shell
+$ grunt
+Running "fileCopy" task
+Files already exist:
+  file-a.png
+  file-b.js
+Overwrite? (y/n) :y
+file-a.png copied.
+file-b.js copied.
+Done.
+```
+
+`Gruntfile.js`
+
+```js
+grunt.initConfig({
+  taskHelper: {
+    fileCopy: {
+      options: {
+        handlerByTask: function() {
+          // Abort the task if user don't want.
+          return readlineSync.question('Overwrite? (y/n) :')
+            .toLowerCase() === 'y';
+          // Or process.exit()
+        },
+        filesArray: []
+      },
+      ...
+    }
+  },
+  copy: {
+    fileCopy: {
+      files: '<%= taskHelper.fileCopy.options.filesArray %>'
+    }
+  }
+});
+```
+
 ## Note
 
 ### Platforms
