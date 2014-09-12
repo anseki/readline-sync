@@ -169,6 +169,7 @@ Why did I choose it? :
 Someday, I may rewrite readlineSync to use child_process.execSync, or safety module.
 
 ## Release History
+ * 2014-09-12			v0.4.8			fixed #9: Error of `stty` in read.sh.
  * 2014-07-13			v0.4.3			fixed #6: Crypto input data.
  * 2014-07-12			v0.4.2			`setPrompt()` and `setEncoding()` return current value.
  * 2014-07-12			v0.4.1			`setPrompt()` and `question()` accept the value which is not string too (e.g. number, Date, Object, etc.).
