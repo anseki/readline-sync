@@ -1,28 +1,8 @@
 {
   "name": "readline-sync",
+  "version": "0.4.9",
+  "title": "readlineSync",
   "description": "Synchronous Readline",
-  "version": "0.4.8",
-  "homepage": "https://github.com/anseki/readline-sync",
-  "author": {
-    "name": "anseki"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/anseki/readline-sync.git"
-  },
-  "bugs": {
-    "url": "https://github.com/anseki/readline-sync/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/anseki/readline-sync/blob/master/LICENSE-MIT"
-    }
-  ],
-  "main": "./lib/readline-sync.js",
-  "engines": {
-    "node": ">= 0.8.0"
-  },
   "keywords": [
     "readline",
     "synchronous",
@@ -30,5 +10,20 @@
     "question",
     "wait",
     "block"
-  ]
+  ],
+  "main": "./lib/readline-sync.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "homepage": "https://github.com/anseki/readline-sync",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anseki/readline-sync.git"
+  },
+  "bugs": "https://github.com/anseki/readline-sync/issues",
+  "licenses": "MIT",
+  "author": {
+    "name": "anseki",
+    "url": "https://github.com/anseki"
+  }
 }
