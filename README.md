@@ -97,6 +97,10 @@ cmd = readlineSync.prompt();
 
 ## With Task Runner
 
+The easy way to control the flow of task runner by the user's response:
+* [Grunt](http://gruntjs.com/) plugin: [grunt-confirm](https://github.com/anseki/grunt-confirm)
+* [gulp](http://gulpjs.com/) plugin: [gulp-confirm](https://github.com/anseki/gulp-confirm)
+
 If you want to control the flow of task runner (e.g. [Grunt](http://gruntjs.com/)), call readlineSync in a task callback that is called by task runner. Then the flow of tasks is paused and it is controlled by user.
 
 Example: by using [grunt-task-helper](https://github.com/anseki/grunt-task-helper)
