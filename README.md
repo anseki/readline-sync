@@ -32,30 +32,10 @@ npm install readline-sync
 line = readlineSync.question([query[, options]])
 ```
 
-Displays the `query` to the user, and then returns the user's response after it has been typed.
+Displays the `query` to the user, and then returns the user's response after it has been typed.  
+You can specify `options`. (see [Options](#options))
 
 The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.
-
-#### noEchoBack
-
-If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen.  
-For example:
-
-```js
-password = readlineSync.question('PASSWORD :', {noEchoBack: true});
-console.log('Login ...');
-```
-
-The typed text is not shown on screen.
-
-```shell
-PASSWORD :
-Login ...
-```
-
-#### noTrim
-
-By default, the leading and trailing white spaces are removed from typed text. If `{noTrim: true}` is specified to `options`, those are not removed.
 
 ### prompt
 
@@ -63,15 +43,8 @@ By default, the leading and trailing white spaces are removed from typed text. I
 line = readlineSync.prompt([options])
 ```
 
-Displays the current prompt (See `setPrompt` method) to the user, and then returns the user's response after it has been typed.
-
-#### noEchoBack
-
-If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen. (See `noEchoBack` option of `question` method)
-
-#### noTrim
-
-By default, the leading and trailing white spaces are removed from typed text. If `{noTrim: true}` is specified to `options`, those are not removed.
+Displays the current prompt (See `setPrompt` method) to the user, and then returns the user's response after it has been typed.  
+You can specify `options`. (see [Options](#options))
 
 ### setPrompt
 
@@ -132,6 +105,37 @@ console.log(('Welcome, ' + user + '!').green.bold);
 readlineSync.setPrompt('> '.bold.red);
 cmd = readlineSync.prompt();
 ```
+
+## Options
+
+An `options` Object can be specified to `prompt` method and `question` method. This Object can have following properties.
+
+### noEchoBack
+
+Type: Boolean  
+Default: `false`
+
+If `true` is specified, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen.  
+For example:
+
+```js
+password = readlineSync.question('PASSWORD :', {noEchoBack: true});
+console.log('Login ...');
+```
+
+The typed text is not shown on screen.
+
+```shell
+PASSWORD :
+Login ...
+```
+
+### noTrim
+
+Type: Boolean  
+Default: `false`
+
+By default, the leading and trailing white spaces are removed from typed text. If `true` is specified, those are not removed.
 
 ## With Task Runner
 
