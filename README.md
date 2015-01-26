@@ -7,8 +7,15 @@ The interface is used with `process.stdin` and `process.stdout` in order to acce
 
 ```js
 var readlineSync = require('readline-sync');
-var answer = readlineSync.question('What is your favorite food? :');
-console.log('Oh, so your favorite food is ' + answer);
+var userName = readlineSync.question('May I have your name? :'); // Wait for user's response.
+var favFood = readlineSync.question('Hi ' + userName + '! What is your favorite food? :');
+console.log('Oh, ' + userName + ' likes ' + favFood + '!');
+```
+
+```shell
+May I have your name? :AnSeki
+Hi AnSeki! What is your favorite food? :chocolate
+Oh, AnSeki likes chocolate!
 ```
 
 ## Installation
@@ -17,64 +24,95 @@ console.log('Oh, so your favorite food is ' + answer);
 npm install readline-sync
 ```
 
-## Usage
+## Methods
 
-### setPrompt
-
-```js
-currentValue = readlineSync.setPrompt([prompt])
-```
-
-Sets the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt.  
-`prompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
-For example: `[foo-directory]#` like a bash
-
-```js
-// Object that has toString method.
-readlineSync.setPrompt({toString: function() {
-  return '[' + require('path').basename(process.cwd()) + ']# ';
-}})
-```
-
-### prompt
-
-```js
-line = readlineSync.prompt([options])
-```
-
-Readies readline for input from the user, putting the current `setPrompt` options on a new line, giving the user a new spot to write.  
-If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen.
-
-### question
+### `question`
 
 ```js
 line = readlineSync.question([query[, options]])
 ```
 
-Displays the `query` to the user, and then returns the user's response after it has been typed.  
-`query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed.  
-If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen.
+Displays the `query` to the user, and then returns the user's response after it has been typed.
 
-### setEncoding
+The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.
+
+#### `noEchoBack`
+
+If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen.  
+For example:
 
 ```js
-currentValue = readlineSync.setEncoding([encoding])
+password = readlineSync.question('PASSWORD :', {noEchoBack: true});
+console.log('Login ...');
 ```
 
-Set the encoding method of input (user's response) and output (`prompt` and `question`). Defaults to 'utf8'.
+The typed text is not shown on screen.
 
-### setPrint
+```shell
+PASSWORD :
+Login ...
+```
+
+#### `noTrim`
+
+By default, the leading and trailing white spaces are removed from typed text. If `{noTrim: true}` is specified to `options`, those are not removed.
+
+### `prompt`
+
+```js
+line = readlineSync.prompt([options])
+```
+
+Displays the current prompt (See `setPrompt` method) to the user, and then returns the user's response after it has been typed.
+
+#### `noEchoBack`
+
+If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen. (See `noEchoBack` option of `question` method)
+
+#### `noTrim`
+
+By default, the leading and trailing white spaces are removed from typed text. If `{noTrim: true}` is specified to `options`, those are not removed.
+
+### `setPrompt`
+
+```js
+currentPrompt = readlineSync.setPrompt([prompt])
+```
+
+Sets the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt. (See `prompt` method)
+
+The `prompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
+For example, `[foo-directory]#` like a bash shell that show the current directory.
+
+```js
+// Object that has toString method.
+readlineSync.setPrompt({
+  toString: function() {
+    return '[' + require('path').basename(process.cwd()) + ']# '; // Get and show current directory.
+  }
+})
+```
+
+### `setEncoding`
+
+```js
+currentEncoding = readlineSync.setEncoding([encoding])
+```
+
+Set the encoding method of input (user's response) and output (`prompt` method and `question` method). Defaults to 'utf8'.
+
+### `setPrint`
 
 ```js
 readlineSync.setPrint([funcPrint])
 ```
 
-The specified Function is called when any output (`prompt` and `question`). Defaults to `undefined`.  
-The Function is given two arguments the output text and `encoding`.
+The specified `funcPrint` Function is called when any outputs (`prompt` method and `question` method). Defaults to `undefined`.  
+The `funcPrint` is given two arguments the output text and `encoding`.
 
 ![sample](cl_01.png)
 
-For example, this is used to pass plain texts to Logger, when texts are colored.
+For example, this is used to pass plain texts to the Logger, when texts are colored.
 
 ```js
 var readlineSync = require('readline-sync'),
@@ -82,7 +120,7 @@ var readlineSync = require('readline-sync'),
 require('colors');
 
 readlineSync.setPrint(function(display, encoding) {
-  logger.log(display.stripColors); // remove control characters
+  logger.log(display.stripColors); // Remove control characters.
 });
 
 console.log('Your account required.'.grey);
@@ -173,13 +211,14 @@ Why did I choose it? :
 Someday, I may rewrite readlineSync to use child_process.execSync, or safety module.
 
 ## Release History
- * 2014-09-12			v0.4.8			fixed #9: Error of `stty` in read.sh.
- * 2014-07-13			v0.4.3			fixed #6: Crypto input data.
- * 2014-07-12			v0.4.2			`setPrompt()` and `setEncoding()` return current value.
- * 2014-07-12			v0.4.1			`setPrompt()` and `question()` accept the value which is not string too (e.g. number, Date, Object, etc.).
- * 2014-07-12			v0.4.0			Add `options.noEchoBack`.
- * 2014-07-12			v0.3.0			Add `setPrint()`.
- * 2014-06-27			v0.2.3			Add alternative reading via shell on the environment which don't support interactively reading.
- * 2013-12-18			v0.2.2			Error handle for the environment which don't support interactively reading from stdin.
- * 2013-08-30			v0.2.0			Rewrite exporting methods.
- * 2013-08-29			v0.1.0			Initial release.
+ * 2015-01-27           v0.5.0          Add `options.noTrim`.
+ * 2014-09-12           v0.4.8          fixed #9: Error of `stty` in read.sh.
+ * 2014-07-13           v0.4.3          fixed #6: Crypto input data.
+ * 2014-07-12           v0.4.2          `setPrompt()` and `setEncoding()` return current value.
+ * 2014-07-12           v0.4.1          `setPrompt()` and `question()` accept the value which is not string too (e.g. number, Date, Object, etc.).
+ * 2014-07-12           v0.4.0          Add `options.noEchoBack`.
+ * 2014-07-12           v0.3.0          Add `setPrint()`.
+ * 2014-06-27           v0.2.3          Add alternative reading via shell on the environment which don't support interactively reading.
+ * 2013-12-18           v0.2.2          Error handle for the environment which don't support interactively reading from stdin.
+ * 2013-08-30           v0.2.0          Rewrite exporting methods.
+ * 2013-08-29           v0.1.0          Initial release.
