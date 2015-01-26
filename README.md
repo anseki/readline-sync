@@ -26,7 +26,7 @@ npm install readline-sync
 
 ## Methods
 
-### `question`
+### question
 
 ```js
 line = readlineSync.question([query[, options]])
@@ -36,7 +36,7 @@ Displays the `query` to the user, and then returns the user's response after it 
 
 The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.
 
-#### `noEchoBack`
+#### noEchoBack
 
 If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen.  
 For example:
@@ -53,11 +53,11 @@ PASSWORD :
 Login ...
 ```
 
-#### `noTrim`
+#### noTrim
 
 By default, the leading and trailing white spaces are removed from typed text. If `{noTrim: true}` is specified to `options`, those are not removed.
 
-### `prompt`
+### prompt
 
 ```js
 line = readlineSync.prompt([options])
@@ -65,15 +65,15 @@ line = readlineSync.prompt([options])
 
 Displays the current prompt (See `setPrompt` method) to the user, and then returns the user's response after it has been typed.
 
-#### `noEchoBack`
+#### noEchoBack
 
 If `{noEchoBack: true}` is specified to `options`, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen. (See `noEchoBack` option of `question` method)
 
-#### `noTrim`
+#### noTrim
 
 By default, the leading and trailing white spaces are removed from typed text. If `{noTrim: true}` is specified to `options`, those are not removed.
 
-### `setPrompt`
+### setPrompt
 
 ```js
 currentPrompt = readlineSync.setPrompt([prompt])
@@ -93,7 +93,7 @@ readlineSync.setPrompt({
 })
 ```
 
-### `setEncoding`
+### setEncoding
 
 ```js
 currentEncoding = readlineSync.setEncoding([encoding])
@@ -101,7 +101,7 @@ currentEncoding = readlineSync.setEncoding([encoding])
 
 Set the encoding method of input (user's response) and output (`prompt` method and `question` method). Defaults to 'utf8'.
 
-### `setPrint`
+### setPrint
 
 ```js
 readlineSync.setPrint([funcPrint])
@@ -212,13 +212,7 @@ Someday, I may rewrite readlineSync to use child_process.execSync, or safety mod
 
 ## Release History
  * 2015-01-27           v0.5.0          Add `options.noTrim`.
- * 2014-09-12           v0.4.8          fixed #9: Error of `stty` in read.sh.
- * 2014-07-13           v0.4.3          fixed #6: Crypto input data.
- * 2014-07-12           v0.4.2          `setPrompt()` and `setEncoding()` return current value.
- * 2014-07-12           v0.4.1          `setPrompt()` and `question()` accept the value which is not string too (e.g. number, Date, Object, etc.).
  * 2014-07-12           v0.4.0          Add `options.noEchoBack`.
  * 2014-07-12           v0.3.0          Add `setPrint()`.
- * 2014-06-27           v0.2.3          Add alternative reading via shell on the environment which don't support interactively reading.
- * 2013-12-18           v0.2.2          Error handle for the environment which don't support interactively reading from stdin.
  * 2013-08-30           v0.2.0          Rewrite exporting methods.
  * 2013-08-29           v0.1.0          Initial release.
