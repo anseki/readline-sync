@@ -6,6 +6,6 @@ if "%1"=="noechoback" (
 ) else (
   set /p LINE=<CON >CON
 )
-set /p DUM="%LINE%"<NUL
+set /p ="'%LINE%'"<NUL
 endlocal
 exit /b 0
