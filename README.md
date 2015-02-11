@@ -7,12 +7,14 @@ The interface is used with `process.stdin` and `process.stdout` in order to acce
 
 ```js
 var readlineSync = require('readline-sync');
+
 var userName = readlineSync.question('May I have your name? :'); // Wait for user's response.
 var favFood = readlineSync.question('Hi ' + userName + '! What is your favorite food? :');
+
 console.log('Oh, ' + userName + ' likes ' + favFood + '!');
 ```
 
-```shell
+```
 May I have your name? :AnSeki
 Hi AnSeki! What is your favorite food? :chocolate
 Oh, AnSeki likes chocolate!
@@ -29,7 +31,7 @@ npm install readline-sync
 ### question
 
 ```js
-line = readlineSync.question([query[, options]])
+answer = readlineSync.question([query[, options]])
 ```
 
 Displays the `query` to the user, and then returns the user's response after it has been typed.  
@@ -40,7 +42,7 @@ The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This
 ### prompt
 
 ```js
-line = readlineSync.prompt([options])
+input = readlineSync.prompt([options])
 ```
 
 Displays the current prompt (See `setPrompt` method) to the user, and then returns the user's response after it has been typed.  
@@ -49,16 +51,16 @@ You can specify `options`. (see [Options](#options))
 ### setPrompt
 
 ```js
-currentPrompt = readlineSync.setPrompt([prompt])
+currentPrompt = readlineSync.setPrompt([newPrompt])
 ```
 
 Sets the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt. (See `prompt` method)
 
-The `prompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
+The `newPrompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
 For example, `[foo-directory]#` like a bash shell that show the current directory.
 
 ```js
-// Object that has toString method.
+// Simple Object that has toString method.
 readlineSync.setPrompt({
   toString: function() {
     return '[' + require('path').basename(process.cwd()) + ']# '; // Get and show current directory.
@@ -69,7 +71,7 @@ readlineSync.setPrompt({
 ### setEncoding
 
 ```js
-currentEncoding = readlineSync.setEncoding([encoding])
+currentEncoding = readlineSync.setEncoding([newEncoding])
 ```
 
 Set the encoding method of input (user's response) and output (`prompt` method and `question` method). Defaults to 'utf8'.
@@ -77,11 +79,11 @@ Set the encoding method of input (user's response) and output (`prompt` method a
 ### setPrint
 
 ```js
-readlineSync.setPrint([funcPrint])
+readlineSync.setPrint([callback])
 ```
 
-The specified `funcPrint` Function is called when any outputs (`prompt` method and `question` method). Defaults to `undefined`.  
-The `funcPrint` is given two arguments the output text and `encoding`.
+The specified `callback` Function is called when any outputs (`prompt` method and `question` method). Defaults to `undefined`.  
+The `callback` is given two arguments the output text and `encoding`.
 
 ![sample](cl_01.png)
 
@@ -89,7 +91,7 @@ For example, this is used to pass plain texts to the Logger, when texts are colo
 
 ```js
 var readlineSync = require('readline-sync'),
-  user, pw, cmd;
+  user, pw, command;
 require('colors');
 
 readlineSync.setPrint(function(display, encoding) {
@@ -103,7 +105,7 @@ pw = readlineSync.question('PASSWORD'.white.inverse + ': ', {noEchoBack: true});
 console.log(('Welcome, ' + user + '!').green.bold);
 
 readlineSync.setPrompt('> '.bold.red);
-cmd = readlineSync.prompt();
+command = readlineSync.prompt();
 ```
 
 ## Options
