@@ -191,8 +191,7 @@ grunt.initConfig({
 
 ### Platforms
 
-The your Node and OS may not support interactively reading from stdin. The stdin interfaces are different by platforms.  
-If in those platforms, an error is thrown.
+The stdin interfaces are different by platforms. If the platform doesn't support interactively reading from stdin, an error is thrown.
 
 ```js
 try {
@@ -205,18 +204,16 @@ try {
 
 ### Reading by shell
 
-readlineSync tries reading from stdin by shell if it is needed. And, it use "piping via files" for synchronous running.  
+readlineSync tries reading from stdin by shell if it is needed. And if the running Node doesn't support the [Synchronous Process Execution](http://nodejs.org/api/child_process.html#child_process_synchronous_process_creation) (i.e. Node v0.10-), it use "piping via files" for synchronous running.  
 As everyone knows, "piping via files" is no good. It blocks event loop and a process. It may make your script be slow.
 
 Why did I choose it? :
 
-+ The best solution is [child_process.execSync](https://github.com/joyent/node/blob/master/doc/api/child_process.markdown#child_processexecsynccommand-options) in core modules of Node. But it is not supported by current version.
 + The good modules (native addon) for synchronous execution exist. But node-gyp can't compile those in some platforms or Node versions.
 + I think that the security is important more than the speed. Some modules have problem about security. (Those don't protect data.) I think that the speed is not needed usually, because readlineSync is used while user types keys.
 
-Someday, I may rewrite readlineSync to use child_process.execSync, or safety module.
-
 ## Release History
+ * 2015-02-12           v0.5.5          Support the Synchronous Process Execution of Node v0.12(v0.11).
  * 2015-01-27           v0.5.0          Add `options.noTrim`.
  * 2014-07-12           v0.4.0          Add `options.noEchoBack`.
  * 2014-07-12           v0.3.0          Add `setPrint()`.
