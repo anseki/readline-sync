@@ -1,6 +1,6 @@
 {
   "name": "readline-sync",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "title": "readlineSync",
   "description": "Synchronous Readline",
   "keywords": [
@@ -8,6 +8,8 @@
     "synchronous",
     "prompt",
     "question",
+    "password",
+    "keyboard",
     "wait",
     "block"
   ],
