@@ -114,7 +114,7 @@ command = readlineSync.prompt();
 currentBufferSize = readlineSync.setBufferSize([newBufferSize])
 ```
 
-When readlineSync reads from TTY directly (without reading by shell), a size `newBufferSize` buffer is used. Even if the user's response exceeds it, it's usually no problem, because the buffer is used repeatedly. But, some platforms's TTY may not accept user's response that is too long. And set a  enough size. Defaults to 1024.
+When readlineSync reads from TTY directly (without reading by shell), a size `newBufferSize` buffer is used. Even if the user's response exceeds it, it's usually no problem, because the buffer is used repeatedly. But, some platforms's TTY may not accept user's response that is too long. And set an enough size. Defaults to 1024.
 
 ## Options
 
