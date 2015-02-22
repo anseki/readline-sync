@@ -108,6 +108,14 @@ readlineSync.setPrompt('> '.bold.red);
 command = readlineSync.prompt();
 ```
 
+### setBufferSize
+
+```js
+currentBufferSize = readlineSync.setBufferSize([newBufferSize])
+```
+
+When readlineSync reads from TTY directly (without reading by shell), a size `newBufferSize` buffer is used. Even if the user's response exceeds it, it's usually no problem, because the buffer is used repeatedly. But, some platforms's TTY may not accept user's response that is too long. And set a  enough size. Defaults to 1024.
+
 ## Options
 
 An `options` Object can be specified to `prompt` method and `question` method. This Object can have following properties.
@@ -213,6 +221,7 @@ Why did I choose it? :
 + I think that the security is important more than the speed. Some modules have problem about security. (Those don't protect data.) I think that the speed is not needed usually, because readlineSync is used while user types keys.
 
 ## Release History
+ * 2015-02-22           v0.6.0          Add `setBufferSize()`.
  * 2015-02-12           v0.5.5          Support the Synchronous Process Execution of Node v0.12(v0.11).
  * 2015-01-27           v0.5.0          Add `options.noTrim`.
  * 2014-07-12           v0.4.0          Add `options.noEchoBack`.
