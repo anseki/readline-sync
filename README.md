@@ -37,7 +37,7 @@ answer = readlineSync.question([query[, options]])
 Displays the `query` to the user, and then returns the user's response after it has been typed.  
 You can specify `options`. (see [Options](#options))
 
-The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.
+The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed.
 
 ### prompt
 
@@ -127,7 +127,7 @@ console.log('Login ...');
 
 The typed text is not shown on screen.
 
-```shell
+```
 PASSWORD :
 Login ...
 ```
