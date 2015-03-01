@@ -1,6 +1,6 @@
 {
   "name": "readline-sync",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "title": "readlineSync",
   "description": "Synchronous Readline",
   "keywords": [
