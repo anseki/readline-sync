@@ -3,9 +3,9 @@ setlocal
 if "%1"=="noechoback" (
   call :exprog
 ) else (
-  set /p LINE=<CON >CON
+  set /p INPUT=<CON >CON
 )
-set /p ="'%LINE%'"<NUL
+set /p ="'%INPUT%'"<NUL
 endlocal
 exit /b 0
 
@@ -26,5 +26,5 @@ if errorlevel 1 (
     [System.Runtime.InteropServices.Marshal]::PtrToStringAuto^($BSTR^)""
 )
 :: echo %EXCOMMAND%
-for /f "usebackq delims=" %%i in (`%EXCOMMAND%`) do set "LINE=%%i"
+for /f "usebackq delims=" %%i in (`%EXCOMMAND%`) do set "INPUT=%%i"
 exit /b
