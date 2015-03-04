@@ -11,8 +11,7 @@ silent_read() {
 if [ "$1" = "noechoback" ]; then
   # Try `-s` option. *ksh have it that not `--silent`. Therefore, don't try it.
   if [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ]; then
-    IFS= read -rs INPUT </dev/tty 2>/dev/null || silent_read
-    printf '\n' >/dev/tty
+    IFS= read -rs INPUT </dev/tty 2>/dev/null && printf '\n' >/dev/tty || silent_read
   else
     silent_read
   fi
