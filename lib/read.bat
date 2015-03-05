@@ -3,7 +3,7 @@ setlocal
 setlocal ENABLEDELAYEDEXPANSION
 
 if "%1"=="noechoback" (
-  call :exprog
+  call :read_s
   if ERRORLEVEL 1 exit /b 1
 ) else (
   set /p INPUT=<CON >CON
@@ -13,7 +13,8 @@ set /p ="'%INPUT%'"<NUL
 endlocal
 exit /b 0
 
-:exprog
+:: Silent Read
+:read_s
 
 :: where /q powershell
 :: Win <Vista and <Server2008 don't have `where`.
