@@ -7,7 +7,6 @@ if "%~1"=="noechoback" (
   if ERRORLEVEL 1 exit /b 1
 ) else (
   set /p INPUT=<CON >CON
-  if ERRORLEVEL 1 exit /b 1
 )
 set /p ="'%INPUT%'"<NUL
 endlocal
