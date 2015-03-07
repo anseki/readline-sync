@@ -2,7 +2,7 @@
 setlocal
 setlocal ENABLEDELAYEDEXPANSION
 
-if "%1"=="noechoback" (
+if "%~1"=="noechoback" (
   call :read_s
   if ERRORLEVEL 1 exit /b 1
 ) else (
