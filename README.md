@@ -1,7 +1,6 @@
 # readlineSync
 
-Synchronous [Readline](http://nodejs.org/api/readline.html) for interactively running.  
-The interface is used with `process.stdin` and `process.stdout` in order to accept user input.
+Synchronous [Readline](http://nodejs.org/api/readline.html) for interactively running to have a conversation with the user via a console(TTY).
 
 ## Example
 
@@ -34,8 +33,8 @@ npm install readline-sync
 answer = readlineSync.question([query[, options]])
 ```
 
-Displays the `query` to the user, and then returns the user's response after it has been typed.  
-You can specify `options`. (see [Options](#options))
+Display the `query` to the user, and then return the user's response after it has been typed and Enter key was pressed.  
+You can specify `options` (see [Options](#options)). **You should consider `noEchoBack` option, if the user inputs the secret text (e.g. password).**
 
 The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed.
 
@@ -45,8 +44,8 @@ The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This
 input = readlineSync.prompt([options])
 ```
 
-Displays the current prompt (See `setPrompt` method) to the user, and then returns the user's response after it has been typed.  
-You can specify `options`. (see [Options](#options))
+Display the current prompt (See `setPrompt` method) to the user, and then return the user's response after it has been typed and Enter key was pressed.  
+You can specify `options` (see [Options](#options)). **You should consider `noEchoBack` option, if the user inputs the secret text (e.g. password).**
 
 ### setPrompt
 
@@ -54,7 +53,7 @@ You can specify `options`. (see [Options](#options))
 currentPrompt = readlineSync.setPrompt([newPrompt])
 ```
 
-Sets the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt. (See `prompt` method)
+Set the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt. The default is `'> '`. (See `prompt` method)
 
 The `newPrompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
 For example, `[foo-directory]#` like a bash shell that show the current directory.
@@ -74,7 +73,7 @@ readlineSync.setPrompt({
 currentEncoding = readlineSync.setEncoding([newEncoding])
 ```
 
-Set the encoding method of input (user's response) and output (`prompt` method and `question` method). Defaults to 'utf8'.
+Set the encoding method of input (user's response) and output (`prompt` method and `question` method). The default is `'utf8'`.
 
 ### setPrint
 
@@ -82,7 +81,7 @@ Set the encoding method of input (user's response) and output (`prompt` method a
 readlineSync.setPrint([callback])
 ```
 
-The specified `callback` Function is called when any outputs (`prompt` method and `question` method). Defaults to `undefined`.  
+The specified `callback` Function is called when any outputs (`prompt` method and `question` method).  
 The `callback` is given two arguments the output text and `encoding`.
 
 ![sample](cl_01.png)
@@ -114,7 +113,7 @@ command = readlineSync.prompt();
 currentBufferSize = readlineSync.setBufferSize([newBufferSize])
 ```
 
-When readlineSync reads from TTY directly (without reading by shell), a size `newBufferSize` buffer is used. Even if the user's response exceeds it, it's usually no problem, because the buffer is used repeatedly. But, some platforms's TTY may not accept user's response that is too long. And set an enough size. Defaults to 1024.
+When readlineSync reads from TTY directly (without reading by shell), a size `newBufferSize` buffer is used. Even if the user's response exceeds it, it's usually no problem, because the buffer is used repeatedly. But, some platforms's TTY may not accept user's response that is too long. And set an enough size. The default is `1024`.
 
 ## Options
 
@@ -199,7 +198,7 @@ grunt.initConfig({
 
 ### Platforms
 
-The stdin interfaces are different by platforms. If the platform doesn't support interactively reading from stdin, an error is thrown.
+The TTY interfaces are different by platforms. If the platform doesn't support interactively reading from TTY, an error is thrown.
 
 ```js
 try {
@@ -212,8 +211,8 @@ try {
 
 ### Reading by shell
 
-readlineSync tries reading from stdin by shell if it is needed. And if the running Node doesn't support the [Synchronous Process Execution](http://nodejs.org/api/child_process.html#child_process_synchronous_process_creation) (i.e. Node v0.10-), it use "piping via files" for synchronous running.  
-As everyone knows, "piping via files" is no good. It blocks event loop and a process. It may make your script be slow.
+readlineSync tries reading from TTY by shell if it is needed. And if the running Node doesn't support the [Synchronous Process Execution](http://nodejs.org/api/child_process.html#child_process_synchronous_process_creation) (i.e. Node v0.10-), it uses "piping via files" for synchronous running.  
+As everyone knows, "piping via files" is no good. It blocks the event loop and a process. It may make your script be slow.
 
 Why did I choose it? :
 
