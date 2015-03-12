@@ -47,7 +47,7 @@ powershell /? >NUL 2>&1
 :: Win XP and Server2003 have `ScriptPW` (`scriptpw.dll`).
 :: In the systems that don't have both, an error is thrown.
 if ERRORLEVEL 1 (
-  set "exec_line=cscript //nologo "%~dp0read.cs.js""
+  set "exec_line=cscript //nologo "%~dp0read-s.cs.js""
 ) else (
   set "exec_line=powershell -Command "$text = read-host -AsSecureString; ^
     $BSTR = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR^($text^); ^

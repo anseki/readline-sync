@@ -1,4 +1,4 @@
-# Silent Read
+# Silent Read : emulate `read -s` of bash/zsh
 read_s() {
   stty --file=/dev/tty -echo echonl 2>/dev/null || \
     stty -F /dev/tty -echo echonl 2>/dev/null || \

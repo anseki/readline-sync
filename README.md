@@ -34,7 +34,7 @@ answer = readlineSync.question([query[, options]])
 ```
 
 Display the `query` to the user, and then return the user's response after it has been typed and Enter key was pressed.  
-You can specify `options` (see [Options](#options)). **You should consider `noEchoBack` option, if the user inputs the secret text (e.g. password).**
+You can specify `options` (see [Options](#options)). **If the user inputs the secret text (e.g. password), you should consider `noEchoBack` option.**
 
 The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed.
 
@@ -45,7 +45,7 @@ input = readlineSync.prompt([options])
 ```
 
 Display the current prompt (See `setPrompt` method) to the user, and then return the user's response after it has been typed and Enter key was pressed.  
-You can specify `options` (see [Options](#options)). **You should consider `noEchoBack` option, if the user inputs the secret text (e.g. password).**
+You can specify `options` (see [Options](#options)). **If the user inputs the secret text (e.g. password), you should consider `noEchoBack` option.**
 
 ### setPrompt
 
