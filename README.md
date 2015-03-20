@@ -55,7 +55,8 @@ currentPrompt = readlineSync.setPrompt([newPrompt])
 
 Set the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt. The default is `'> '`. (See `prompt` method)
 
-The `newPrompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.  
+The `newPrompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.
+
 For example, `[foo-directory]#` like a bash shell that show the current directory.
 
 ```js
@@ -67,45 +68,69 @@ readlineSync.setPrompt({
 })
 ```
 
-### setEncoding
-
-```js
-currentEncoding = readlineSync.setEncoding([newEncoding])
-```
-
-Set the encoding method of input (user's response) and output (`prompt` method and `question` method). The default is `'utf8'`.
-
 ### setPrint
 
 ```js
 readlineSync.setPrint([callback])
 ```
 
-The specified `callback` Function is called when any outputs (`prompt` method and `question` method).  
-The `callback` is given two arguments the output text and `encoding`.
+The specified `callback` Function is called when any outputs (`prompt` method and `question` method) are done. The `callback` is given two arguments the output text and `encoding`.
+
+For example:
+
+* This is used to pass plain texts to the Logger, when texts are colored.
 
 ![sample](cl_01.png)
 
-For example, this is used to pass plain texts to the Logger, when texts are colored.
+```js
+var readlineSync = require('readline-sync'),
+  chalk = require('chalk'),
+  user, pw, command;
+
+readlineSync.setPrint(function(display, encoding) {
+  logger.log(chalk.stripColor(display)); // Remove control characters.
+});
+
+console.log(chalk.black.bold.bgYellow('    Your Account    '));
+user = readlineSync.question(chalk.gray.underline(' USER NAME ') + ' :');
+pw = readlineSync.question(chalk.gray.underline(' PASSWORD  ') + ' :', {noEchoBack: true});
+// Authorization ...
+console.log(chalk.green('Welcome, ' + user + '!'));
+
+readlineSync.setPrompt(chalk.red.bold('> '));
+command = readlineSync.prompt();
+```
+
+* When you do the redirecting that like `node yourscript.js > foo.log` to record into a file, this is used to output conversation to the file. That is, the conversation isn't outputted to `foo.log` without this code.
+
+```js
+var readlineSync = require('readline-sync');
+readlineSync.setPrint(function(display, encoding) {
+  console.log(display); // Output to STDOUT (foo.log)
+});
+```
+
+### setMask
+
+```js
+currentMask = readlineSync.setMask([newMask])
+```
+
+Set the mask character that is shown instead of the secret text (e.g. password). (See `noEchoBack` option.) The default is `'*'`. If you want to show nothing, specify `''`. (But it's not user friendly.)  
+*Note:* The some platforms might use `'*'` or `''` always.
+
+For example:
 
 ```js
 var readlineSync = require('readline-sync'),
-  user, pw, command;
-require('colors');
+  chalk = require('chalk'),
+  secret;
 
-readlineSync.setPrint(function(display, encoding) {
-  logger.log(display.stripColors); // Remove control characters.
-});
-
-console.log('Your account required.'.grey);
-user = readlineSync.question('USER NAME'.white.inverse + ': ');
-pw = readlineSync.question('PASSWORD'.white.inverse + ': ', {noEchoBack: true});
-// Authorization ...
-console.log(('Welcome, ' + user + '!').green.bold);
-
-readlineSync.setPrompt('> '.bold.red);
-command = readlineSync.prompt();
+readlineSync.setMask(chalk.magenta('\u2665'));
+secret = readlineSync.question('Please whisper sweet words :', {noEchoBack: true});
 ```
+
+![sample](cl_02.png)
 
 ### setBufferSize
 
@@ -113,7 +138,15 @@ command = readlineSync.prompt();
 currentBufferSize = readlineSync.setBufferSize([newBufferSize])
 ```
 
-When readlineSync reads from TTY directly (without reading by shell), a size `newBufferSize` buffer is used. Even if the user's response exceeds it, it's usually no problem, because the buffer is used repeatedly. But, some platforms's TTY may not accept user's response that is too long. And set an enough size. The default is `1024`.
+When readlineSync reads from TTY directly (without reading by shell), a size `newBufferSize` buffer is used. Even if the user's response exceeds it, it's usually no problem, because the buffer is used repeatedly. But, some platforms's TTY might not accept user's response that exceeds it. And set an enough size. The default is `1024`.
+
+### setEncoding
+
+```js
+currentEncoding = readlineSync.setEncoding([newEncoding])
+```
+
+Set the encoding method of input (user's response) and output (`prompt` method and `question` method). The default is `'utf8'`.
 
 ## Options
 
@@ -124,7 +157,8 @@ An `options` Object can be specified to `prompt` method and `question` method. T
 Type: Boolean  
 Default: `false`
 
-If `true` is specified, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen.  
+If `true` is specified, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen. (See `setMask` method)
+
 For example:
 
 ```js
@@ -135,7 +169,7 @@ console.log('Login ...');
 The typed text is not shown on screen.
 
 ```
-PASSWORD :
+PASSWORD :********
 Login ...
 ```
 
