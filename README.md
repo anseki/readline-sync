@@ -116,7 +116,7 @@ readlineSync.setPrint(function(display, encoding) {
 currentMask = readlineSync.setMask([newMask])
 ```
 
-Set the mask character that is shown instead of the secret text (e.g. password). (See `noEchoBack` option.) The default is `'*'`. If you want to show nothing, specify `''`. (But it's not user friendly.)  
+Set the mask character that is shown instead of the secret text (e.g. password). (See `noEchoBack` option.) The default is `'*'`. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
 *Note:* The some platforms might use `'*'` or `''` always.
 
 For example:
