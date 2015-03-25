@@ -116,7 +116,7 @@ readlineSync.setPrint(function(display, encoding) {
 currentMask = readlineSync.setMask([newMask])
 ```
 
-Set the mask character that is shown instead of the secret text (e.g. password). (See `noEchoBack` option.) The default is `'*'`. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
+Set the mask character that is shown instead of the secret text (e.g. password) when `noEchoBack` option is `true`. (See `noEchoBack` option.) The default is `'*'`. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
 *Note:* The some platforms might use `'*'` or `''` always.
 
 For example:
@@ -157,7 +157,7 @@ An `options` Object can be specified to `prompt` method and `question` method. T
 Type: Boolean  
 Default: `false`
 
-If `true` is specified, echo back is avoided. It is used to hide the secret text (e.g. password) which is typed by user on screen. (See `setMask` method)
+If `true` is specified, the secret text (e.g. password) which is typed by user on screen is hidden by the mask characters. (See `setMask` method)
 
 For example:
 
