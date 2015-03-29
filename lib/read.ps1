@@ -33,7 +33,7 @@ if ($options.encoded) {
 
 [string] $inputTTY = ''
 [bool] $isInputLine = $False
-[bool] $isEditable = (-not $options.noEchoBack) -and (-not $options.keyIn)
+[bool] $isCooked = (-not $options.noEchoBack) -and (-not $options.keyIn)
 
 function writeTTY ($text) {
   execWithTTY ('Write-Host ''' + ($text -replace '''', '''''') + ''' -NoNewline')
@@ -67,10 +67,9 @@ if ($options.noEchoBack -and (-not $options.keyIn) -and ($options.mask -eq '*'))
 }
 
 if ($options.keyIn) { $reqSize = 1 }
-else { $reqSize = 1024 } # dummy
 
 while ($True) {
-  if ($isEditable) {
+  if ($isCooked) {
     $chunk = execWithTTY 'Read-Host' $True
     $chunk += "`n"
   } else { # raw
@@ -82,7 +81,7 @@ while ($True) {
   $chunk = $chunk -replace '[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', ''
   if ($chunk -eq '') { continue }
 
-  if (-not $isEditable) {
+  if (-not $isCooked) {
     $displayTmp = $chunk -replace '[\r\n]', ''
     if ($displayTmp -ne '') {
       if ($options.noEchoBack) {
@@ -98,7 +97,7 @@ while ($True) {
     ($options.keyIn -and ($inputTTY.Length -ge $reqSize))) { break }
 }
 
-if ((-not $isEditable) -and (-not ($options.keyIn -and (-not $isInputLine))))
+if ((-not $isCooked) -and (-not ($options.keyIn -and (-not $isInputLine))))
   { execWithTTY 'Write-Host ''''' } # new line
 
 return '''' + $inputTTY + ''''

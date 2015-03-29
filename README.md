@@ -101,7 +101,7 @@ readlineSync.setPrompt(chalk.red.bold('> '));
 command = readlineSync.prompt();
 ```
 
-* When you do the redirecting that like `node yourscript.js > foo.log` to record into a file, this is used to output conversation to the file. That is, the conversation isn't outputted to `foo.log` without this code.
+* When you do the redirecting that like `your-script > foo.log` to record into a file, this is used to output conversation to the file. That is, the conversation isn't outputted to `foo.log` without this code.
 
 ```js
 var readlineSync = require('readline-sync');
