@@ -36,7 +36,7 @@ if ($options.encoded) {
 [bool] $isCooked = (-not $options.noEchoBack) -and (-not $options.keyIn)
 
 function writeTTY ($text) {
-  execWithTTY ('Write-Host ''' + ($text -replace '''', '''''') + ''' -NoNewline')
+  execWithTTY ('Write-Host ''' + ($text -replace '''', '''''') + ''' -NoNewline') | Out-Null
   $script:isInputLine = $True
 }
 
@@ -69,35 +69,32 @@ if ($options.noEchoBack -and (-not $options.keyIn) -and ($options.mask -eq '*'))
 if ($options.keyIn) { $reqSize = 1 }
 
 while ($True) {
-  if ($isCooked) {
-    $chunk = execWithTTY 'Read-Host' $True
-    $chunk += "`n"
-  } else { # raw
+  if (-not $isCooked) {
     $chunk = execWithTTY '[System.Console]::ReadKey($True).KeyChar' $True
+    $chunk = $chunk -replace '[\r\n]', ''
+    if ($chunk -eq '') { $isEol = $True } # NL or empty-text was input
+  } else {
+    $chunk = execWithTTY 'Read-Host' $True
+    $chunk = $chunk -replace '[\r\n]', ''
+    $isEol = $True
   }
 
-  if ($chunk -eq '') { break }
   # other ctrl-chars
   $chunk = $chunk -replace '[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', ''
-  if ($chunk -eq '') { continue }
 
-  if (-not $isCooked) {
-    $displayTmp = $chunk -replace '[\r\n]', ''
-    if ($displayTmp -ne '') {
-      if ($options.noEchoBack) {
-        if ($options.mask -eq '') { $displayTmp = '' }
-        else { $displayTmp = $options.mask * $displayTmp.Length }
-      }
-      if ($displayTmp -ne '') { writeTTY $displayTmp }
+  if ($chunk -ne '' -and (-not $isCooked)) {
+    if (-not $options.noEchoBack) {
+      writeTTY $chunk
+    } elseif ($options.mask -ne '') {
+      writeTTY ($options.mask * $chunk.Length)
     }
   }
 
   $inputTTY += $chunk
-  if (($inputTTY -match '[\r\n]$') -or
-    ($options.keyIn -and ($inputTTY.Length -ge $reqSize))) { break }
+  if ($isEol -or ($options.keyIn -and ($inputTTY.Length -ge $reqSize))) { break }
 }
 
 if ((-not $isCooked) -and (-not ($options.keyIn -and (-not $isInputLine))))
-  { execWithTTY 'Write-Host ''''' } # new line
+  { execWithTTY 'Write-Host ''''' | Out-Null } # new line
 
 return '''' + $inputTTY + ''''
