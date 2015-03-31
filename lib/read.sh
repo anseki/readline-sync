@@ -4,9 +4,11 @@ while [ $# -ge 1 ]; do
   arg="$(printf '%s' "$1" | grep -E '^-+[^-]+$' | tr '[A-Z]' '[a-z]' | tr -d '-')"
   case "$arg" in
     'display')          shift; options_display="$1";;
+    'keyin')            options_keyIn='true';;
     'noechoback')       options_noEchoBack='true';;
     'mask')             shift; options_mask="$1";;
-    'keyin')            options_keyIn='true';;
+    'exclude')          shift; options_exclude="$1";;
+    'cs')               options_cs='true';;
     'encoded')          options_encoded='true';;
   esac
   shift

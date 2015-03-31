@@ -1,9 +1,11 @@
 
 Param(
   [string] $display,
+  [switch] $keyIn,
   [switch] $noEchoBack,
   [string] $mask,
-  [switch] $keyIn,
+  [string] $exclude,
+  [switch] $cs,
   [switch] $encoded
 )
 
@@ -19,7 +21,7 @@ function decodeDOS ($arg) {
 }
 
 $options = @{}
-foreach ($arg in @('display', 'noEchoBack', 'mask', 'keyIn', 'encoded')) {
+foreach ($arg in @('display', 'keyIn', 'noEchoBack', 'mask', 'exclude', 'cs', 'encoded')) {
   $options.Add($arg, (Get-Variable $arg -ValueOnly))
 }
 if ($options.encoded) {
@@ -71,6 +73,8 @@ if ($options.keyIn) { $reqSize = 1 }
 while ($True) {
   if (-not $isCooked) {
     $chunk = execWithTTY '[System.Console]::ReadKey($True).KeyChar' $True
+    # ReadKey() may returns [System.Array], then don't cast data.
+    if ($chunk -isnot [string]) { $chunk = '' }
     $chunk = $chunk -replace '[\r\n]', ''
     if ($chunk -eq '') { $isEol = $True } # NL or empty-text was input
   } else {
