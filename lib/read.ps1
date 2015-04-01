@@ -1,3 +1,8 @@
+# readlineSync
+# https://github.com/anseki/readline-sync
+#
+# Copyright (c) 2015 anseki
+# Licensed under the MIT license.
 
 Param(
   [string] $display,
@@ -38,22 +43,23 @@ if ($options.encoded) {
 [bool] $isCooked = (-not $options.noEchoBack) -and (-not $options.keyIn)
 
 function writeTTY ($text) {
-  execWithTTY ('Write-Host ''' + ($text -replace '''', '''''') + ''' -NoNewline') | Out-Null
+  execWithTTY ('Write-Host ''' + ($text -replace '''', '''''') + ''' -NoNewline')
   $script:isInputLine = $True
 }
 
 # Instant method that opens TTY without CreateFile via P/Invoke in .NET Framework
 # **NOTE** Don't include special characters of DOS in $command when $getRes is True.
+# [string] $cmdPath = $Env:ComSpec
+# [string] $psPath = 'powershell.exe'
 function execWithTTY ($command, $getRes = $False) {
   if ($getRes) {
     $res = (cmd.exe /C "<CON powershell.exe -Command $command")
     if ($LastExitCode -ne 0) { exit 1 }
+    return $res
   } else {
     $command | cmd.exe /C ">CON powershell.exe -Command -"
     if ($LastExitCode -ne 0) { exit 1 }
-    $res = ''
   }
-  return $res
 }
 
 if ($options.display -ne '') {
@@ -76,11 +82,11 @@ while ($True) {
     # ReadKey() may returns [System.Array], then don't cast data.
     if ($chunk -isnot [string]) { $chunk = '' }
     $chunk = $chunk -replace '[\r\n]', ''
-    if ($chunk -eq '') { $isEol = $True } # NL or empty-text was input
+    if ($chunk -eq '') { $atEol = $True } # NL or empty-text was input
   } else {
     $chunk = execWithTTY 'Read-Host' $True
     $chunk = $chunk -replace '[\r\n]', ''
-    $isEol = $True
+    $atEol = $True
   }
 
   # other ctrl-chars
@@ -95,10 +101,10 @@ while ($True) {
   }
 
   $inputTTY += $chunk
-  if ($isEol -or ($options.keyIn -and ($inputTTY.Length -ge $reqSize))) { break }
+  if ($atEol -or ($options.keyIn -and ($inputTTY.Length -ge $reqSize))) { break }
 }
 
 if ((-not $isCooked) -and (-not ($options.keyIn -and (-not $isInputLine))))
-  { execWithTTY 'Write-Host ''''' | Out-Null } # new line
+  { execWithTTY 'Write-Host ''''' } # new line
 
 return '''' + $inputTTY + ''''

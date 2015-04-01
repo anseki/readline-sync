@@ -1,3 +1,8 @@
+# readlineSync
+# https://github.com/anseki/readline-sync
+#
+# Copyright (c) 2015 anseki
+# Licensed under the MIT license.
 
 # getopt(s)
 while [ $# -ge 1 ]; do
@@ -62,11 +67,11 @@ do
   if [ -z "$is_cooked" ]; then
     chunk="$(dd if=/dev/tty bs=1 count=1 2>/dev/null)"
     chunk="$(printf '%s' "$chunk" | tr -d '\r\n')"
-    [ -z "$chunk" ] && is_eol='true' # NL or empty-text was input
+    [ -z "$chunk" ] && at_eol='true' # NL or empty-text was input
   else
     IFS= read -r chunk </dev/tty || exit $?
     chunk="$(printf '%s' "$chunk" | tr -d '\r\n')"
-    is_eol='true'
+    at_eol='true'
   fi
 
   # other ctrl-chars
@@ -83,7 +88,7 @@ do
   fi
 
   input="$input$chunk"
-  if [ -n "$is_eol" ] || \
+  if [ -n "$at_eol" ] || \
     ( [ -n "$options_keyIn" ] && [ ${#input} -ge $req_size ] ); then break; fi
 done
 

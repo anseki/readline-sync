@@ -252,12 +252,3 @@ Why did I choose it? :
 
 + The good modules (native addon) for synchronous execution exist. But node-gyp can't compile those in some platforms or Node versions.
 + I think that the security is important more than the speed. Some modules have problem about security. (Those don't protect data.) I think that the speed is not needed usually, because readlineSync is used while user types keys.
-
-## Release History
- * 2015-02-22           v0.6.0          Add `setBufferSize()`.
- * 2015-02-12           v0.5.5          Support the Synchronous Process Execution of Node v0.12(v0.11).
- * 2015-01-27           v0.5.0          Add `options.noTrim`.
- * 2014-07-12           v0.4.0          Add `options.noEchoBack`.
- * 2014-07-12           v0.3.0          Add `setPrint()`.
- * 2013-08-30           v0.2.0          Rewrite exporting methods.
- * 2013-08-29           v0.1.0          Initial release.
