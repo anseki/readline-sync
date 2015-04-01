@@ -39,13 +39,10 @@ if ($options.encoded) {
 }
 
 [string] $inputTTY = ''
-[bool] $isInputLine = $False
+[string] $displaySave = $options.display
+[bool] $silent = (-not $options.display) -and
+  $options.keyIn -and $options.noEchoBack -and (-not $options.mask)
 [bool] $isCooked = (-not $options.noEchoBack) -and (-not $options.keyIn)
-
-function writeTTY ($text) {
-  execWithTTY ('Write-Host ''' + ($text -replace '''', '''''') + ''' -NoNewline')
-  $script:isInputLine = $True
-}
 
 # Instant method that opens TTY without CreateFile via P/Invoke in .NET Framework
 # **NOTE** Don't include special characters of DOS in $command when $getRes is True.
@@ -54,12 +51,16 @@ function writeTTY ($text) {
 function execWithTTY ($command, $getRes = $False) {
   if ($getRes) {
     $res = (cmd.exe /C "<CON powershell.exe -Command $command")
-    if ($LastExitCode -ne 0) { exit 1 }
+    if ($LastExitCode -ne 0) { exit $LastExitCode }
     return $res
   } else {
     $command | cmd.exe /C ">CON powershell.exe -Command -"
-    if ($LastExitCode -ne 0) { exit 1 }
+    if ($LastExitCode -ne 0) { exit $LastExitCode }
   }
+}
+
+function writeTTY ($text) {
+  execWithTTY ('Write-Host ''' + ($text -replace '''', '''''') + ''' -NoNewline')
 }
 
 if ($options.display -ne '') {
@@ -67,7 +68,7 @@ if ($options.display -ne '') {
   $options.display = ''
 }
 
-if ($options.noEchoBack -and (-not $options.keyIn) -and ($options.mask -eq '*')) {
+if ((-not $options.keyIn) -and $options.noEchoBack -and ($options.mask -eq '*')) {
   $inputTTY = execWithTTY ('$inputTTY = Read-Host -AsSecureString;' +
     '$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($inputTTY);' +
     '[System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)') $True
