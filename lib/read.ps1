@@ -9,7 +9,7 @@ Param(
   [switch] $keyIn,
   [switch] $noEchoBack,
   [string] $mask,
-  [string] $exclude,
+  [string] $limit,
   [switch] $cs,
   [switch] $encoded
 )
@@ -26,23 +26,22 @@ function decodeDOS ($arg) {
 }
 
 $options = @{}
-foreach ($arg in @('display', 'keyIn', 'noEchoBack', 'mask', 'exclude', 'cs', 'encoded')) {
+foreach ($arg in @('display', 'keyIn', 'noEchoBack', 'mask', 'limit', 'cs', 'encoded')) {
   $options.Add($arg, (Get-Variable $arg -ValueOnly))
 }
 if ($options.encoded) {
   $argList = New-Object string[] $options.Keys.Count
-  $options.Keys.CopyTo($argList, 0);
+  $options.Keys.CopyTo($argList, 0)
   foreach ($arg in $argList) {
-    if (($options[$arg] -is [string]) -and ($options[$arg] -ne ''))
+    if ($options[$arg] -is [string] -and $options[$arg])
       { $options[$arg] = decodeDOS $options[$arg] }
   }
 }
 
 [string] $inputTTY = ''
-[string] $displaySave = $options.display
-[bool] $silent = (-not $options.display) -and
-  $options.keyIn -and $options.noEchoBack -and (-not $options.mask)
-[bool] $isCooked = (-not $options.noEchoBack) -and (-not $options.keyIn)
+[bool] $silent = -not $options.display -and
+  $options.keyIn -and $options.noEchoBack -and -not $options.mask
+[bool] $isCooked = -not $options.noEchoBack -and -not $options.keyIn
 
 # Instant method that opens TTY without CreateFile via P/Invoke in .NET Framework
 # **NOTE** Don't include special characters of DOS in $command when $getRes is True.
@@ -63,49 +62,58 @@ function writeTTY ($text) {
   execWithTTY ('Write-Host ''' + ($text -replace '''', '''''') + ''' -NoNewline')
 }
 
-if ($options.display -ne '') {
+if ($options.display) {
   writeTTY $options.display
-  $options.display = ''
 }
 
-if ((-not $options.keyIn) -and $options.noEchoBack -and ($options.mask -eq '*')) {
-  $inputTTY = execWithTTY ('$inputTTY = Read-Host -AsSecureString;' +
-    '$bstr = [System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($inputTTY);' +
-    '[System.Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)') $True
+if (-not $options.keyIn -and $options.noEchoBack -and $options.mask -eq '*') {
+  $inputTTY = execWithTTY ('$text = Read-Host -AsSecureString;' +
+    '$bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($text);' +
+    '[Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)') $True
   return '''' + $inputTTY + ''''
 }
 
 if ($options.keyIn) { $reqSize = 1 }
 
-while ($True) {
-  if (-not $isCooked) {
-    $chunk = execWithTTY '[System.Console]::ReadKey($True).KeyChar' $True
-    # ReadKey() may returns [System.Array], then don't cast data.
-    if ($chunk -isnot [string]) { $chunk = '' }
-    $chunk = $chunk -replace '[\r\n]', ''
-    if ($chunk -eq '') { $atEol = $True } # NL or empty-text was input
-  } else {
-    $chunk = execWithTTY 'Read-Host' $True
-    $chunk = $chunk -replace '[\r\n]', ''
-    $atEol = $True
-  }
-
-  # other ctrl-chars
-  $chunk = $chunk -replace '[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', ''
-
-  if ($chunk -ne '' -and (-not $isCooked)) {
-    if (-not $options.noEchoBack) {
-      writeTTY $chunk
-    } elseif ($options.mask -ne '') {
-      writeTTY ($options.mask * $chunk.Length)
-    }
-  }
-
-  $inputTTY += $chunk
-  if ($atEol -or ($options.keyIn -and ($inputTTY.Length -ge $reqSize))) { break }
+if ($options.keyIn -and $options.limit) {
+  $limitPtn = '[^' + $options.limit + ']'
 }
 
-if ((-not $isCooked) -and (-not ($options.keyIn -and (-not $isInputLine))))
-  { execWithTTY 'Write-Host ''''' } # new line
+while ($True) {
+  if (-not $isCooked) {
+    $chunk = [char][int] (execWithTTY '[int] [Console]::ReadKey($True).KeyChar' $True)
+  } else {
+    $chunk = execWithTTY 'Read-Host' $True
+    $chunk += "`n"
+  }
 
-return '''' + $inputTTY + ''''
+  if ($chunk -and $chunk -match '^(.*?)[\r\n]') {
+    $chunk = $Matches[1]
+    $atEol = $True
+  } else { $atEol = $False }
+
+  # other ctrl-chars
+  if ($chunk) { $chunk = $chunk -replace '[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '' }
+  if ($chunk -and $limitPtn) {
+    if ($options.cs)  { $chunk = $chunk -creplace $limitPtn, '' }
+    else              { $chunk = $chunk -ireplace $limitPtn, '' }
+  }
+
+  if ($chunk) {
+    if (-not $isCooked) {
+      if (-not $options.noEchoBack) {
+        writeTTY $chunk
+      } elseif ($options.mask) {
+        writeTTY ($options.mask * $chunk.Length)
+      }
+    }
+    $inputTTY += $chunk
+  }
+
+  if ((-not $options.keyIn -and $atEol) -or
+    ($options.keyIn -and $inputTTY.Length -ge $reqSize)) { break }
+}
+
+if (-not $isCooked -and -not $silent) { execWithTTY 'Write-Host ''''' } # new line
+
+return "'$inputTTY'"
