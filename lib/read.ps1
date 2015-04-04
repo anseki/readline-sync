@@ -10,7 +10,7 @@ Param(
   [switch] $noEchoBack,
   [string] $mask,
   [string] $limit,
-  [switch] $cs,
+  [switch] $caseSensitive,
   [switch] $encoded
 )
 
@@ -26,7 +26,7 @@ function decodeDOS ($arg) {
 }
 
 $options = @{}
-foreach ($arg in @('display', 'keyIn', 'noEchoBack', 'mask', 'limit', 'cs', 'encoded')) {
+foreach ($arg in @('display', 'keyIn', 'noEchoBack', 'mask', 'limit', 'caseSensitive', 'encoded')) {
   $options.Add($arg, (Get-Variable $arg -ValueOnly))
 }
 if ($options.encoded) {
@@ -95,8 +95,8 @@ while ($True) {
   # other ctrl-chars
   if ($chunk) { $chunk = $chunk -replace '[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]', '' }
   if ($chunk -and $limitPtn) {
-    if ($options.cs)  { $chunk = $chunk -creplace $limitPtn, '' }
-    else              { $chunk = $chunk -ireplace $limitPtn, '' }
+    if ($options.caseSensitive)   { $chunk = $chunk -creplace $limitPtn, '' }
+    else                          { $chunk = $chunk -ireplace $limitPtn, '' }
   }
 
   if ($chunk) {

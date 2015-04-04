@@ -13,7 +13,7 @@ while [ $# -ge 1 ]; do
     'noechoback')       options_noEchoBack=true;;
     'mask')             shift; options_mask="$1";;
     'limit')            shift; options_limit="$1";;
-    'cs')               options_cs=true;;
+    'caseSensitive')    options_caseSensitive=true;;
     'encoded')          options_encoded=true;;
   esac
   shift
@@ -67,7 +67,7 @@ fi
 [ "$options_keyIn" = true ] && req_size=1
 
 if [ "$options_keyIn" = true ] && [ -n "$options_limit" ]; then
-  if [ "$options_cs" = true ]; then
+  if [ "$options_caseSensitive" = true ]; then
     limit_ptn="$options_limit"
   else
     # Safe list
