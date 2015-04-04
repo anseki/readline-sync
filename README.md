@@ -2,6 +2,8 @@
 
 Synchronous [Readline](http://nodejs.org/api/readline.html) for interactively running to have a conversation with the user via a console(TTY).
 
+readlineSync tries to read and write a console, even when the input or output is redirected like `your-script <foo.txt >bar.log`.
+
 ## Example
 
 ```js
@@ -25,7 +27,7 @@ Oh, AnSeki likes chocolate!
 npm install readline-sync
 ```
 
-## Methods
+## Input Methods
 
 ### question
 
@@ -44,8 +46,22 @@ The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This
 input = readlineSync.prompt([options])
 ```
 
-Display the current prompt (See `setPrompt` method) to the user, and then return the user's response after it has been typed and Enter key was pressed.  
+Display the current prompt (see [setPrompt](#setprompt) method) to the user, and then return the user's response after it has been typed and Enter key was pressed.  
 You can specify `options` (see [Options](#options)). **If the user inputs the secret text (e.g. password), you should consider `noEchoBack` option.**
+
+### keyIn
+
+```js
+pressedKey = readlineSync.keyIn([query[, options]])
+```
+
+Display the `query` to the user, and then return the character as the pressed key by the user, **without pressing the Enter key**.  
+You can specify `options` (see [Options](#options)).  
+Note that the user has no chance to change the input.
+
+The `query` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed.
+
+## Setting Methods
 
 ### setPrompt
 
@@ -53,7 +69,7 @@ You can specify `options` (see [Options](#options)). **If the user inputs the se
 currentPrompt = readlineSync.setPrompt([newPrompt])
 ```
 
-Set the prompt, for example when you run `node` on the command line, you see `> `, which is node's prompt. The default is `'> '`. (See `prompt` method)
+Set the prompt, for example when you run `node` on the command line, you see `> `, which is Node's prompt. The default is `'> '`. (see [prompt](#prompt) method)
 
 The `newPrompt` may be string, or may not be (e.g. number, Date, Object, etc.). This is converted to string (i.e. `toString` method is called) before it is displayed every time.
 
@@ -74,11 +90,11 @@ readlineSync.setPrompt({
 readlineSync.setPrint([callback])
 ```
 
-The specified `callback` Function is called when any outputs (`prompt` method and `question` method) are done. The `callback` is given two arguments the output text and `encoding`.
+The specified `callback` Function is called when any outputs are done by [Input Methods](#input-methods). The `callback` is given two arguments, `display` as the output text, and `encoding` (see [setEncoding](#setencoding) method).
 
 For example:
 
-* This is used to pass plain texts to the Logger, when texts are colored.
+* This is used to pass the plain texts to the Logger, when the texts are colored.
 
 ![sample](cl_01.png)
 
@@ -101,7 +117,7 @@ readlineSync.setPrompt(chalk.red.bold('> '));
 command = readlineSync.prompt();
 ```
 
-* When you do the redirecting that like `your-script > foo.log` to record into a file, this is used to output conversation to the file. That is, the conversation isn't outputted to `foo.log` without this code.
+* Like `your-script >foo.log`, when the output is redirected to record those into a file, this is used to output the conversation to the file. That is, the conversation isn't outputted to `foo.log` without this code.
 
 ```js
 var readlineSync = require('readline-sync');
@@ -116,8 +132,8 @@ readlineSync.setPrint(function(display, encoding) {
 currentMask = readlineSync.setMask([newMask])
 ```
 
-Set the mask character that is shown instead of the secret text (e.g. password) when `noEchoBack` option is `true`. (See `noEchoBack` option.) The default is `'*'`. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
-*Note:* The some platforms might use `'*'` or `''` always.
+Set the mask character that is shown instead of the secret text (e.g. password) when `noEchoBack` option is `true` (see [noEchoBack](#noechoback) option). The default is `'*'`. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
+*Note:* In some cases (e.g. when the input is redirected on Windows XP), `'*'` or `''` might be used always.
 
 For example:
 
@@ -138,7 +154,7 @@ secret = readlineSync.question('Please whisper sweet words :', {noEchoBack: true
 currentBufferSize = readlineSync.setBufferSize([newBufferSize])
 ```
 
-When readlineSync reads from TTY directly (without reading by shell), a size `newBufferSize` buffer is used. Even if the user's response exceeds it, it's usually no problem, because the buffer is used repeatedly. But, some platforms's TTY might not accept user's response that exceeds it. And set an enough size. The default is `1024`.
+When readlineSync reads from a console directly (without external program), a size `newBufferSize` buffer is used. Even if the user's response exceeds it, it's usually no problem, because the buffer is used repeatedly. But, some platforms's (e.g. Windows) console might not accept user's response that exceeds it. And set an enough size. The default is `1024`.
 
 ### setEncoding
 
@@ -146,18 +162,18 @@ When readlineSync reads from TTY directly (without reading by shell), a size `ne
 currentEncoding = readlineSync.setEncoding([newEncoding])
 ```
 
-Set the encoding method of input (user's response) and output (`prompt` method and `question` method). The default is `'utf8'`.
+Set the encoding method of input (user's response) and output by [Input Methods](#input-methods). The default is `'utf8'`.
 
 ## Options
 
-An `options` Object can be specified to `prompt` method and `question` method. This Object can have following properties.
+An `options` Object can be specified to [Input Methods](#input-methods). This Object can have following properties.
 
 ### noEchoBack
 
 Type: Boolean  
 Default: `false`
 
-If `true` is specified, the secret text (e.g. password) which is typed by user on screen is hidden by the mask characters. (See `setMask` method)
+If `true` is specified, the secret text (e.g. password) which is typed by user on screen is hidden by the mask characters (see [setMask](#setmask) method).
 
 For example:
 
@@ -173,12 +189,41 @@ PASSWORD :********
 Login ...
 ```
 
+### limit
+
+Limit the user's input.
+
+#### For keyIn method
+
+Type: string or Array  
+Default: `''`
+
+The method doesn't return until the specified key is pressed.  
+Specify the characters as the key. All strings or Array of those are decomposed into single characters. For example, `'abcde'` is the same as `['a', 'b', 'c', 'd', 'e']` or `['a', 'bc', ['d', 'e']]`.
+
+For example:
+
+```js
+if (readlineSync.keyIn('Are you sure? :', {limit: 'yn'}) === 'y') { // Accept 'y' or 'n'
+  execSomething();
+} else {
+  process.exit();
+}
+```
+
+### caseSensitive
+
+Type: Boolean  
+Default: `false`
+
+By default, the matching is non-case-sensitive when `limit` option (see [limit](#limit) option) is specified (i.e. `a` equals `A`). If `true` is specified, the matching is case-sensitive (i.e. `a` and `A` are different).
+
 ### noTrim
 
 Type: Boolean  
 Default: `false`
 
-By default, the leading and trailing white spaces are removed from typed text. If `true` is specified, those are not removed.
+By default, the leading and trailing white spaces are removed from the typed text that is returned by [Input Methods](#input-methods) except `keyIn` method. If `true` is specified, those are not removed.
 
 ## With Task Runner
 
@@ -243,9 +288,9 @@ try {
 }
 ```
 
-### Reading by shell
+### Reading by External Program
 
-readlineSync tries reading from TTY by shell if it is needed. And if the running Node doesn't support the [Synchronous Process Execution](http://nodejs.org/api/child_process.html#child_process_synchronous_process_creation) (i.e. Node v0.10-), it uses "piping via files" for synchronous running.  
+readlineSync tries to read from a console by using the external program if it is needed (e.g. when the input is redirected on Windows XP). And if the running Node doesn't support the [Synchronous Process Execution](http://nodejs.org/api/child_process.html#child_process_synchronous_process_creation) (i.e. Node v0.10-), readlineSync uses "piping via files" for synchronous running.  
 As everyone knows, "piping via files" is no good. It blocks the event loop and a process. It may make your script be slow.
 
 Why did I choose it? :
