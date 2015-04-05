@@ -81,7 +81,7 @@ readlineSync.setPrompt({
   toString: function() {
     return '[' + require('path').basename(process.cwd()) + ']# '; // Get and show current directory.
   }
-})
+});
 ```
 
 ### setPrint
