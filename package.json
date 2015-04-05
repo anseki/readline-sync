@@ -1,6 +1,6 @@
 {
   "name": "readline-sync",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "title": "readlineSync",
   "description": "Synchronous Readline for interactively running to have a conversation with the user via a console(TTY).",
   "keywords": [
