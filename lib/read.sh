@@ -10,10 +10,10 @@ while [ $# -ge 1 ]; do
   case "$arg" in
     'display')          shift; options_display="$1";;
     'keyin')            options_keyIn=true;;
-    'noechoback')       options_noEchoBack=true;;
+    'hideechoback')     options_hideEchoBack=true;;
     'mask')             shift; options_mask="$1";;
     'limit')            shift; options_limit="$1";;
-    'caseSensitive')    options_caseSensitive=true;;
+    'casesensitive')    options_caseSensitive=true;;
     'encoded')          options_encoded=true;;
   esac
   shift
@@ -47,8 +47,8 @@ replace_allchars() { (
 ) }
 
 [ -z "$options_display" ] && [ "$options_keyIn" = true ] && \
-  [ "$options_noEchoBack" = true ] && [ -z "$options_mask" ] && silent=true
-[ "$options_noEchoBack" != true ] && [ "$options_keyIn" != true ] && is_cooked=true
+  [ "$options_hideEchoBack" = true ] && [ -z "$options_mask" ] && silent=true
+[ "$options_hideEchoBack" != true ] && [ "$options_keyIn" != true ] && is_cooked=true
 
 if [ -n "$options_display" ]; then
   write_tty "$options_display"
@@ -102,7 +102,7 @@ do
 
   if [ -n "$chunk" ]; then
     if [ "$is_cooked" != true ]; then
-      if [ "$options_noEchoBack" != true ]; then
+      if [ "$options_hideEchoBack" != true ]; then
         write_tty "$chunk"
       elif [ -n "$options_mask" ]; then
         write_tty "$(replace_allchars "$chunk" "$options_mask")"

@@ -216,7 +216,7 @@ if (readlineSync.keyIn('Are you sure? :', {limit: 'yn'}) === 'y') { // Accept 'y
 Type: Boolean  
 Default: `false`
 
-By default, the matching is non-case-sensitive when `limit` option (see [limit](#limit) option) is specified (i.e. `a` equals `A`). If `true` is specified, the matching is case-sensitive (i.e. `a` and `A` are different).
+By default, the matching is case-insensitive when `limit` option (see [limit](#limit) option) is specified (i.e. `a` equals `A`). If `true` is specified, the matching is case-sensitive (i.e. `a` and `A` are different).
 
 ### noTrim
 

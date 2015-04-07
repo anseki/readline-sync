@@ -7,7 +7,7 @@
 Param(
   [string] $display,
   [switch] $keyIn,
-  [switch] $noEchoBack,
+  [switch] $hideEchoBack,
   [string] $mask,
   [string] $limit,
   [switch] $caseSensitive,
@@ -26,7 +26,7 @@ function decodeDOS ($arg) {
 }
 
 $options = @{}
-foreach ($arg in @('display', 'keyIn', 'noEchoBack', 'mask', 'limit', 'caseSensitive', 'encoded')) {
+foreach ($arg in @('display', 'keyIn', 'hideEchoBack', 'mask', 'limit', 'caseSensitive', 'encoded')) {
   $options.Add($arg, (Get-Variable $arg -ValueOnly))
 }
 if ($options.encoded) {
@@ -40,8 +40,8 @@ if ($options.encoded) {
 
 [string] $inputTTY = ''
 [bool] $silent = -not $options.display -and
-  $options.keyIn -and $options.noEchoBack -and -not $options.mask
-[bool] $isCooked = -not $options.noEchoBack -and -not $options.keyIn
+  $options.keyIn -and $options.hideEchoBack -and -not $options.mask
+[bool] $isCooked = -not $options.hideEchoBack -and -not $options.keyIn
 
 # Instant method that opens TTY without CreateFile via P/Invoke in .NET Framework
 # **NOTE** Don't include special characters of DOS in $command when $getRes is True.
@@ -66,7 +66,7 @@ if ($options.display) {
   writeTTY $options.display
 }
 
-if (-not $options.keyIn -and $options.noEchoBack -and $options.mask -eq '*') {
+if (-not $options.keyIn -and $options.hideEchoBack -and $options.mask -eq '*') {
   $inputTTY = execWithTTY ('$text = Read-Host -AsSecureString;' +
     '$bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($text);' +
     '[Runtime.InteropServices.Marshal]::PtrToStringAuto($bstr)') $True
@@ -101,7 +101,7 @@ while ($True) {
 
   if ($chunk) {
     if (-not $isCooked) {
-      if (-not $options.noEchoBack) {
+      if (-not $options.hideEchoBack) {
         writeTTY $chunk
       } elseif ($options.mask) {
         writeTTY ($options.mask * $chunk.Length)
