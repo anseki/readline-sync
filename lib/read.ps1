@@ -57,7 +57,7 @@ function execWithTTY ($command, $getRes = $False) {
 
 function writeTTY ($text) {
   execWithTTY ('Write-Host (''' +
-    (($text -replace '''', '''''') -replace '\n', '''+"`n"+''') + ''') -NoNewline')
+    (($text -replace '''', '''''') -replace '[\r\n]', '''+"`n"+''') + ''') -NoNewline')
 }
 
 if ($options.display) {

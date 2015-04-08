@@ -4,8 +4,11 @@
 # Copyright (c) 2015 anseki
 # Licensed under the MIT license.
 
+# Use perl for compatibility of sed/awk of GNU / POSIX, BSD. (tr too, maybe)
+# Hide "\n" from shell by "\fNL"
+
 decode_arg() {
-  printf '%s' "$(printf '%s' "$1" | perl -pe 's/#(\d+);/sprintf("%c", $1)/ge')"
+  printf '%s' "$(printf '%s' "$1" | perl -pe 's/#(\d+);/sprintf("%c", $1)/ge; s/[\r\n]/\fNL/g')"
 }
 
 # getopt(s)
@@ -36,12 +39,13 @@ save_tty="$(stty --file=/dev/tty -g 2>/dev/null || stty -F /dev/tty -g 2>/dev/nu
   [ "$options_hideEchoBack" = true ] && [ -z "$options_mask" ] && silent=true
 [ "$options_hideEchoBack" != true ] && [ "$options_keyIn" != true ] && is_cooked=true
 
-write_tty() { # 2nd arg: enable escape sequence
-  if [ "$2" = true ]; then
-    printf '%b' "$1" >/dev/tty
-  else
-    printf '%s' "$1" >/dev/tty
-  fi
+write_tty() {
+  # if [ "$2" = true ]; then
+  #   printf '%b' "$1" >/dev/tty
+  # else
+  #   printf '%s' "$1" >/dev/tty
+  # fi
+  printf '%s' "$1" | perl -pe 's/\fNL/\r\n/g' >/dev/tty
 }
 
 replace_allchars() { (
@@ -75,7 +79,6 @@ if [ "$options_keyIn" = true ] && [ -n "$options_limit" ]; then
   else
     # Safe list
     # limit_ptn="$(printf '%s' "$options_limit" | sed 's/\([a-z]\)/\L\1\U\1/ig')"
-    # for compatibility of sed of GNU / POSIX, BSD. (tr too, maybe)
     limit_ptn="$(printf '%s' "$options_limit" | perl -pe 's/([a-z])/lc($1) . uc($1)/ige')"
   fi
 fi
@@ -83,15 +86,17 @@ fi
 while :
 do
   if [ "$is_cooked" != true ]; then
-    chunk="$(dd if=/dev/tty bs=1 count=1 2>/dev/null)"
+    # chunk="$(dd if=/dev/tty bs=1 count=1 2>/dev/null)"
+    chunk="$(dd if=/dev/tty bs=1 count=1 2>/dev/null | perl -pe 's/[\r\n]/\fNL/g')"
   else
     IFS= read -r chunk </dev/tty || exit $?
-    chunk="$(printf '%s\n_NL_' "$chunk")"
+    chunk="$(printf '%s\fNL' "$chunk")"
   fi
 
-  # Don't assign '\n' to chunk.
-  if [ -n "$chunk" ] && [ "$(printf '%s' "$chunk" | tr '\r' '\n' | wc -l)" != "0" ]; then
-    chunk="$(printf '%s' "$chunk" | tr '\r' '\n' | head -n 1)"
+  # if [ -n "$chunk" ] && [ "$(printf '%s' "$chunk" | tr '\r' '\n' | wc -l)" != "0" ]; then
+  #   chunk="$(printf '%s' "$chunk" | tr '\r' '\n' | head -n 1)"
+  if [ -n "$chunk" ] && printf '%s' "$chunk" | perl -ne '/\fNL/ or exit 1'; then
+    chunk="$(printf '%s' "$chunk" | perl -pe 's/^(.*?)\fNL.*$/$1/')"
     at_eol=true
   fi
 
@@ -120,7 +125,7 @@ do
     ( [ "$options_keyIn" = true ] && [ ${#input} -ge $req_size ] ); then break; fi
 done
 
-if [ "$is_cooked" != true ] && [ "$silent" != true ]; then write_tty '\r\n' true; fi
+if [ "$is_cooked" != true ] && [ "$silent" != true ]; then write_tty "$(printf '%b' '\fNL')"; fi
 
 printf "'%s'" "$input"
 
