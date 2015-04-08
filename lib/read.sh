@@ -4,17 +4,20 @@
 # Copyright (c) 2015 anseki
 # Licensed under the MIT license.
 
+decode_arg() {
+  printf '%s' "$(printf '%s' "$1" | perl -pe 's/#(\d+);/sprintf("%c", $1)/ge')"
+}
+
 # getopt(s)
 while [ $# -ge 1 ]; do
   arg="$(printf '%s' "$1" | grep -E '^-+[^-]+$' | tr '[A-Z]' '[a-z]' | tr -d '-')"
   case "$arg" in
-    'display')          shift; options_display="$1";;
+    'display')          shift; options_display="$(decode_arg "$1")";;
     'keyin')            options_keyIn=true;;
     'hideechoback')     options_hideEchoBack=true;;
-    'mask')             shift; options_mask="$1";;
-    'limit')            shift; options_limit="$1";;
+    'mask')             shift; options_mask="$(decode_arg "$1")";;
+    'limit')            shift; options_limit="$(decode_arg "$1")";;
     'casesensitive')    options_caseSensitive=true;;
-    'encoded')          options_encoded=true;;
   esac
   shift
 done
@@ -28,6 +31,10 @@ reset_tty() {
 }
 trap 'reset_tty' EXIT
 save_tty="$(stty --file=/dev/tty -g 2>/dev/null || stty -F /dev/tty -g 2>/dev/null || stty -f /dev/tty -g || exit $?)"
+
+[ -z "$options_display" ] && [ "$options_keyIn" = true ] && \
+  [ "$options_hideEchoBack" = true ] && [ -z "$options_mask" ] && silent=true
+[ "$options_hideEchoBack" != true ] && [ "$options_keyIn" != true ] && is_cooked=true
 
 write_tty() { # 2nd arg: enable escape sequence
   if [ "$2" = true ]; then
@@ -45,10 +52,6 @@ replace_allchars() { (
   done
   printf '%s' "$text"
 ) }
-
-[ -z "$options_display" ] && [ "$options_keyIn" = true ] && \
-  [ "$options_hideEchoBack" = true ] && [ -z "$options_mask" ] && silent=true
-[ "$options_hideEchoBack" != true ] && [ "$options_keyIn" != true ] && is_cooked=true
 
 if [ -n "$options_display" ]; then
   write_tty "$options_display"
@@ -71,7 +74,9 @@ if [ "$options_keyIn" = true ] && [ -n "$options_limit" ]; then
     limit_ptn="$options_limit"
   else
     # Safe list
-    limit_ptn="$(printf '%s' "$options_limit" | sed 's/\([a-z]\)/\L\1\U\1/ig')"
+    # limit_ptn="$(printf '%s' "$options_limit" | sed 's/\([a-z]\)/\L\1\U\1/ig')"
+    # for compatibility of sed of GNU / POSIX, BSD. (tr too, maybe)
+    limit_ptn="$(printf '%s' "$options_limit" | perl -pe 's/([a-z])/lc($1) . uc($1)/ige')"
   fi
 fi
 

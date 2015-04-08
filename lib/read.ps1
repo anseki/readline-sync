@@ -10,8 +10,7 @@ Param(
   [switch] $hideEchoBack,
   [string] $mask,
   [string] $limit,
-  [switch] $caseSensitive,
-  [switch] $encoded
+  [switch] $caseSensitive
 )
 
 $ErrorActionPreference = 'Stop' # for cmdlet
@@ -21,21 +20,19 @@ trap {
   exit 1
 }
 
-function decodeDOS ($arg) {
+function decodeArg ($arg) {
   [Regex]::Replace($arg, '#(\d+);', { [char][int] $args[0].Groups[1].Value })
 }
 
 $options = @{}
-foreach ($arg in @('display', 'keyIn', 'hideEchoBack', 'mask', 'limit', 'caseSensitive', 'encoded')) {
+foreach ($arg in @('display', 'keyIn', 'hideEchoBack', 'mask', 'limit', 'caseSensitive')) {
   $options.Add($arg, (Get-Variable $arg -ValueOnly))
 }
-if ($options.encoded) {
-  $argList = New-Object string[] $options.Keys.Count
-  $options.Keys.CopyTo($argList, 0)
-  foreach ($arg in $argList) {
-    if ($options[$arg] -is [string] -and $options[$arg])
-      { $options[$arg] = decodeDOS $options[$arg] }
-  }
+$argList = New-Object string[] $options.Keys.Count
+$options.Keys.CopyTo($argList, 0)
+foreach ($arg in $argList) {
+  if ($options[$arg] -is [string] -and $options[$arg])
+    { $options[$arg] = decodeArg $options[$arg] }
 }
 
 [string] $inputTTY = ''
@@ -59,7 +56,8 @@ function execWithTTY ($command, $getRes = $False) {
 }
 
 function writeTTY ($text) {
-  execWithTTY ('Write-Host ''' + ($text -replace '''', '''''') + ''' -NoNewline')
+  execWithTTY ('Write-Host (''' +
+    (($text -replace '''', '''''') -replace '\n', '''+"`n"+''') + ''') -NoNewline')
 }
 
 if ($options.display) {
