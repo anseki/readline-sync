@@ -4,7 +4,7 @@
 # Copyright (c) 2015 anseki
 # Licensed under the MIT license.
 
-# Use perl for compatibility of sed/awk of GNU / POSIX, BSD. (tr too, maybe)
+# Use perl for compatibility of sed/awk of GNU / POSIX, BSD. (and tr)
 # Hide "\n" from shell by "\fNL"
 
 decode_arg() {

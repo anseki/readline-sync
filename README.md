@@ -2,7 +2,7 @@
 
 Synchronous [Readline](http://nodejs.org/api/readline.html) for interactively running to have a conversation with the user via a console(TTY).
 
-readlineSync tries to read and write a console, even when the input or output is redirected like `your-script <foo.txt >bar.log`.
+readlineSync tries to make your script have a conversation with the user via a console, even when the input/output is redirected like `your-script <foo.dat >bar.log`.
 
 ## Example
 
@@ -11,19 +11,30 @@ var readlineSync = require('readline-sync');
 
 var userName = readlineSync.question('May I have your name? :'); // Wait for user's response.
 var favFood = readlineSync.question('Hi ' + userName + '! What is your favorite food? :');
-
 console.log('Oh, ' + userName + ' likes ' + favFood + '!');
 ```
 
+```console
+May I have your name? :CookieMonster
+Hi CookieMonster! What is your favorite food? :tofu
+Oh, CookieMonster likes tofu!
 ```
-May I have your name? :AnSeki
-Hi AnSeki! What is your favorite food? :chocolate
-Oh, AnSeki likes chocolate!
+
+```js
+var readlineSync = require('readline-sync');
+
+// The user does not have to press an Enter key.
+if (readlineSync.keyInYN('Do you want this module?')) {
+  // 'Y' key was pressed.
+  installModule();
+} else {
+  searchAnother();
+}
 ```
 
 ## Installation
 
-```
+```shell
 npm install readline-sync
 ```
 
@@ -184,7 +195,7 @@ console.log('Login ...');
 
 The typed text is not shown on screen.
 
-```
+```console
 PASSWORD :********
 Login ...
 ```
@@ -216,7 +227,7 @@ if (readlineSync.keyIn('Are you sure? :', {limit: 'yn'}) === 'y') { // Accept 'y
 Type: Boolean  
 Default: `false`
 
-By default, the matching is case-insensitive when `limit` option (see [limit](#limit) option) is specified (i.e. `a` equals `A`). If `true` is specified, the matching is case-sensitive (i.e. `a` and `A` are different).
+By default, the matching is case-insensitive when `limit` option (see [limit](#limit) option) is specified (i.e. `a` equals `A`). If `true` is specified, the matching is case-sensitive (i.e. `a` is different from `A`).
 
 ### noTrim
 
