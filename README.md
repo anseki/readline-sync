@@ -2,7 +2,7 @@
 
 Synchronous [Readline](http://nodejs.org/api/readline.html) for interactively running to have a conversation with the user via a console(TTY).
 
-readlineSync tries to make your script have a conversation with the user via a console, even when the input/output is redirected like `your-script <foo.dat >bar.log`.
+readlineSync tries to let your script have a conversation with the user via a console, even when the input/output is redirected like `your-script <foo.dat >bar.log`.
 
 ## Example
 

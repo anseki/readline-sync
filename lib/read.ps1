@@ -6,6 +6,7 @@
 
 Param(
   [string] $display,
+  [switch] $displayOnly,
   [switch] $keyIn,
   [switch] $hideEchoBack,
   [string] $mask,
@@ -25,7 +26,7 @@ function decodeArg ($arg) {
 }
 
 $options = @{}
-foreach ($arg in @('display', 'keyIn', 'hideEchoBack', 'mask', 'limit', 'caseSensitive')) {
+foreach ($arg in @('display', 'displayOnly', 'keyIn', 'hideEchoBack', 'mask', 'limit', 'caseSensitive')) {
   $options.Add($arg, (Get-Variable $arg -ValueOnly))
 }
 $argList = New-Object string[] $options.Keys.Count
@@ -63,6 +64,7 @@ function writeTTY ($text) {
 if ($options.display) {
   writeTTY $options.display
 }
+if ($options.displayOnly) { return "''" }
 
 if (-not $options.keyIn -and $options.hideEchoBack -and $options.mask -eq '*') {
   $inputTTY = execWithTTY ('$text = Read-Host -AsSecureString;' +

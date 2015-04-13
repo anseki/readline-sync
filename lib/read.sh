@@ -16,6 +16,7 @@ while [ $# -ge 1 ]; do
   arg="$(printf '%s' "$1" | grep -E '^-+[^-]+$' | tr '[A-Z]' '[a-z]' | tr -d '-')"
   case "$arg" in
     'display')          shift; options_display="$(decode_arg "$1")";;
+    'displayOnly')      options_displayOnly=true;;
     'keyin')            options_keyIn=true;;
     'hideechoback')     options_hideEchoBack=true;;
     'mask')             shift; options_mask="$(decode_arg "$1")";;
@@ -59,6 +60,10 @@ replace_allchars() { (
 
 if [ -n "$options_display" ]; then
   write_tty "$options_display"
+fi
+if [ "$options_displayOnly" = true ]; then
+  printf "'%s'" ''
+  exit 0
 fi
 
 if [ "$is_cooked" = true ]; then
