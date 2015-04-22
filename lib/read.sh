@@ -16,7 +16,7 @@ while [ $# -ge 1 ]; do
   arg="$(printf '%s' "$1" | grep -E '^-+[^-]+$' | tr '[A-Z]' '[a-z]' | tr -d '-')"
   case "$arg" in
     'display')          shift; options_display="$(decode_arg "$1")";;
-    'displayOnly')      options_displayOnly=true;;
+    'displayonly')      options_displayOnly=true;;
     'keyin')            options_keyIn=true;;
     'hideechoback')     options_hideEchoBack=true;;
     'mask')             shift; options_mask="$(decode_arg "$1")";;
