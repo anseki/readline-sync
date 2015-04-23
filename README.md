@@ -188,7 +188,7 @@ The Object as `options` can have following properties.
 
 ### `prompt`<span id="options-prompt" style="height: 0;"></span>
 
-*For `prompt*` methods only*  
+_For `prompt*` methods only_  
 **Type:** string or others  
 **Default:** `'> '`
 
@@ -324,7 +324,7 @@ dice = readlineSync.keyIn('Which number do you think came up? :',
 
 ### `limitMessage`
 
-*For `question*` and `prompt*` methods only*  
+_For `question*` and `prompt*` methods only_  
 **Type:** string  
 **Default:** `'Input another, please.${( [)limit(])}'`
 
@@ -342,7 +342,7 @@ file = readlineSync.question('Name of Text File :', {
 
 ### `defaultInput`
 
-*For `question*` and `prompt*` methods only*  
+_For `question*` and `prompt*` methods only_  
 **Type:** string  
 **Default:** `''`
 
@@ -401,7 +401,7 @@ It affects: [`limit`](#limit), [`trueValue`](#truevalue), [`falseValue`](#falsev
 
 ### `keepWhitespace`
 
-*For `question*` and `prompt*` methods only*  
+_For `question*` and `prompt*` methods only_  
 **Type:** boolean  
 **Default:** `false`
 
@@ -500,7 +500,7 @@ Hi Oz! Where do you live? :Emerald City
 
 ### `history`
 
-*For `question*` and `prompt*` methods only*  
+_For `question*` and `prompt*` methods only_  
 **Type:** boolean  
 **Default:** `true`
 
@@ -532,7 +532,7 @@ hello
 
 ### `cd`
 
-*For `question*` and `prompt*` methods only*  
+_For `question*` and `prompt*` methods only_  
 **Type:** boolean  
 **Default:** `false`
 
@@ -1561,7 +1561,7 @@ command = readlineSync.prompt({prompt: '[${localeDate}]> '});
 
 #### `C1-C2`
 
-*For [`limit` option for `keyIn*` method](#for-keyin-method) and [`charlist`](#charlist) option for [`questionNewPassword`](#questionnewpassword) method only*
+_For [`limit` option for `keyIn*` method](#for-keyin-method) and [`charlist`](#charlist) option for [`questionNewPassword`](#questionnewpassword) method only_
 
 A character list.  
 `C1` and `C2` are each single character as the start and the end. A sequence in ascending or descending order of characters ranging from `C1` to `C2` is created. For example, `a-e` is replaced to `'abcde'`. `5-1` is replaced to `'54321'`.
