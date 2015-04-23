@@ -4,7 +4,7 @@ Synchronous [Readline](http://nodejs.org/api/readline.html) for interactively ru
 
 readlineSync tries to let your script have a conversation with the user via a console, even when the input/output stream is redirected like `your-script <foo.dat >bar.log`.
 
-<table style="display: table; width: auto; margin-left: auto; margin-right: 0;">
+<table style="display: table; width: auto; margin-left: auto; margin-right: 0; font-size: 0.8em;">
 <tr><td><a href="#options">Options</a></td><td><a href="#utility-methods">Utility Methods</a></td><td><a href="#placeholders">Placeholders</a></td></tr>
 </table>
 
@@ -21,14 +21,14 @@ console.log('Hi ' + userName + '!');
 var favFood = readlineSync.question('What is your favorite food? :', {
   hideEchoBack: true
 });
-console.log('Oh, ' + userName + ' likes ' + favFood + '!');
+console.log('Oh, ' + userName + ' loves ' + favFood + '!');
 ```
 
 ```console
 May I have your name? :CookieMonster
 Hi CookieMonster!
 What is your favorite food? :****
-Oh, CookieMonster likes tofu!
+Oh, CookieMonster loves tofu!
 ```
 
 * Enter key is not necessary:
@@ -82,13 +82,14 @@ while (true) {
   else if (key === 'x') { if (value < MAX) { value++; } }
   else { break; }
 }
-console.log('VALUE: ' + value);
+console.log('\nA value the user requested: ' + value);
 ```
 
 ```console
                    [Z] <- -> [X]  FIX: [SPACE]
 |---------------------------------------------------O---------| 51
-VALUE: 51
+
+A value the user requested: 51
 ```
 
 ## Installation
@@ -107,8 +108,8 @@ These are used to control details of the behavior. It is recommended to use the 
 answer = readlineSync.question([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then return the input from the user after it has been typed and an Enter key was pressed.  
-You can specify `options` (see [Options](#options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.). **If you let the user input the secret text (e.g. password), you should consider [`hideEchoBack`](#hideEchoBack) option.**
+Display a `query` to the user if it's specified, and then return the input from the user after it has been typed and an Enter key was pressed.  
+You can specify an `options` (see [Options](#options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.). **If you let the user input the secret text (e.g. password), you should consider [`hideEchoBack`](#hideEchoBack) option.**
 
 The `query` may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string (i.e. `toString` method is called) before it is displayed.  
 And it can include the [placeholders](#placeholders).
@@ -127,8 +128,8 @@ program = readlineSync.question('Which program starts do you want? :', {
 input = readlineSync.prompt([options])
 ```
 
-Display the prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
-You can specify `options` (see [Options](#options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.).
+Display a prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
+You can specify an `options` (see [Options](#options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.).
 
 For example:
 
@@ -145,8 +146,8 @@ while (true) {
 pressedKey = readlineSync.keyIn([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then return the character as the key immediately it was pressed by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.  
-You can specify `options` (see [Options](#options)) to control the behavior (e.g. ignoring keys except some keys, checking target key, etc.).
+Display a `query` to the user if it's specified, and then return a character as a key immediately it was pressed by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.  
+You can specify an `options` (see [Options](#options)) to control the behavior (e.g. ignoring keys except some keys, checking target key, etc.).
 
 The `query` is handled the same as that of the [`question`](#question) method.
 
@@ -162,12 +163,12 @@ key = readlineSync.keyIn('Hit 1...5 key :', limit: '${1-5}');
 currentDefaultOptions = readlineSync.setDefaultOptions([newDefaultOptions])
 ```
 
-Change the [Default Options](#options) to properties of `newDefaultOptions` Object  
+Change the [Default Options](#options) to the values of properties of `newDefaultOptions` Object.  
 All it takes is to specify options that you want change, because unspecified options are not updated.
 
 ## Options
 
-An `options` Object can be specified to the methods to control the behavior of readlineSync. The options that were not specified are got from the Default Options. You can change the Default Options by [`setDefaultOptions`](#setdefaultoptions) method anytime, and it is kept until a current process is exited.  
+An `options` Object can be specified to the methods to control the behavior of readlineSync. The options that were not specified to the methods are got from the Default Options. You can change the Default Options by [`setDefaultOptions`](#setdefaultoptions) method anytime, and it is kept until a current process is exited.  
 Specify the options that are often used to the Default Options, and specify temporary options to the methods.
 
 For example:
@@ -195,7 +196,7 @@ Set the prompt-sign that is displayed to the user by `prompt*` methods. For exam
 This may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string (i.e. `toString` method is called) before it is displayed every time.  
 And it can include the [placeholders](#placeholders).
 
-For example, `[foo-directory]$` like that of the bash shell that shows the current working directory.
+For example, `[foo-directory]$` like that of the bash shell shows the current working directory.
 
 ```js
 readlineSync.prompt({
@@ -233,7 +234,7 @@ Login ...
 **Type:** string  
 **Default:** `'*'`
 
-Set the mask characters that are shown instead of the secret text (e.g. password) when [`hideEchoBack`](#hideEchoBack) option is `true`. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
+Set the mask characters that are shown instead of the secret text (e.g. password) when `true` is specified to [`hideEchoBack`](#hideEchoBack) option. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
 *Note:* In some cases (e.g. when the input stream is redirected on Windows XP), `'*'` or `''` might be used always.
 
 For example:
@@ -260,11 +261,12 @@ The usage differ depending on the method.
 **Type:** string, number, RegExp, function or Array  
 **Default:** `[]`
 
-Accept only specified input. If the user input others, display the [`limitMessage`](#limitmessage), and wait for reinput.
+Accept only the input that matches value that is specified to this. If the user input others, display a string that is specified to [`limitMessage`](#limitmessage) option, and wait for reinput.
 
-* The string or number is compared with the input. (See [`caseSensitive`](#casesensitive) option.)
-* If the RegExp matched the input, the input is accepted.
-* The function is called with the input, and if that function returned `true`, the input is accepted.
+* The string is compared with the input. It is affected by [`caseSensitive`](#casesensitive) option.
+* The number is compared with the input that is converted to number by `parseFloat()`. For example, it interprets `'   3.14   '`, `'003.1400'`, `'314e-2'` and `'3.14PI'` as `3.14`. And it interprets `'005'`, `'5files'`, `'5kb'` and `'5px'` as `5`.
+* The RegExp tests the input.
+* The function that returns boolean to indicate whether it matches is called with the input.
 
 One of above or an Array that includes multiple things (or Array includes Array) can be specified.
 
@@ -301,8 +303,9 @@ action = readlineSync.prompt({limit: availableActions});
 **Type:** string, number or Array  
 **Default:** `[]`
 
-Accept only specified keys, ignore others.  
-Specify the characters as the key. All strings or Array of those are decomposed into single characters. For example, `'abcde'` is the same as `['a', 'b', 'c', 'd', 'e']` or `['a', 'bc', ['d', 'e']]`.
+Accept only the key that matches value that is specified to this, ignore others.  
+Specify the characters as the key. All strings or Array of those are decomposed into single characters. For example, `'abcde'` or `['a', 'bc', ['d', 'e']]` are the same as `['a', 'b', 'c', 'd', 'e']`.  
+These strings are compared with the input. It is affected by [`caseSensitive`](#casesensitive) option.
 
 For example:
 
@@ -316,7 +319,7 @@ For example:
 
 ```js
 dice = readlineSync.keyIn('Which number do you think came up? :',
-  {limit: '${1-6}'}); // from '1' to '6'
+  {limit: '${1-6}'}); // range of '1' to '6'
 ```
 
 ### `limitMessage`
@@ -363,18 +366,19 @@ if (answer === 'y') {
 **Type:** string, number, RegExp, function or Array  
 **Default:** `[]`
 
-If the input matched `trueValue`, return `true`. If the input matched `falseValue`, return `false`. In any other case, return the input.
+If the input matches `trueValue`, return `true`. If the input matches `falseValue`, return `false`. In any other case, return the input.
 
-* The string or number is compared with the input. (See [`caseSensitive`](#casesensitive) option.)
-* If the RegExp matched the input, `true` or `false` is returned.
-* The function is called with the input, and if that function returned `true`, `true` or `false` is returned.
+* The string is compared with the input. It is affected by [`caseSensitive`](#casesensitive) option.
+* The number is compared with the input that is converted to number by `parseFloat()`. For example, it interprets `'   3.14   '`, `'003.1400'`, `'314e-2'` and `'3.14PI'` as `3.14`. And it interprets `'005'`, `'5files'`, `'5kb'` and `'5px'` as `5`. Note that in `keyIn*` method, the input is always one character (i.e. the number that is specified must be an integer within the range of `0` to `9`).
+* The RegExp tests the input.
+* The function that returns boolean to indicate whether it matches is called with the input.
 
 One of above or an Array that includes multiple things (or Array includes Array) can be specified.
 
 For example:
 
 ```js
-answer = readlineSync.question('You won\'t do it? :', {
+answer = readlineSync.question('How do you like it? :', {
   trueValue: ['yes', 'yeah', 'yep'],
   falseValue: ['no', 'nah', 'nope']
 });
@@ -392,8 +396,8 @@ if (answer === true) {
 **Type:** boolean  
 **Default:** `false`
 
-By default, compare the strings in case-insensitive mode (i.e. `a` equals `A`). If `true` is specified, compare in case-sensitive mode, don't ignore case (i.e. `a` is different from `A`).  
-It have an effect on: [`limit`](#limit), [`trueValue`](#trueValue), [`falseValue`](#falseValue), some [placeholders](#placeholders), and some [Utility Methods](#utility-methods).
+By default, the string comparisons is case-insensitive (i.e. `a` equals `A`). If `true` is specified, it is case-sensitive, the cases are not ignored (i.e. `a` is different from `A`).  
+It affects: [`limit`](#limit), [`trueValue`](#trueValue), [`falseValue`](#falseValue), some [placeholders](#placeholders), and some [Utility Methods](#utility-methods).
 
 ### `keepWhitespace`
 
@@ -408,7 +412,7 @@ By default, remove the leading and trailing white spaces from the input text. If
 **Type:** string  
 **Default:** `'utf8'`
 
-Set the encoding method of input by user and output by readlineSync.
+Set the encoding method of the input and output.
 
 ### `bufferSize`
 
@@ -423,23 +427,27 @@ Even if the input by user exceeds it, it's usually no problem, because the buffe
 **Type:** function or `undefined`  
 **Default:** `undefined`
 
-Call the specified function when any output. The function is given two arguments, `display` as the output text, and [`encoding`](#encoding) option.
+Call the specified function with every output. The function is given two arguments, `display` as an output text, and a value of [`encoding`](#encoding) option.
 
 For example:
 
-* This is used to pass the plain texts to the Logger, when the texts are colored.
+* Pass the plain texts to the Logger (e.g. [log4js](#https://github.com/nomiddlename/log4js-node)), after clean the colored texts.
 
 ![sample](cl_01.png)
 
 ```js
 var readlineSync = require('readline-sync'),
   chalk = require('chalk'),
-  user, pw, command;
+  log4js = require('log4js'),
+  logger, user, pw, command;
+
+log4js.configure({appenders: [{type: 'file', filename: 'fooApp.log'}]});
+logger = log4js.getLogger('fooApp');
 
 readlineSync.setDefaultOptions({
-  print: function(display, encoding) {
-    logger.log(chalk.stripColor(display)); // Remove control characters.
-  }
+  print: function(display, encoding)
+    { logger.info(chalk.stripColor(display)); }, // Remove ctrl-chars.
+  prompt: chalk.red.bold('> ')
 });
 
 console.log(chalk.black.bold.bgYellow('    Your Account    '));
@@ -448,19 +456,46 @@ pw = readlineSync.question(chalk.gray.underline(' PASSWORD  ') + ' :',
   {hideEchoBack: true});
 // Authorization ...
 console.log(chalk.green('Welcome, ' + user + '!'));
-
-readlineSync.setDefaultOptions({prompt: chalk.red.bold('> ')});
 command = readlineSync.prompt();
 ```
 
-* Like `your-script >foo.log`, when the output stream is redirected to record those into a file, this is used to output the conversation to the file. That is, the conversation isn't outputted to `foo.log` without this code.
+* Output a conversation to a file when an output stream is redirected to record those into a file like `your-script >foo.log`. That is, a conversation isn't outputted to `foo.log` without this code.
 
 ```js
 readlineSync.setDefaultOptions({
-  print: function(display, encoding) {
-    console.log(display); // Output to STDOUT (foo.log)
-  }
+  print: function(display, encoding)
+    { process.stdout.write(display, encoding); }
 });
+var name = readlineSync.question('May I have your name? :');
+var loc = readlineSync.question('Hi ' + name + '! Where do you live? :');
+```
+
+* Let somebody hear our conversation in real time.  
+It just uses a fifo with above sample code that was named `conv.js`.
+
+Another console:
+
+```shell
+mkfifo /tmp/fifo
+cat /tmp/fifo
+```
+
+My console:
+
+```shell
+node conv.js >/tmp/fifo
+```
+
+```console
+May I have your name? :Oz
+Hi Oz! Where do you live? :Emerald City
+```
+
+And then, another console:
+
+```console
+May I have your name? :Oz
+Hi Oz! Where do you live? :Emerald City
 ```
 
 ### `history`
@@ -469,11 +504,11 @@ readlineSync.setDefaultOptions({
 **Type:** boolean  
 **Default:** `true`
 
-readlineSync supports a history expansion feature that is similar to the history expansion in shell. If `false` is specified, disable this feature.  
-*It keeps the previous input only.* That is, only `!!`, `!-1`, `!!:p` and `!-1:p` like bash or zsh etc. are supported.
+readlineSync supports a history expansion feature that is similar to that of the shell. If `false` is specified, disable this feature.  
+*It keeps a previous input only.* That is, only `!!`, `!-1`, `!!:p` and `!-1:p` like bash or zsh etc. are supported.
 
-* `!!` or `!-1`: Return the previous input.
-* `!!:p` or `!-1:p`: Display the previous input but do not return it, and wait for reinput.
+* `!!` or `!-1`: Return a previous input.
+* `!!:p` or `!-1:p`: Display a previous input but do not return it, and wait for reinput.
 
 For example:
 
@@ -501,11 +536,11 @@ hello
 **Type:** boolean  
 **Default:** `false`
 
-readlineSync supports a changing the current working directory feature that is similar to the `cd` in shell. If `true` is specified, enable this feature.  
-This helps the user when you let the user input the multiple local files.  
+readlineSync supports the changing the current working directory feature that is similar to the `cd` and `pwd` commands in the shell. If `true` is specified, enable this feature.  
+This helps the user when you let the user input the multiple local files or directories.  
 It supports `cd` and `pwd` commands.
 
-* `cd <path>`: Changes the current working directory to `<path>`. The `<path>` can include `~` as the home directory.
+* `cd <path>`: Change the current working directory to `<path>`. The `<path>` can include `~` as the home directory.
 * `pwd`: Display the current working directory.
 
 When these were input, do not return, and wait for reinput.
@@ -541,12 +576,12 @@ These are convenient methods that are extended [Basic Methods](#basic-methods) t
 email = readlineSync.questionEMail([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then accept only a valid e-mail address, and then return it after an Enter key was pressed.
+Display a `query` to the user if it's specified, and then accept only a valid e-mail address, and then return it after an Enter key was pressed.
 
 The `query` is handled the same as that of the [`question`](#question) method.  
 The default value of `query` is `'Input e-mail address :'`.
 
-*Note:* The valid e-mail address requirement is a willful violation of [RFC5322](http://tools.ietf.org/html/rfc5322), this is defined in [HTML5](http://www.w3.org/TR/html5/forms.html). This works enough to prevent the user mistaking. If you want to change it, spefify [`limit`](#limit) option.
+*Note:* The valid e-mail address requirement is a willful violation of [RFC5322](http://tools.ietf.org/html/rfc5322), this is defined in [HTML5](http://www.w3.org/TR/html5/forms.html). This works enough to prevent the user mistaking. If you want to change it, specify [`limit`](#limit) option.
 
 For example:
 
@@ -564,7 +599,7 @@ Input e-mail address :mail@example.com
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following options have independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -587,7 +622,7 @@ The following options work as shown in the [Options](#options) section.
 password = readlineSync.questionNewPassword([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then accept only a valid password, and then request same one again, and then return it after an Enter key was pressed.  
+Display a `query` to the user if it's specified, and then accept only a valid password, and then request same one again, and then return it after an Enter key was pressed.  
 It's the password, or something that is the secret text like the password.  
 You can specify the valid password requirement to the options.
 
@@ -606,23 +641,23 @@ console.log('-- Password is ' + password);
 ```console
 Input new password :************
 It can include: 0...9, A...Z, a...z, !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
-The length able to be: 12...24
+And the length must be: 12...24
 Input new password :*************
-Reinput same one to confirm it :*************
+Reinput a same one to confirm it :*************
 It differs from first one. Hit only Enter key if you want to retry from first one.
-Reinput same one to confirm it :*************
+Reinput a same one to confirm it :*************
 -- Password is _my_password_
 ```
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following options have independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
 | [`hideEchoBack`](#hideechoback) | `true` |
 | [`mask`](#mask) | `'*'` |
-| [`limitMessage`](#limitmessage) | `'It can include: ${charlist}\nThe length able to be: ${length}'` |
+| [`limitMessage`](#limitmessage) | `'It can include: ${charlist}\nAnd the length must be: ${length}'` |
 | [`trueValue`](#truevalue) | `null` |
 | [`falseValue`](#falsevalue) | `null` |
 | [`caseSensitive`](#casesensitive) | `true` |
@@ -654,7 +689,7 @@ The [placeholders](#placeholders) like `'${a-e}'` are replaced to the characters
 ##### `confirmMessage`
 
 **Type:** string or others  
-**Default:** `'Reinput same one to confirm it :'`
+**Default:** `'Reinput a same one to confirm it :'`
 
 A message that lets the user input the same password again.  
 And it can include the [placeholders](#placeholders).  
@@ -674,11 +709,11 @@ The following additional [placeholder](#placeholders) parameters are available.
 
 ##### `charlist`
 
-A current value of [`charlist`](#charlist) option that is converted to human readable as possible. (e.g. `'A...Z'`)
+A current value of [`charlist`](#charlist) option that is converted to human readable if possible. (e.g. `'A...Z'`)
 
 ##### `length`
 
-A current value of [`min` and `max`](#min-max) option that is converted to human readable as possible. (e.g. `'12...24'`)
+A current value of [`min` and `max`](#min-max) option that is converted to human readable. (e.g. `'12...24'`)
 
 ### `questionInt`
 
@@ -686,14 +721,14 @@ A current value of [`min` and `max`](#min-max) option that is converted to human
 numInt = readlineSync.questionInt([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then accept only an input that can be interpreted as an integer, and then return the number (not string) after an Enter key was pressed.  
-This parses the input as possible by `parseInt()`. For example, it interprets `'   5   '`, `'5.6'`, `'005'`, `'5files'`, `'5kb'` and `'5px'` as `5`.
+Display a `query` to the user if it's specified, and then accept only an input that can be interpreted as an integer, and then return the number (not string) after an Enter key was pressed.  
+This parses the input as much as possible by `parseInt()`. For example, it interprets `'   5   '`, `'5.6'`, `'005'`, `'5files'`, `'5kb'` and `'5px'` as `5`.
 
 The `query` is handled the same as that of the [`question`](#question) method.
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following option has independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -712,14 +747,14 @@ The following options work as shown in the [Options](#options) section.
 numFloat = readlineSync.questionFloat([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then accept only an input that can be interpreted as a floating-point number, and then return the number (not string) after an Enter key was pressed.  
-This parses the input as possible by `parseFloat()`. For example, it interprets `'   3.14   '`, `'003.1400'`, `'314e-2'` and `'3.14PI'` as `3.14`.
+Display a `query` to the user if it's specified, and then accept only an input that can be interpreted as a floating-point number, and then return the number (not string) after an Enter key was pressed.  
+This parses the input as much as possible by `parseFloat()`. For example, it interprets `'   3.14   '`, `'003.1400'`, `'314e-2'` and `'3.14PI'` as `3.14`.
 
 The `query` is handled the same as that of the [`question`](#question) method.
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following option has independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -738,8 +773,8 @@ The following options work as shown in the [Options](#options) section.
 path = readlineSync.questionPath([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then accept only a valid local file or directory path, and then return an absolute path after an Enter key was pressed.  
-The path can include `~` as the home directory.  
+Display a `query` to the user if it's specified, and then accept only a valid local file or directory path, and then return an absolute path after an Enter key was pressed.  
+The `~` that is input by the user is replaced to the home directory.  
 You can specify the valid local file or directory path requirement to the options. And you can make it create a new file or directory when it doesn't exist.  
 
 It is recommended to use this method with the [`cd`](#cd) option. (Default: `true`)
@@ -777,7 +812,7 @@ Save to :~/deploy/data
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following options have independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -802,7 +837,8 @@ And the following additional options are available.
 **Type:** boolean or others  
 **Default:** `true`
 
-If `true` is specified, only a file or directory path that exists is accepted. If `false` is specified, only a file or directory path that does *not* exist is accepted. In any other case, the existence is not checked.
+If `true` is specified, accept only a file or directory path that exists. If `false` is specified, accept only a file or directory path that does *not* exist.  
+In any other case, the existence is not checked.
 
 ##### `min`, `max`
 
@@ -818,15 +854,15 @@ If it is not specified or `0` is specified, the size is not checked. (A size of 
 **Type:** boolean  
 **Default:** `false`
 
-`isFile`: If `true` is specified, only a file path is accepted.  
-`isDirectory`: If `true` is specified, only a directory path is accepted.
+`isFile`: If `true` is specified, accept only a file path.  
+`isDirectory`: If `true` is specified, accept only a directory path.
 
 ##### `validate`
 
 **Type:** function or `undefined`  
 **Default:** `undefined`
 
-If a function is specified, call it with a path that was input, and the input is accepted when it returned `true`.  
+If a function is specified, call it with a path that was input, and accept the input when the function returned `true`.  
 A path that was input is parsed before it is passed to the function. `~` is replaced to a home directory, and a path is converted to an absolute path.  
 This is also a return value from this method.
 
@@ -835,7 +871,7 @@ This is also a return value from this method.
 **Type:** boolean  
 **Default:** `false`
 
-If `true` is specified, create a file or directory as the specified path when it doesn't exist. If `true` is specified to the [`isDirectory`](#isdirectory) option, create a directory, otherwise a file.  
+If `true` is specified, create a file or directory as a path that was input when it doesn't exist. If `true` is specified to the [`isDirectory`](#isdirectory) option, create a directory, otherwise a file.  
 It does not affect the existence check. Therefore, you can get a new file or directory path anytime by specifying: `{exists: false, create: true}`.
 
 ### `promptCL`
@@ -844,7 +880,7 @@ It does not affect the existence check. Therefore, you can get a new file or dir
 argsArray = readlineSync.promptCL([commandHandler[, options]])
 ```
 
-Display the prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then consider the input as a command-line and parse it, and then return a result after an Enter key was pressed.
+Display a prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then consider the input as a command-line and parse it, and then return a result after an Enter key was pressed.
 A return value is an Array that includes the tokens that were parsed. It parses the input from the user as the command-line, and it interprets whitespaces, quotes, etc., and it splits it to tokens properly. Usually, a first element of the Array is command-name, and remaining elements are arguments.
 
 For example:
@@ -870,7 +906,7 @@ arg
 
 By using the `commandHandler` argument, this method will come into its own. Specifying the Object to this argument has the more merit. And it has the more merit for [`promptCLLoop`](#promptclloop) method.  
 
-If a function is specified to `commandHandler`, it is just called with a parsed Array as an argument list of the function. And `this` is a original input string, in the function.
+If a function is specified to `commandHandler` argument, it is just called with a parsed Array as an argument list of the function. And `this` is an original input string, in the function.
 
 For example: The following 2 codes work same except that `this` is enabled in the second one.
 
@@ -939,7 +975,7 @@ readlineSync.promptCL({
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following options have independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -961,7 +997,7 @@ The following options work as shown in the [Options](#options) section.
 readlineSync.promptLoop(inputHandler[, options])
 ```
 
-Display the prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then call `inputHandler` function with the input from the user after it has been typed and an Enter key was pressed. Do these repeatedly until `inputHandler` function returns `true`.
+Display a prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then call `inputHandler` function with the input from the user after it has been typed and an Enter key was pressed. Do these repeatedly until `inputHandler` function returns `true`.
 
 For example: The following 2 codes work same.
 
@@ -996,7 +1032,7 @@ It's exited from loop.
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following options have independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -1015,13 +1051,13 @@ readlineSync.promptCLLoop([commandHandler[, options]])
 ```
 
 Execute [`promptCL`](#promptcl) method repeatedly until chosen [`commandHandler`](#commandhandler) returns `true`.  
-The [`commandHandler`](#commandhandler) is a function that is called like:
+The [`commandHandler`](#commandhandler) may be a function that is called like:
 
 ```js
-exit = allCommand(command, arg1, arg2, ...);
+exit = allCommands(command, arg1, arg2, ...);
 ```
 
-or an Object has the functions that are called like:
+or an Object that has the functions that are called like:
 
 ```js
 exit = foundCommand(arg1, arg2, ...);
@@ -1058,7 +1094,7 @@ It's exited from loop.
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following options have independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -1080,8 +1116,8 @@ The following options work as shown in the [Options](#options) section.
 input = readlineSync.promptSimShell([options])
 ```
 
-Display the prompt-sign that is similar to that of the user's shell to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
-This method displays the prompt-sign like:
+Display a prompt-sign that is similar to that of the user's shell to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
+This method displays a prompt-sign like:
 
 On Windows:
 
@@ -1097,7 +1133,7 @@ user@host:~/path/to/directory$
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following options have independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -1112,7 +1148,7 @@ The other options other than [`prompt`](#options-prompt) option work as shown in
 boolYesOrEmpty = readlineSync.keyInYN([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then return a boolean or an empty string immediately a key was pressed by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.  
+Display a `query` to the user if it's specified, and then return a boolean or an empty string immediately a key was pressed by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.  
 This method works like the `window.confirm` method of web browsers. A return value means "Yes" or "No" the user said. It differ depending on the pressed key:
 
 * `Y`: `true`
@@ -1122,7 +1158,7 @@ This method works like the `window.confirm` method of web browsers. A return val
 The `query` is handled the same as that of the [`question`](#question) method.  
 The default value of `query` is `'Are you sure? :'`.
 
-A key other than `Y` and `N` is also accepted (If you want to know a user's wish explicitly, use [`keyInYNStrict`](#keyinynstrict) method). Therefore, if you let the user make an important decision (e.g. files are removed), check whether the return value is not **falsy**. That is, a default is "No".
+The keys other than `Y` and `N` are also accepted (If you want to know a user's wish explicitly, use [`keyInYNStrict`](#keyinynstrict) method). Therefore, if you let the user make an important decision (e.g. files are removed), check whether the return value is not **falsy**. That is, a default is "No".
 
 For example:
 
@@ -1182,7 +1218,7 @@ Really? [y/n] :
 boolYes = readlineSync.keyInYNStrict([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then accept only `Y` or `N` key, and then return a boolean immediately it was pressed by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.  
+Display a `query` to the user if it's specified, and then accept only `Y` or `N` key, and then return a boolean immediately it was pressed by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.  
 This method works like the `window.confirm` method of web browsers. A return value means "Yes" or "No" the user said. It differ depending on the pressed key:
 
 * `Y`: `true`
@@ -1191,7 +1227,7 @@ This method works like the `window.confirm` method of web browsers. A return val
 The `query` is handled the same as that of the [`question`](#question) method.  
 The default value of `query` is `'Are you sure? :'`.
 
-A key other than `Y` and `N` is not accepted. That is, this method has no default. Therefore, the user has to tell an own wish explicitly. If you want to know a user's wish easily, use [`keyInYN`](#keyinyn) method.
+A key other than `Y` and `N` is not accepted. That is, a return value has no default. Therefore, the user has to tell an own wish explicitly. If you want to know a user's wish easily, use [`keyInYN`](#keyinyn) method.
 
 This method works same to [`keyInYN`](#keyinyn) method except that this accept only `Y` or `N` key. The options also work same to [`keyInYN`](#keyinyn) method.
 
@@ -1201,7 +1237,7 @@ This method works same to [`keyInYN`](#keyinyn) method except that this accept o
 readlineSync.keyInPause([query[, options]])
 ```
 
-Display the `query` to the user if it's specified, and then just wait for a key to be pressed by the user.  
+Display a `query` to the user if it's specified, and then just wait for a key to be pressed by the user.  
 This method works like the `window.alert` method of web browsers. This is used to make the running of script pause and show something to the user, or wait for the user to be ready.  
 By default, any key is accepted. You can change this behavior by specifying [`limit`](#limit) option  (e.g. accept only a Space Bar).
 
@@ -1229,7 +1265,7 @@ It's executing now...
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following option has independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -1271,14 +1307,14 @@ Display the list that was created with the `items` Array, and the `query` to the
 The `query` is handled the same as that of the [`question`](#question) method.  
 The default value of `query` is `'Choose one from list :'`.
 
-The minimum length of `items` Array is 1 and maximum length is 35. These elements are displayed as item list. A key to let the user choose a item is assigned to each item automatically in sequence like "1, 2, 3 ... 9, A, B, C ...". A number as an index of the `items` Array that corresponds to a chosen item by the user is returned.
+The minimum length of `items` Array is 1 and maximum length is 35. These elements are displayed as item list. A key to let the user choose an item is assigned to each item automatically in sequence like "1, 2, 3 ... 9, A, B, C ...". A number as an index of the `items` Array that corresponds to a chosen item by the user is returned.
 
 For example:
 
 ```js
-items = ['Express', 'hapi', 'flatiron', 'MEAN.JS', 'locomotive'];
-index = readlineSync.keyInSelect(items, 'Which framework?');
-console.log(items[index] + ' is enabled.');
+frameworks = ['Express', 'hapi', 'flatiron', 'MEAN.JS', 'locomotive'];
+index = readlineSync.keyInSelect(frameworks, 'Which framework?');
+console.log(frameworks[index] + ' is enabled.');
 ```
 
 ```console
@@ -1295,7 +1331,7 @@ hapi is enabled.
 
 #### Options
 
-The following options have independent default value. It is not affected by [Default Options](#options).
+The following option has independent default value that is not affected by [Default Options](#options).
 
 | Option Name       | Default Value |
 |-------------------|---------------|
@@ -1363,9 +1399,9 @@ ${(text1)parameter(text2)}
 
 The placeholder is replaced to a string that is got by a `parameter`.  
 Both the `(text1)` and `(text2)` are optional.  
-A more added `$` at left of the placeholder is used as an escape character, it disables a placeholder. For example, `$${foo}` is replaced to `${foo}`. If you want to put a `$` that is not an escape character at left of a placeholder, spefify it like `${($)bufferSize}`, then it is replaced to `$1024`.
+A more added `$` at left of the placeholder is used as an escape character, it disables a placeholder. For example, `$${foo}` is replaced to `${foo}`. If you want to put a `$` which is *not* an escape character at the left of a placeholder, specify it like `${($)bufferSize}`, then it is replaced to `$1024`.
 
-`(text1)` and `(text2)` are replaced to `text1` and `text2` when a string that was got by a `parameter` has length more than 0. If that string is `''`, a placeholder that includes `(text1)` and `(text2)` is replaced to `''`.
+`(text1)` and `(text2)` are replaced to `text1` and `text2` when a string that was got by a `parameter` has length more than 0. If that string is `''`, a placeholder with or without `(text1)` and `(text2)` is replaced to `''`.
 
 For example, a warning message that means that the command the user requested is not available:
 
@@ -1412,41 +1448,38 @@ The following parameters are available. And some additional parameters are avail
 #### `hideEchoBack`, `mask`, `defaultInput`, `caseSensitive`, `keepWhitespace`, `encoding`, `bufferSize`, `history`, `cd`, `limit`, `trueValue`, `falseValue`
 
 A current value of each option.  
-It is converted to human readable as possible. The boolean value is replaced to `'on'` or `'off'`, and the Array is replaced to the list of only string and number.  
-And in the `keyIn*` method, the sequence parts of that list as key characters are suppressed. For example, when `['a', 'b', 'c', 'd', 'e']` is specified to the [`limit`](#limit) option, `${limit}` is replaced to `'a...e'`. If `true` is specified to the [`caseSensitive`](#casesensitive) option, the characters are converted to lower case.
+It is converted to human readable if possible. The boolean value is replaced to `'on'` or `'off'`, and the Array is replaced to the list of only string and number.  
+And in the `keyIn*` method, the parts of the list as characters sequence are suppressed. For example, when `['a', 'b', 'c', 'd', 'e']` is specified to the [`limit`](#limit) option, `${limit}` is replaced to `'a...e'`. If `true` is specified to the [`caseSensitive`](#casesensitive) option, the characters are converted to lower case.
 
 For example:
 
 ```js
-input = readlineSync.question('Something, or Enter key as "${defaultInput}" :', {
-  defaultInput: 'hello'
-});
+input = readlineSync.question(
+  'Input something or Enter key as "${defaultInput}" :',
+  {defaultInput: 'hello'}
+);
 ```
 
 ```console
-Something, or Enter key as "hello" :
+Input something or Enter key as "hello" :
 ```
 
 #### `limitCount`, `limitCountNotZero`
 
 A length of a current value of the [`limit`](#limit) option.  
-`limitCountNotZero` is replaced to `''` when the value of the [`limit`](#limit) option is empty.
+`limitCountNotZero` is replaced to `''`, when the value of the [`limit`](#limit) option is empty.
 
 For example:
 
 ```js
-command = readlineSync.prompt({
-  limit: availableCommands,
-  // Don't need `limitCountNotZero`
-  // because if `limit` is empty (i.e. it's not limited),
-  // `limitMessage` is never displayed.
-  limitMessage: '${(You can use )limitCount( commands only.)}'
-});
+action = readlineSync.question(
+  'Choose action${( from )limitCountNotZero( actions)} :',
+  {limit: availableActions}
+);
 ```
 
 ```console
-> wrong-command
-You can use 5 commands only.
+Choose action from 5 actions :
 ```
 
 #### `lastInput`
@@ -1477,7 +1510,7 @@ For example:
 
 ```js
 while (true) {
-  input = readlineSync.question('Something${(, or "!!" as ")history_m1(")} :');
+  input = readlineSync.question('Something${( or "!!" as ")history_m1(")} :');
   console.log('-- You said "' + input + '"');
 }
 ```
@@ -1485,7 +1518,7 @@ while (true) {
 ```console
 Something :hello
 -- You said "hello"
-Something, or "!!" as "hello" :!!
+Something or "!!" as "hello" :!!
 -- You said "hello"
 ```
 
@@ -1531,7 +1564,7 @@ command = readlineSync.prompt({prompt: '[${localeDate}]> '});
 *For [`limit` option for `keyIn*` method](#for-keyin-method) and [`charlist`](#charlist) option for [`questionNewPassword`](#questionnewpassword) method only*
 
 A character list.  
-`C1` and `C2` are a single character as the start and the end. A sequence of characters from `C1` to `C2` in ascending or descending order is created. For example, `a-e` is replaced to `'abcde'`. `5-1` is replaced to `'54321'`.
+`C1` and `C2` are each single character as the start and the end. A sequence in ascending or descending order of characters ranging from `C1` to `C2` is created. For example, `a-e` is replaced to `'abcde'`. `5-1` is replaced to `'54321'`.
 
 For example, let the user input a password that is created with alphabet:
 
@@ -1543,14 +1576,14 @@ See also [`limit` option for `keyIn*` method](#for-keyin-method).
 
 ## With Task Runner
 
-The easy way to control the flow of task runner by the input from the user:
+The easy way to control a flow of the task runner by the input from the user:
 
 * [Grunt](http://gruntjs.com/) plugin: [grunt-confirm](https://github.com/anseki/grunt-confirm)
 * [gulp](http://gulpjs.com/) plugin: [gulp-confirm](https://github.com/anseki/gulp-confirm)
 
-If you want to control the flow of task runner (e.g. [Grunt](http://gruntjs.com/)), call readlineSync in a task callback that is called by task runner. Then the flow of tasks is paused and it is controlled by the user.
+If you want to control a flow of the task runner (e.g. [Grunt](http://gruntjs.com/)), call readlineSync in a task callback that is called by the task runner. Then a flow of tasks is paused and it is controlled by the user.
 
-Example: by using [grunt-task-helper](https://github.com/anseki/grunt-task-helper)
+For example, by using [grunt-task-helper](https://github.com/anseki/grunt-task-helper):
 
 ```console
 $ grunt
@@ -1606,7 +1639,7 @@ try {
 ### Reading by External Program
 
 readlineSync tries to read from a console by using the external program if it is needed (e.g. when the input stream is redirected on Windows XP). And if the running Node doesn't support the [Synchronous Process Execution](http://nodejs.org/api/child_process.html#child_process_synchronous_process_creation) (i.e. Node v0.10-), readlineSync uses "piping via files" for the synchronous execution.  
-As everyone knows, "piping via files" is no good. It blocks the event loop and a process. It may make a your script be slow.
+As everyone knows, "piping via files" is no good. It blocks the event loop and a process. It might make the your script be slow.
 
 Why did I choose it? :
 
