@@ -128,7 +128,7 @@ program = readlineSync.question('Which program starts do you want? :', {
 input = readlineSync.prompt([options])
 ```
 
-Display a prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
+Display a prompt-sign (see [`prompt`](#prompt-1) option) to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
 You can specify an `options` (see [Options](#options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.).
 
 For example:
@@ -186,7 +186,7 @@ a6 = readlineSync.question('And you? :');                // It's limited to 2 th
 
 The Object as `options` can have following properties.
 
-### `prompt`<span id="options-prompt" style="height: 0;"></span>
+### `prompt`
 
 _For `prompt*` methods only_  
 **Type:** string or others  
@@ -880,7 +880,7 @@ It does not affect the existence check. Therefore, you can get a new file or dir
 argsArray = readlineSync.promptCL([commandHandler[, options]])
 ```
 
-Display a prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then consider the input as a command-line and parse it, and then return a result after an Enter key was pressed.  
+Display a prompt-sign (see [`prompt`](#prompt-1) option) to the user, and then consider the input as a command-line and parse it, and then return a result after an Enter key was pressed.  
 A return value is an Array that includes the tokens that were parsed. It parses the input from the user as the command-line, and it interprets whitespaces, quotes, etc., and it splits it to tokens properly. Usually, a first element of the Array is command-name, and remaining elements are arguments.
 
 For example:
@@ -987,7 +987,7 @@ The following options have independent default value that is not affected by [De
 The following options work as shown in the [Options](#options) section.
 
 <table>
-<tr><td><a href="#options-prompt"><code>prompt</code></a></td><td><a href="#mask"><code>mask</code></a></td><td><a href="#defaultinput"><code>defaultInput</code></a></td><td><a href="#encoding"><code>encoding</code></a></td><td><a href="#buffersize"><code>bufferSize</code></a></td></tr>
+<tr><td><a href="#prompt-1"><code>prompt</code></a></td><td><a href="#mask"><code>mask</code></a></td><td><a href="#defaultinput"><code>defaultInput</code></a></td><td><a href="#encoding"><code>encoding</code></a></td><td><a href="#buffersize"><code>bufferSize</code></a></td></tr>
 <tr><td><a href="#print"><code>print</code></a></td><td><a href="#cd"><code>cd</code></a></td></tr>
 </table>
 
@@ -997,7 +997,7 @@ The following options work as shown in the [Options](#options) section.
 readlineSync.promptLoop(inputHandler[, options])
 ```
 
-Display a prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then call `inputHandler` function with the input from the user after it has been typed and an Enter key was pressed. Do these repeatedly until `inputHandler` function returns `true`.
+Display a prompt-sign (see [`prompt`](#prompt-1) option) to the user, and then call `inputHandler` function with the input from the user after it has been typed and an Enter key was pressed. Do these repeatedly until `inputHandler` function returns `true`.
 
 For example: The following 2 codes work same.
 
@@ -1106,7 +1106,7 @@ The following options have independent default value that is not affected by [De
 The following options work as shown in the [Options](#options) section.
 
 <table>
-<tr><td><a href="#options-prompt"><code>prompt</code></a></td><td><a href="#mask"><code>mask</code></a></td><td><a href="#defaultinput"><code>defaultInput</code></a></td><td><a href="#encoding"><code>encoding</code></a></td><td><a href="#buffersize"><code>bufferSize</code></a></td></tr>
+<tr><td><a href="#prompt-1"><code>prompt</code></a></td><td><a href="#mask"><code>mask</code></a></td><td><a href="#defaultinput"><code>defaultInput</code></a></td><td><a href="#encoding"><code>encoding</code></a></td><td><a href="#buffersize"><code>bufferSize</code></a></td></tr>
 <tr><td><a href="#print"><code>print</code></a></td><td><a href="#cd"><code>cd</code></a></td></tr>
 </table>
 
@@ -1140,7 +1140,7 @@ The following options have independent default value that is not affected by [De
 | [`hideEchoBack`](#hideechoback) | `false` |
 | [`history`](#history) | `true` |
 
-The other options other than [`prompt`](#options-prompt) option work as shown in the [Options](#options) section.
+The other options other than [`prompt`](#prompt-1) option work as shown in the [Options](#options) section.
 
 ### `keyInYN`
 
@@ -1380,7 +1380,7 @@ delete is not available.
 The placeholders can be included in:
 
 * `query` argument
-* [`prompt`](#options-prompt) and [`limitMessage`](#limitmessage) options
+* [`prompt`](#prompt-1) and [`limitMessage`](#limitmessage) options
 * [`limit` option for `keyIn*` method](#for-keyin-method) and [`charlist`](#charlist) option for [`questionNewPassword`](#questionnewpassword) method ([`C1-C2`](#c1-c2) parameter only)
 
 And some options for the [Utility Methods](#utility-methods).
@@ -1668,7 +1668,7 @@ readlineSync.setPrint(value);
 
 ### `setPrompt` method
 
-Use the [`prompt`](#options-prompt) option.  
+Use the [`prompt`](#prompt-1) option.  
 For the [Default Options](#options), use:
 
 ```js
