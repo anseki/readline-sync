@@ -880,7 +880,7 @@ It does not affect the existence check. Therefore, you can get a new file or dir
 argsArray = readlineSync.promptCL([commandHandler[, options]])
 ```
 
-Display a prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then consider the input as a command-line and parse it, and then return a result after an Enter key was pressed.
+Display a prompt-sign (see [`prompt`](#options-prompt) option) to the user, and then consider the input as a command-line and parse it, and then return a result after an Enter key was pressed.  
 A return value is an Array that includes the tokens that were parsed. It parses the input from the user as the command-line, and it interprets whitespaces, quotes, etc., and it splits it to tokens properly. Usually, a first element of the Array is command-name, and remaining elements are arguments.
 
 For example:
@@ -1665,6 +1665,7 @@ instead of:
 ```js
 readlineSync.setPrint(value);
 ```
+
 ### `setPrompt` method
 
 Use the [`prompt`](#options-prompt) option.  
@@ -1679,6 +1680,7 @@ instead of:
 ```js
 readlineSync.setPrompt(value);
 ```
+
 ### `setEncoding` method
 
 Use the [`encoding`](#encoding) option.  
@@ -1693,6 +1695,7 @@ instead of:
 ```js
 readlineSync.setEncoding(value);
 ```
+
 ### `setMask` method
 
 Use the [`mask`](#mask) option.  
@@ -1707,6 +1710,7 @@ instead of:
 ```js
 readlineSync.setMask(value);
 ```
+
 ### `setBufferSize` method
 
 Use the [`bufferSize`](#buffersize) option.  
