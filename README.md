@@ -4,7 +4,7 @@ Synchronous [Readline](http://nodejs.org/api/readline.html) for interactively ru
 
 readlineSync tries to let your script have a conversation with the user via a console, even when the input/output stream is redirected like `your-script <foo.dat >bar.log`.
 
-<table style="display: table; width: auto; margin-left: auto; margin-right: 0; font-size: 0.8em;">
+<table>
 <tr><td><a href="#options">Options</a></td><td><a href="#utility-methods">Utility Methods</a></td><td><a href="#placeholders">Placeholders</a></td></tr>
 </table>
 
@@ -473,14 +473,14 @@ var loc = readlineSync.question('Hi ' + name + '! Where do you live? :');
 * Let somebody hear our conversation in real time.  
 It just uses a fifo with above sample code that was named `conv.js`.
 
-Another console:
+Another terminal:
 
 ```shell
 mkfifo /tmp/fifo
 cat /tmp/fifo
 ```
 
-My console:
+My terminal:
 
 ```shell
 node conv.js >/tmp/fifo
@@ -491,7 +491,7 @@ May I have your name? :Oz
 Hi Oz! Where do you live? :Emerald City
 ```
 
-And then, another console:
+And then, another terminal shows this synchronously:
 
 ```console
 May I have your name? :Oz
