@@ -109,7 +109,7 @@ answer = readlineSync.question([query[, options]])
 ```
 
 Display a `query` to the user if it's specified, and then return the input from the user after it has been typed and an Enter key was pressed.  
-You can specify an `options` (see [Options](#options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.). **If you let the user input the secret text (e.g. password), you should consider [`hideEchoBack`](#hideEchoBack) option.**
+You can specify an `options` (see [Options](#options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.). **If you let the user input the secret text (e.g. password), you should consider [`hideEchoBack`](#hideechoback) option.**
 
 The `query` may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string (i.e. `toString` method is called) before it is displayed.  
 And it can include the [placeholders](#placeholders).
@@ -234,7 +234,7 @@ Login ...
 **Type:** string  
 **Default:** `'*'`
 
-Set the mask characters that are shown instead of the secret text (e.g. password) when `true` is specified to [`hideEchoBack`](#hideEchoBack) option. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
+Set the mask characters that are shown instead of the secret text (e.g. password) when `true` is specified to [`hideEchoBack`](#hideechoback) option. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
 *Note:* In some cases (e.g. when the input stream is redirected on Windows XP), `'*'` or `''` might be used always.
 
 For example:
@@ -397,7 +397,7 @@ if (answer === true) {
 **Default:** `false`
 
 By default, the string comparisons is case-insensitive (i.e. `a` equals `A`). If `true` is specified, it is case-sensitive, the cases are not ignored (i.e. `a` is different from `A`).  
-It affects: [`limit`](#limit), [`trueValue`](#trueValue), [`falseValue`](#falseValue), some [placeholders](#placeholders), and some [Utility Methods](#utility-methods).
+It affects: [`limit`](#limit), [`trueValue`](#truevalue), [`falseValue`](#falsevalue), some [placeholders](#placeholders), and some [Utility Methods](#utility-methods).
 
 ### `keepWhitespace`
 
