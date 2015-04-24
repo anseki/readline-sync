@@ -1141,13 +1141,13 @@ This method displays a prompt-sign like:
 
 On Windows:
 
-```console
+```shell
 C:\Users\User\Path\To\Directory>
 ```
 
 On others:
 
-```console
+```shell
 user@host:~/path/to/directory$ 
 ```
 
