@@ -909,7 +909,7 @@ For example:
 
 ```js
 argsArray = readlineSync.promptCL();
-console.log(argsArray.split('\n'));
+console.log(argsArray.join('\n'));
 ```
 
 ```console
@@ -1230,8 +1230,8 @@ readlineSync.keyInYN('Really? :'); // Colon already exists
 ```
 
 ``` console
-Do you like me? [y/n] :
-Really? [y/n] :
+Do you like me? [y/n] :y
+Really? [y/n] :y
 ```
 
 ### `keyInYNStrict`
@@ -1311,7 +1311,7 @@ If `true` is specified, a string `'(Hit any key)'` as guide for the user is adde
 For example:
 
 ```js
-readlineSync.keyInYN('It\'s pausing now...');
+readlineSync.keyInPause('It\'s pausing now...');
 ```
 
 ``` console
@@ -1540,6 +1540,7 @@ while (true) {
 Something :hello
 -- You said "hello"
 Something or "!!" as "hello" :!!
+hello
 -- You said "hello"
 ```
 
