@@ -128,7 +128,7 @@ program = readlineSync.question('Which program starts do you want? :', {
 input = readlineSync.prompt([options])
 ```
 
-Display a prompt-sign (see [`prompt`](#prompt-1) option) to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
+Display a prompt-sign (see [`prompt`](#options%3eprompt) option) to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
 You can specify an `options` (see [Options](#options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.).
 
 For example:
@@ -186,7 +186,7 @@ a6 = readlineSync.question('And you? :');                // It's limited to 2 th
 
 The Object as `options` can have following properties.
 
-### `prompt`
+### `prompt`<a name="options&#x3e;prompt"></a>
 
 _For `prompt*` methods only_  
 *Type:* string or others  
