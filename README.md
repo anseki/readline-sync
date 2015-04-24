@@ -1402,8 +1402,7 @@ The placeholders can be included in:
 * `query` argument
 * [`prompt`](#prompt-1) and [`limitMessage`](#limitmessage) options
 * [`limit` option for `keyIn*` method](#for-keyin-method) and [`charlist`](#charlist) option for [`questionNewPassword`](#questionnewpassword) method ([`C1-C2`](#c1-c2) parameter only)
-
-And some options for the [Utility Methods](#utility-methods).
+* And some additional options for the [Utility Methods](#utility-methods).
 
 ### Syntax
 
@@ -1419,9 +1418,9 @@ ${(text1)parameter(text2)}
 
 The placeholder is replaced to a string that is got by a `parameter`.  
 Both the `(text1)` and `(text2)` are optional.  
-A more added `$` at left of the placeholder is used as an escape character, it disables a placeholder. For example, `$${foo}` is replaced to `${foo}`. If you want to put a `$` which is *not* an escape character at the left of a placeholder, specify it like `${($)bufferSize}`, then it is replaced to `$1024`.
+A more added `'$'` at the left of the placeholder is used as an escape character, it disables a placeholder. For example, `'$${foo}'` is replaced to `'${foo}'`. If you want to put a `'$'` which is *not* an escape character at the left of a placeholder, specify it like `'${($)bufferSize}'`, then it is replaced to `'$1024'`.
 
-`(text1)` and `(text2)` are replaced to `text1` and `text2` when a string that was got by a `parameter` has length more than 0. If that string is `''`, a placeholder with or without `(text1)` and `(text2)` is replaced to `''`.
+At the each position of `'(text1)'` and `'(text2)'`, `'text1'` and `'text2'` are put when a string that was got by a `parameter` has length more than 0. If that got string is `''`, a placeholder with or without `'(text1)'` and `'(text2)'` is replaced to `''`.
 
 For example, a warning message that means that the command the user requested is not available:
 
@@ -1459,7 +1458,7 @@ command = readlineSync.prompt({
 Refused . Please input another.
 ```
 
-(`${(Refused )lastInput( you requested. )}Please input another.` may be more better.)
+(May be more better: `'${(Refused )lastInput( you requested. )}Please input another.'`)
 
 ### Parameters
 
@@ -1468,8 +1467,8 @@ The following parameters are available. And some additional parameters are avail
 #### `hideEchoBack`, `mask`, `defaultInput`, `caseSensitive`, `keepWhitespace`, `encoding`, `bufferSize`, `history`, `cd`, `limit`, `trueValue`, `falseValue`
 
 A current value of each option.  
-It is converted to human readable if possible. The boolean value is replaced to `'on'` or `'off'`, and the Array is replaced to the list of only string and number.  
-And in the `keyIn*` method, the parts of the list as characters sequence are suppressed. For example, when `['a', 'b', 'c', 'd', 'e']` is specified to the [`limit`](#limit) option, `${limit}` is replaced to `'a...e'`. If `true` is specified to the [`caseSensitive`](#casesensitive) option, the characters are converted to lower case.
+It is converted to human readable if possible. The boolean value is replaced to `'on'` or `'off'`, and the Array is replaced to the list of only string and number elements.  
+And in the `keyIn*` method, the parts of the list as characters sequence are suppressed. For example, when `['a', 'b', 'c', 'd', 'e']` is specified to the [`limit`](#limit) option, `'${limit}'` is replaced to `'a...e'`. If `true` is specified to the [`caseSensitive`](#casesensitive) option, the characters are converted to lower case.
 
 For example:
 
@@ -1487,7 +1486,7 @@ Input something or Enter key as "hello" :
 #### `limitCount`, `limitCountNotZero`
 
 A length of a current value of the [`limit`](#limit) option.  
-`limitCountNotZero` is replaced to `''`, when the value of the [`limit`](#limit) option is empty.
+When the value of the [`limit`](#limit) option is empty, `'${limitCount}'` is replaced to `'0'`, `'${limitCountNotZero}'` is replaced to `''`.
 
 For example:
 
@@ -1584,7 +1583,7 @@ command = readlineSync.prompt({prompt: '[${localeDate}]> '});
 _For [`limit` option for `keyIn*` method](#for-keyin-method) and [`charlist`](#charlist) option for [`questionNewPassword`](#questionnewpassword) method only_
 
 A character list.  
-`C1` and `C2` are each single character as the start and the end. A sequence in ascending or descending order of characters ranging from `C1` to `C2` is created. For example, `a-e` is replaced to `'abcde'`. `5-1` is replaced to `'54321'`.
+`C1` and `C2` are each single character as the start and the end. A sequence in ascending or descending order of characters ranging from `C1` to `C2` is created. For example, `'${a-e}'` is replaced to `'abcde'`. `'${5-1}'` is replaced to `'54321'`.
 
 For example, let the user input a password that is created with alphabet:
 
