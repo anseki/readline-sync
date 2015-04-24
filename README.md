@@ -186,7 +186,7 @@ a6 = readlineSync.question('And you? :');                // It's limited to 2 th
 
 The Object as `options` can have following properties.
 
-### `prompt`<a name="options&#x3e;prompt"></a>
+### <a name="options&#x3e;prompt"></a>`prompt`
 
 _For `prompt*` methods only_  
 *Type:* string or others  
