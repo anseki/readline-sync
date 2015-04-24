@@ -112,7 +112,7 @@ Display a `query` to the user if it's specified, and then return the input from 
 You can specify an `options` (see [Options](#options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.). **If you let the user input the secret text (e.g. password), you should consider [`hideEchoBack`](#hideechoback) option.**
 
 The `query` may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string (i.e. `toString` method is called) before it is displayed.  
-And it can include the [placeholders](#placeholders).
+It can include the [placeholders](#placeholders).
 
 For example:
 
@@ -194,7 +194,7 @@ _For `prompt*` methods only_
 
 Set the prompt-sign that is displayed to the user by `prompt*` methods. For example you see `> ` that is Node's prompt-sign when you run `node` on the command line.  
 This may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string every time (i.e. `toString` method is called) before it is displayed.  
-And it can include the [placeholders](#placeholders).
+It can include the [placeholders](#placeholders).
 
 For example:
 
@@ -690,7 +690,7 @@ password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '${a-z}#$@%
 *Default:* `'Reinput a same one to confirm it :'`
 
 A message that lets the user input the same password again.  
-And it can include the [placeholders](#placeholders).  
+It can include the [placeholders](#placeholders).  
 If this is not string, it is converted to string (i.e. `toString` method is called).
 
 ##### `unmatchMessage`
@@ -860,9 +860,18 @@ If it is not specified or `0` is specified, the size is not checked. (A size of 
 *Type:* function or `undefined`  
 *Default:* `undefined`
 
-If a function is specified, call it with a path that was input, and accept the input when the function returned `true`.  
+If a function that returns `true` or an error message is specified, call it with a path that was input, and accept the input when the function returned `true`.  
+If the function returned a string as an error message, that message is got by the [`error`](#error) additional [placeholder](#placeholders) parameter.  
 A path that was input is parsed before it is passed to the function. `~` is replaced to a home directory, and a path is converted to an absolute path.  
 This is also a return value from this method.
+
+For example, accept only PNG file or tell it to the user:
+
+```js
+imageFile = readlineSync.questionPath('Image File :', {
+  validate: function(path) { return /\.png$/i.test(path) || 'It is not PNG'; }
+});
+```
 
 ##### `create`
 
@@ -870,7 +879,20 @@ This is also a return value from this method.
 *Default:* `false`
 
 If `true` is specified, create a file or directory as a path that was input when it doesn't exist. If `true` is specified to the [`isDirectory`](#isdirectory) option, create a directory, otherwise a file.  
-It does not affect the existence check. Therefore, you can get a new file or directory path anytime by specifying: `{exists: false, create: true}`.
+It does not affect the existence check. Therefore, you can get a new file or directory path anytime by specifying: `{exists: false, create: true}`
+
+#### Additional Placeholders
+
+The following additional [placeholder](#placeholders) parameters are available.
+
+##### `error`
+
+An error message when the input was not accepted.  
+This value is set by readlineSync, or the function that was specified to [`validate`](#validate) option.
+
+##### `min`, `max`
+
+A current value of [`min` and `max`](#min-max-1) option.
 
 ### `promptCL`
 
@@ -906,7 +928,7 @@ By using the `commandHandler` argument, this method will come into its own. Spec
 
 If a function is specified to `commandHandler` argument, it is just called with a parsed Array as an argument list of the function. And `this` is an original input string, in the function.
 
-For example: The following 2 codes work same except that `this` is enabled in the second one.
+For example, the following 2 codes work same except that `this` is enabled in the second one:
 
 ```js
 argsArray = readlineSync.promptCL();
@@ -942,7 +964,7 @@ That is, a structure of the `commandHandler` Object looks like:
 
 readlineSync just receives the arguments from the user and passes those to these functions without checking. The functions may have to check whether the required argument was input by the user, and more validate those.
 
-For example: The following code works same to the above code.
+For example, the following code works same to the above code:
 
 ```js
 readlineSync.promptCL({
@@ -997,7 +1019,7 @@ readlineSync.promptLoop(inputHandler[, options])
 
 Display a prompt-sign (see [`prompt`](#prompt-1) option) to the user, and then call `inputHandler` function with the input from the user after it has been typed and an Enter key was pressed. Do these repeatedly until `inputHandler` function returns `true`.
 
-For example: The following 2 codes work same.
+For example, the following 2 codes work same:
 
 ```js
 while (true) {
