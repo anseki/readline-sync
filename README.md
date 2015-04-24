@@ -285,7 +285,7 @@ file = readlineSync.question('Text File :', {limit: /\.txt$/i});
 
 ```js
 ip = readlineSync.question('IP Address :', {limit: function(input) {
-  return require('net').isIP(input) !== '0'; // Valid IP Address
+  return require('net').isIP(input); // Valid IP Address
 }});
 ```
 
@@ -515,6 +515,7 @@ while (true) {
 > hello
 -- You said "hello"
 > !!
+hello
 -- You said "hello"
 > !!:p
 hello
@@ -583,7 +584,7 @@ console.log('-- E-mail is ' + email);
 ```
 
 ```console
-Input e-mail address :a@b
+Input e-mail address :abc
 Input valid e-mail address, please.
 Input e-mail address :mail@example.com
 -- E-mail is mail@example.com
