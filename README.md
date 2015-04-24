@@ -154,7 +154,7 @@ The `query` is handled the same as that of the [`question`](#question) method.
 For example:
 
 ```js
-key = readlineSync.keyIn('Hit 1...5 key :', limit: '${1-5}');
+menuId = readlineSync.keyIn('Hit 1...5 key :', {limit: '${1-5}'});
 ```
 
 ### `setDefaultOptions`
@@ -189,31 +189,35 @@ The Object as `options` can have following properties.
 ### `prompt`
 
 _For `prompt*` methods only_  
-**Type:** string or others  
-**Default:** `'> '`
+*Type:* string or others  
+*Default:* `'> '`
 
 Set the prompt-sign that is displayed to the user by `prompt*` methods. For example you see `> ` that is Node's prompt-sign when you run `node` on the command line.  
-This may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string (i.e. `toString` method is called) before it is displayed every time.  
+This may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string every time (i.e. `toString` method is called) before it is displayed.  
 And it can include the [placeholders](#placeholders).
 
-For example, `[foo-directory]$` like that of the bash shell shows the current working directory.
+For example:
 
 ```js
-readlineSync.prompt({
+readlineSync.setDefaultOptions({prompt: '$ '});
+```
+
+```js
+// Display the memory usage always.
+readlineSync.setDefaultOptions({
   prompt: { // Simple Object that has toString method.
     toString: function() {
-      return '[' + require('path').basename(process.cwd()) + ']$ ';
+      var rss = process.memoryUsage().rss;
+      return '[' + (rss > 1024 ? Math.round(rss / 1024) + 'k' : rss) + 'b]$ ';
     }
   }
 });
-// ** But `promptSimShell` method should be used instead of this. **
-// ** Or `cwd`, `CWD`, `cwdHome` placeholders. **
 ```
 
 ### `hideEchoBack`
 
-**Type:** boolean  
-**Default:** `false`
+*Type:* boolean  
+*Default:* `false`
 
 If `true` is specified, hide the secret text (e.g. password) which is typed by user on screen by the mask characters (see [`mask`](#mask) option).
 
@@ -231,21 +235,18 @@ Login ...
 
 ### `mask`
 
-**Type:** string  
-**Default:** `'*'`
+*Type:* string  
+*Default:* `'*'`
 
 Set the mask characters that are shown instead of the secret text (e.g. password) when `true` is specified to [`hideEchoBack`](#hideechoback) option. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
-*Note:* In some cases (e.g. when the input stream is redirected on Windows XP), `'*'` or `''` might be used always.
+*Note:* In some cases (e.g. when the input stream is redirected on Windows XP), `'*'` or `''` might be used whether other one is specified.
 
 For example:
 
 ```js
-var readlineSync = require('readline-sync'),
-  chalk = require('chalk'),
-  secret;
 secret = readlineSync.question('Please whisper sweet words :', {
   hideEchoBack: true,
-  mask: chalk.magenta('\u2665')
+  mask: require('chalk').magenta('\u2665')
 });
 ```
 
@@ -258,8 +259,8 @@ The usage differ depending on the method.
 
 #### For `question*` and `prompt*` methods
 
-**Type:** string, number, RegExp, function or Array  
-**Default:** `[]`
+*Type:* string, number, RegExp, function or Array  
+*Default:* `[]`
 
 Accept only the input that matches value that is specified to this. If the user input others, display a string that is specified to [`limitMessage`](#limitmessage) option, and wait for reinput.
 
@@ -300,33 +301,31 @@ action = readlineSync.prompt({limit: availableActions});
 
 #### For `keyIn*` method
 
-**Type:** string, number or Array  
-**Default:** `[]`
+*Type:* string, number or Array  
+*Default:* `[]`
 
 Accept only the key that matches value that is specified to this, ignore others.  
 Specify the characters as the key. All strings or Array of those are decomposed into single characters. For example, `'abcde'` or `['a', 'bc', ['d', 'e']]` are the same as `['a', 'b', 'c', 'd', 'e']`.  
 These strings are compared with the input. It is affected by [`caseSensitive`](#casesensitive) option.
-
-For example:
-
-```js
-sex = readlineSync.keyIn('male or female? :', {limit: 'mf'}); // 'm' or 'f'
-```
 
 The [placeholders](#placeholders) like `'${a-e}'` are replaced to an Array that is the character list like `['a', 'b', 'c', 'd', 'e']`.
 
 For example:
 
 ```js
-dice = readlineSync.keyIn('Which number do you think came up? :',
+direction = readlineSync.keyIn('Left or Right? :', {limit: 'lr'}); // 'l' or 'r'
+```
+
+```js
+dice = readlineSync.keyIn('Roll the dice, What will the result be? :',
   {limit: '${1-6}'}); // range of '1' to '6'
 ```
 
 ### `limitMessage`
 
 _For `question*` and `prompt*` methods only_  
-**Type:** string  
-**Default:** `'Input another, please.${( [)limit(])}'`
+*Type:* string  
+*Default:* `'Input another, please.${( [)limit(])}'`
 
 Display this to the user when the [`limit`](#limit) option is specified and the user input others.  
 The [placeholders](#placeholders) can be included.
@@ -343,8 +342,8 @@ file = readlineSync.question('Name of Text File :', {
 ### `defaultInput`
 
 _For `question*` and `prompt*` methods only_  
-**Type:** string  
-**Default:** `''`
+*Type:* string  
+*Default:* `''`
 
 If the user input empty text (i.e. pressed an Enter key only), return this.
 
@@ -363,13 +362,13 @@ if (answer === 'y') {
 
 ### `trueValue`, `falseValue`
 
-**Type:** string, number, RegExp, function or Array  
-**Default:** `[]`
+*Type:* string, number, RegExp, function or Array  
+*Default:* `[]`
 
 If the input matches `trueValue`, return `true`. If the input matches `falseValue`, return `false`. In any other case, return the input.
 
 * The string is compared with the input. It is affected by [`caseSensitive`](#casesensitive) option.
-* The number is compared with the input that is converted to number by `parseFloat()`. For example, it interprets `'   3.14   '`, `'003.1400'`, `'314e-2'` and `'3.14PI'` as `3.14`. And it interprets `'005'`, `'5files'`, `'5kb'` and `'5px'` as `5`. Note that in `keyIn*` method, the input is always one character (i.e. the number that is specified must be an integer within the range of `0` to `9`).
+* The number is compared with the input that is converted to number by `parseFloat()`. For example, it interprets `'   3.14   '`, `'003.1400'`, `'314e-2'` and `'3.14PI'` as `3.14`. And it interprets `'005'`, `'5files'`, `'5kb'` and `'5px'` as `5`. Note that in `keyIn*` method, the input is every time one character (i.e. the number that is specified must be an integer within the range of `0` to `9`).
 * The RegExp tests the input.
 * The function that returns boolean to indicate whether it matches is called with the input.
 
@@ -393,8 +392,8 @@ if (answer === true) {
 
 ### `caseSensitive`
 
-**Type:** boolean  
-**Default:** `false`
+*Type:* boolean  
+*Default:* `false`
 
 By default, the string comparisons is case-insensitive (i.e. `a` equals `A`). If `true` is specified, it is case-sensitive, the cases are not ignored (i.e. `a` is different from `A`).  
 It affects: [`limit`](#limit), [`trueValue`](#truevalue), [`falseValue`](#falsevalue), some [placeholders](#placeholders), and some [Utility Methods](#utility-methods).
@@ -402,30 +401,30 @@ It affects: [`limit`](#limit), [`trueValue`](#truevalue), [`falseValue`](#falsev
 ### `keepWhitespace`
 
 _For `question*` and `prompt*` methods only_  
-**Type:** boolean  
-**Default:** `false`
+*Type:* boolean  
+*Default:* `false`
 
 By default, remove the leading and trailing white spaces from the input text. If `true` is specified, don't remove those.
 
 ### `encoding`
 
-**Type:** string  
-**Default:** `'utf8'`
+*Type:* string  
+*Default:* `'utf8'`
 
 Set the encoding method of the input and output.
 
 ### `bufferSize`
 
-**Type:** number  
-**Default:** `1024`
+*Type:* number  
+*Default:* `1024`
 
 When readlineSync reads from a console directly (without external program), use a size `bufferSize` buffer.  
 Even if the input by user exceeds it, it's usually no problem, because the buffer is used repeatedly. But some platforms's (e.g. Windows) console might not accept input that exceeds it. And set an enough size.
 
 ### `print`
 
-**Type:** function or `undefined`  
-**Default:** `undefined`
+*Type:* function or `undefined`  
+*Default:* `undefined`
 
 Call the specified function with every output. The function is given two arguments, `display` as an output text, and a value of [`encoding`](#encoding) option.
 
@@ -501,8 +500,8 @@ Hi Oz! Where do you live? :Emerald City
 ### `history`
 
 _For `question*` and `prompt*` methods only_  
-**Type:** boolean  
-**Default:** `true`
+*Type:* boolean  
+*Default:* `true`
 
 readlineSync supports a history expansion feature that is similar to that of the shell. If `false` is specified, disable this feature.  
 *It keeps a previous input only.* That is, only `!!`, `!-1`, `!!:p` and `!-1:p` like bash or zsh etc. are supported.
@@ -533,8 +532,8 @@ hello
 ### `cd`
 
 _For `question*` and `prompt*` methods only_  
-**Type:** boolean  
-**Default:** `false`
+*Type:* boolean  
+*Default:* `false`
 
 readlineSync supports the changing the current working directory feature that is similar to the `cd` and `pwd` commands in the shell. If `true` is specified, enable this feature.  
 This helps the user when you let the user input the multiple local files or directories.  
@@ -672,24 +671,24 @@ And the following additional options are available.
 
 ##### `charlist`
 
-**Type:** string  
-**Default:** `'${!-~}'`
+*Type:* string  
+*Default:* `'${!-~}'`
 
 A string as the characters that can be included in the password. For example, if `'abc123'` is specified, the passwords that include any character other than these 6 characters are refused.  
 The [placeholders](#placeholders) like `'${a-e}'` are replaced to the characters like `'abcde'`.  
 
 ##### `min`, `max`
 
-**Type:** number  
-**Default:** `min`: `12`, `max`: `24`
+*Type:* number  
+*Default:* `min`: `12`, `max`: `24`
 
 `min`: A number as a minimum length of the password.  
 `max`: A number as a maximum length of the password.
 
 ##### `confirmMessage`
 
-**Type:** string or others  
-**Default:** `'Reinput a same one to confirm it :'`
+*Type:* string or others  
+*Default:* `'Reinput a same one to confirm it :'`
 
 A message that lets the user input the same password again.  
 And it can include the [placeholders](#placeholders).  
@@ -697,8 +696,8 @@ If this is not string, it is converted to string (i.e. `toString` method is call
 
 ##### `unmatchMessage`
 
-**Type:** string or others  
-**Default:** `'It differs from first one. Hit only Enter key if you want to retry from first one.'`
+*Type:* string or others  
+*Default:* `'It differs from first one. Hit only Enter key if you want to retry from first one.'`
 
 A warning message that is displayed when the second input did not match first one.  
 This is converted the same as the [`confirmMessage`](#confirmmessage) option.
@@ -834,16 +833,16 @@ And the following additional options are available.
 
 ##### `exists`
 
-**Type:** boolean or others  
-**Default:** `true`
+*Type:* boolean or others  
+*Default:* `true`
 
 If `true` is specified, accept only a file or directory path that exists. If `false` is specified, accept only a file or directory path that does *not* exist.  
 In any other case, the existence is not checked.
 
 ##### `min`, `max`
 
-**Type:** number or others  
-**Default:** `undefined`
+*Type:* number or others  
+*Default:* `undefined`
 
 `min`: A number as a minimum size of the file that is accepted.  
 `max`: A number as a maximum size of the file that is accepted.  
@@ -851,16 +850,16 @@ If it is not specified or `0` is specified, the size is not checked. (A size of 
 
 ##### `isFile`, `isDirectory`
 
-**Type:** boolean  
-**Default:** `false`
+*Type:* boolean  
+*Default:* `false`
 
 `isFile`: If `true` is specified, accept only a file path.  
 `isDirectory`: If `true` is specified, accept only a directory path.
 
 ##### `validate`
 
-**Type:** function or `undefined`  
-**Default:** `undefined`
+*Type:* function or `undefined`  
+*Default:* `undefined`
 
 If a function is specified, call it with a path that was input, and accept the input when the function returned `true`.  
 A path that was input is parsed before it is passed to the function. `~` is replaced to a home directory, and a path is converted to an absolute path.  
@@ -868,8 +867,8 @@ This is also a return value from this method.
 
 ##### `create`
 
-**Type:** boolean  
-**Default:** `false`
+*Type:* boolean  
+*Default:* `false`
 
 If `true` is specified, create a file or directory as a path that was input when it doesn't exist. If `true` is specified to the [`isDirectory`](#isdirectory) option, create a directory, otherwise a file.  
 It does not affect the existence check. Therefore, you can get a new file or directory path anytime by specifying: `{exists: false, create: true}`.
@@ -1195,8 +1194,8 @@ And the following additional option is available.
 
 ##### `guide`
 
-**Type:** boolean  
-**Default:** `true`
+*Type:* boolean  
+*Default:* `true`
 
 If `true` is specified, a string `'[y/n]'` as guide for the user is added to `query`. And `':'` is moved to the end of `query`, or it is added.
 
@@ -1281,8 +1280,8 @@ And the following additional option is available.
 
 ##### `guide`
 
-**Type:** boolean  
-**Default:** `true`
+*Type:* boolean  
+*Default:* `true`
 
 If `true` is specified, a string `'(Hit any key)'` as guide for the user is added to `query`.
 
@@ -1347,15 +1346,15 @@ And the following additional options are available.
 
 ##### `guide`
 
-**Type:** boolean  
-**Default:** `true`
+*Type:* boolean  
+*Default:* `true`
 
 If `true` is specified, a string like `'[1...5]'` as guide for the user is added to `query`. And `':'` is moved to the end of `query`, or it is added. This is the key list that corresponds to the item list.
 
 ##### `cancel`
 
-**Type:** boolean  
-**Default:** `true`
+*Type:* boolean  
+*Default:* `true`
 
 If `true` is specified, an item to let the user tell "cancel" is added to the item list. "[0] CANCEL" is displayed, and if `0` key is pressed, `-1` is returned.
 
