@@ -785,13 +785,13 @@ For example:
 
 ```js
 sourceFile = readlineSync.questionPath('Read from :', {
-  isFile: true,
-  exists: true
+  isFile: true
 });
 console.log('-- sourceFile: ' + sourceFile);
 
 saveDir = readlineSync.questionPath('Save to :', {
   isDirectory: true,
+  exists: null,
   create: true
 });
 console.log('-- saveDir: ' + saveDir);
