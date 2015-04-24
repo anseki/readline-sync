@@ -350,14 +350,7 @@ If the user input empty text (i.e. pressed an Enter key only), return this.
 For example:
 
 ```js
-answer = readlineSync.question('Do you want to install this? :',
-  {defaultInput: 'y'});
-if (answer === 'y') {
-  // install
-} else {
-  process.exit();
-}
-// ** But `keyInYN` method should be used instead of this. **
+lang = readlineSync.question('Which language? :', {defaultInput: 'javascript'});
 ```
 
 ### `trueValue`, `falseValue`
@@ -676,6 +669,12 @@ And the following additional options are available.
 
 A string as the characters that can be included in the password. For example, if `'abc123'` is specified, the passwords that include any character other than these 6 characters are refused.  
 The [placeholders](#placeholders) like `'${a-e}'` are replaced to the characters like `'abcde'`.  
+
+For example, let the user input a password that is created with alphabet and some symbols:
+
+```js
+password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '${a-z}#$@%'});
+```
 
 ##### `min`, `max`
 
