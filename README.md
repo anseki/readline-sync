@@ -800,6 +800,7 @@ console.log('-- saveDir: ' + saveDir);
 ```console
 Read from :~/fileA
 No such file or directory: /home/user/fileA
+Input valid path, please.
 Read from :pwd
 /path/to/work
 Read from :cd ~/project-1
