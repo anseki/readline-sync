@@ -168,6 +168,8 @@ All it takes is to specify options that you want change, because unspecified opt
 
 ## Basic Options<a name="basic_options">&nbsp;</a>
 
+[`prompt`](#basic_options-prompt), [`hideEchoBack`](#basic_options-hideechoback), [`mask`](#basic_options-mask), [`limit`](#basic_options-limit), [`limitMessage`](#basic_options-limitmessage), [`defaultInput`](#basic_options-defaultinput), [`trueValue`, `falseValue`](#basic_options-truevalue_falsevalue), [`caseSensitive`](#basic_options-casesensitive), [`keepWhitespace`](#basic_options-keepwhitespace), [`encoding`](#basic_options-encoding), [`bufferSize`](#basic_options-buffersize), [`print`](#basic_options-print), [`history`](#basic_options-history), [`cd`](#basic_options-cd)
+
 An `options` Object can be specified to the methods to control the behavior of readlineSync. The options that were not specified to the methods are got from the Default Options. You can change the Default Options by [`setDefaultOptions`](#basic_methods-setdefaultoptions) method anytime, and it is kept until a current process is exited.  
 Specify the options that are often used to the Default Options, and specify temporary options to the methods.
 
@@ -560,6 +562,8 @@ File :file-c.html
 ```
 
 ## Utility Methods<a name="utility_methods">&nbsp;</a>
+
+[`questionEMail`](#utility_methods-questionemail), [`questionNewPassword`](#utility_methods-questionnewpassword), [`questionInt`](#utility_methods-questionint), [`questionFloat`](#utility_methods-questionfloat), [`questionPath`](#utility_methods-questionpath), [`promptCL`](#utility_methods-promptcl), [`promptLoop`](#utility_methods-promptloop), [`promptCLLoop`](#utility_methods-promptclloop), [`promptSimShell`](#utility_methods-promptsimshell), [`keyInYN`](#utility_methods-keyinyn), [`keyInYNStrict`](#utility_methods-keyinynstrict), [`keyInPause`](#utility_methods-keyinpause), [`keyInSelect`](#utility_methods-keyinselect)
 
 These are convenient methods that are extended [Basic Methods](#basic_methods) to be used easily.
 
@@ -1251,7 +1255,7 @@ The default value of `query` is `'Are you sure? :'`.
 
 A key other than `Y` and `N` is not accepted. That is, a return value has no default. Therefore, the user has to tell an own wish explicitly. If you want to know a user's wish easily, use [`keyInYN`](#utility_methods-keyinyn) method.
 
-This method works same to [`keyInYN`](#utility_methods-keyinyn) method except that this accept only `Y` or `N` key. The options also work same to [`keyInYN`](#utility_methods-keyinyn) method.
+This method works same to [`keyInYN`](#utility_methods-keyinyn) method except that this accept only `Y` or `N` key (Therefore, a return value is boolean every time). The options also work same to [`keyInYN`](#utility_methods-keyinyn) method.
 
 ### `keyInPause`<a name="utility_methods-keyinpause">&nbsp;</a>
 
@@ -1383,6 +1387,8 @@ If `true` is specified, an item to let the user tell "cancel" is added to the it
 
 ## Placeholders<a name="placeholders">&nbsp;</a>
 
+[`hideEchoBack`, `mask`, `defaultInput`, `caseSensitive`, `keepWhitespace`, `encoding`, `bufferSize`, `history`, `cd`, `limit`, `trueValue`, `falseValue`](#placeholders-parameters-hideechoback_mask_defaultinput_casesensitive_keepwhitespace_encoding_buffersize_history_cd_limit_truevalue_falsevalue), [`limitCount`, `limitCountNotZero`](#placeholders-parameters-limitcount_limitcountnotzero), [`lastInput`](#placeholders-parameters-lastinput), [`history_mN`](#placeholders-parameters-historymn), [`cwd`, `CWD`, `cwdHome`](#placeholders-parameters-cwd_cwd_cwdhome), [`date`, `time`, `localeDate`, `localeTime`](#placeholders-parameters-date_time_localedate_localetime), [`C1-C2`](#placeholders-parameters-c1_c2)
+
 The placeholders in the text are replaced to another string.
 
 For example, the [`limitMessage`](#basic_options-limitmessage) option to display a warning message that means that the command the user requested is not available:
@@ -1466,7 +1472,7 @@ Refused . Please input another.
 
 The following parameters are available. And some additional parameters are available in the [Utility Methods](#utility_methods).
 
-#### `hideEchoBack`, `mask`, `defaultInput`, `caseSensitive`, `keepWhitespace`, `encoding`, `bufferSize`, `history`, `cd`, `limit`, `trueValue`, `falseValue`<a name="placeholders-parameters-hideechoback_mask_defaultinput_casesensitive_keepwhitespace_encoding_buffersize_history_cd_limit_truevalue_falsevalue">&nbsp;</a>
+#### <a name="placeholders-parameters-hideechoback_mask_defaultinput_casesensitive_keepwhitespace_encoding_buffersize_history_cd_limit_truevalue_falsevalue">&nbsp;</a>`hideEchoBack`, `mask`, `defaultInput`, `caseSensitive`, `keepWhitespace`, `encoding`, `bufferSize`, `history`, `cd`, `limit`, `trueValue`, `falseValue`
 
 A current value of each option.  
 It is converted to human readable if possible. The boolean value is replaced to `'on'` or `'off'`, and the Array is replaced to the list of only string and number elements.  
@@ -1670,88 +1676,4 @@ Why did I choose it? :
 
 ## Deprecated Methods and Options<a name="deprecated_methods_and_options">&nbsp;</a>
 
-The readlineSync current version is fully compatible with older version.  
-The following methods and options are deprecated.
-
-### `setPrint` method<a name="deprecated_methods_and_options-setprint_method">&nbsp;</a>
-
-Use the [`print`](#basic_options-print) option.  
-For the [Default Options](#basic_options), use:
-
-```js
-readlineSync.setDefaultOptions({print: value});
-```
-
-instead of:
-
-```js
-readlineSync.setPrint(value);
-```
-
-### `setPrompt` method<a name="deprecated_methods_and_options-setprompt_method">&nbsp;</a>
-
-Use the [`prompt`](#basic_options-prompt) option.  
-For the [Default Options](#basic_options), use:
-
-```js
-readlineSync.setDefaultOptions({prompt: value});
-```
-
-instead of:
-
-```js
-readlineSync.setPrompt(value);
-```
-
-### `setEncoding` method<a name="deprecated_methods_and_options-setencoding_method">&nbsp;</a>
-
-Use the [`encoding`](#basic_options-encoding) option.  
-For the [Default Options](#basic_options), use:
-
-```js
-readlineSync.setDefaultOptions({encoding: value});
-```
-
-instead of:
-
-```js
-readlineSync.setEncoding(value);
-```
-
-### `setMask` method<a name="deprecated_methods_and_options-setmask_method">&nbsp;</a>
-
-Use the [`mask`](#basic_options-mask) option.  
-For the [Default Options](#basic_options), use:
-
-```js
-readlineSync.setDefaultOptions({mask: value});
-```
-
-instead of:
-
-```js
-readlineSync.setMask(value);
-```
-
-### `setBufferSize` method<a name="deprecated_methods_and_options-setbuffersize_method">&nbsp;</a>
-
-Use the [`bufferSize`](#basic_options-buffersize) option.  
-For the [Default Options](#basic_options), use:
-
-```js
-readlineSync.setDefaultOptions({bufferSize: value});
-```
-
-instead of:
-
-```js
-readlineSync.setBufferSize(value);
-```
-
-### `noEchoBack` option<a name="deprecated_methods_and_options-noechoback_option">&nbsp;</a>
-
-Use [`hideEchoBack`](#basic_options-hideechoback) option instead of it.
-
-### `noTrim` option<a name="deprecated_methods_and_options-notrim_option">&nbsp;</a>
-
-Use [`keepWhitespace`](#basic_options-keepwhitespace) option instead of it.
+See [README-Deprecated.md](README-Deprecated.md).
