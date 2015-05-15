@@ -92,17 +92,17 @@ console.log('\nA value the user requested: ' + value);
 A value the user requested: 51
 ```
 
-## Installation<a name="installation">&nbsp;</a>
+## <a name="installation"></a>Installation
 
 ```shell
 npm install readline-sync
 ```
 
-## Basic Methods<a name="basic_methods">&nbsp;</a>
+## <a name="basic_methods"></a>Basic Methods
 
 These are used to control details of the behavior. It is recommended to use the [Utility Methods](#utility_methods) instead of Basic Methods if it satisfy your request.
 
-### `question`<a name="basic_methods-question">&nbsp;</a>
+### <a name="basic_methods-question"></a>`question`
 
 ```js
 answer = readlineSync.question([query[, options]])
@@ -122,7 +122,7 @@ program = readlineSync.question('Which program starts do you want? :', {
 });
 ```
 
-### `prompt`<a name="basic_methods-prompt">&nbsp;</a>
+### <a name="basic_methods-prompt"></a>`prompt`
 
 ```js
 input = readlineSync.prompt([options])
@@ -140,7 +140,7 @@ while (true) {
 }
 ```
 
-### `keyIn`<a name="basic_methods-keyin">&nbsp;</a>
+### <a name="basic_methods-keyin"></a>`keyIn`
 
 ```js
 pressedKey = readlineSync.keyIn([query[, options]])
@@ -157,7 +157,7 @@ For example:
 menuId = readlineSync.keyIn('Hit 1...5 key :', {limit: '${1-5}'});
 ```
 
-### `setDefaultOptions`<a name="basic_methods-setdefaultoptions">&nbsp;</a>
+### <a name="basic_methods-setdefaultoptions"></a>`setDefaultOptions`
 
 ```js
 currentDefaultOptions = readlineSync.setDefaultOptions([newDefaultOptions])
@@ -166,7 +166,7 @@ currentDefaultOptions = readlineSync.setDefaultOptions([newDefaultOptions])
 Change the [Default Options](#basic_options) to the values of properties of `newDefaultOptions` Object.  
 All it takes is to specify options that you want change, because unspecified options are not updated.
 
-## Basic Options<a name="basic_options">&nbsp;</a>
+## <a name="basic_options"></a>Basic Options
 
 [`prompt`](#basic_options-prompt), [`hideEchoBack`](#basic_options-hideechoback), [`mask`](#basic_options-mask), [`limit`](#basic_options-limit), [`limitMessage`](#basic_options-limitmessage), [`defaultInput`](#basic_options-defaultinput), [`trueValue`, `falseValue`](#basic_options-truevalue_falsevalue), [`caseSensitive`](#basic_options-casesensitive), [`keepWhitespace`](#basic_options-keepwhitespace), [`encoding`](#basic_options-encoding), [`bufferSize`](#basic_options-buffersize), [`print`](#basic_options-print), [`history`](#basic_options-history), [`cd`](#basic_options-cd)
 
@@ -188,7 +188,7 @@ a6 = readlineSync.question('And you? :');                // It's limited to 2 th
 
 The Object as `options` can have following properties.
 
-### `prompt`<a name="basic_options-prompt">&nbsp;</a>
+### <a name="basic_options-prompt"></a>`prompt`
 
 _For `prompt*` methods only_  
 *Type:* string or others  
@@ -216,7 +216,7 @@ readlineSync.setDefaultOptions({
 });
 ```
 
-### `hideEchoBack`<a name="basic_options-hideechoback">&nbsp;</a>
+### <a name="basic_options-hideechoback"></a>`hideEchoBack`
 
 *Type:* boolean  
 *Default:* `false`
@@ -235,7 +235,7 @@ PASSWORD :********
 Login ...
 ```
 
-### `mask`<a name="basic_options-mask">&nbsp;</a>
+### <a name="basic_options-mask"></a>`mask`
 
 *Type:* string  
 *Default:* `'*'`
@@ -254,12 +254,12 @@ secret = readlineSync.question('Please whisper sweet words :', {
 
 ![sample](cl_02.png)
 
-### `limit`<a name="basic_options-limit">&nbsp;</a>
+### <a name="basic_options-limit"></a>`limit`
 
 Limit the user's input.  
 The usage differ depending on the method.
 
-#### For `question*` and `prompt*` methods<a name="basic_options-limit-for_question_and_prompt_methods">&nbsp;</a>
+#### <a name="basic_options-limit-for_question_and_prompt_methods"></a>For `question*` and `prompt*` methods
 
 *Type:* string, number, RegExp, function or Array  
 *Default:* `[]`
@@ -301,7 +301,7 @@ action = readlineSync.prompt({limit: availableActions});
 // ** But `promptCL` method should be used instead of this. **
 ```
 
-#### For `keyIn*` method<a name="basic_options-limit-for_keyin_method">&nbsp;</a>
+#### <a name="basic_options-limit-for_keyin_method"></a>For `keyIn*` method
 
 *Type:* string, number or Array  
 *Default:* `[]`
@@ -323,7 +323,7 @@ dice = readlineSync.keyIn('Roll the dice, What will the result be? :',
   {limit: '${1-6}'}); // range of '1' to '6'
 ```
 
-### `limitMessage`<a name="basic_options-limitmessage">&nbsp;</a>
+### <a name="basic_options-limitmessage"></a>`limitMessage`
 
 _For `question*` and `prompt*` methods only_  
 *Type:* string  
@@ -341,7 +341,7 @@ file = readlineSync.question('Name of Text File :', {
 });
 ```
 
-### `defaultInput`<a name="basic_options-defaultinput">&nbsp;</a>
+### <a name="basic_options-defaultinput"></a>`defaultInput`
 
 _For `question*` and `prompt*` methods only_  
 *Type:* string  
@@ -355,7 +355,7 @@ For example:
 lang = readlineSync.question('Which language? :', {defaultInput: 'javascript'});
 ```
 
-### `trueValue`, `falseValue`<a name="basic_options-truevalue_falsevalue">&nbsp;</a>
+### <a name="basic_options-truevalue_falsevalue"></a>`trueValue`, `falseValue`
 
 *Type:* string, number, RegExp, function or Array  
 *Default:* `[]`
@@ -385,7 +385,7 @@ if (answer === true) {
 }
 ```
 
-### `caseSensitive`<a name="basic_options-casesensitive">&nbsp;</a>
+### <a name="basic_options-casesensitive"></a>`caseSensitive`
 
 *Type:* boolean  
 *Default:* `false`
@@ -393,7 +393,7 @@ if (answer === true) {
 By default, the string comparisons is case-insensitive (i.e. `a` equals `A`). If `true` is specified, it is case-sensitive, the cases are not ignored (i.e. `a` is different from `A`).  
 It affects: [`limit`](#basic_options-limit), [`trueValue`](#basic_options-truevalue_falsevalue), [`falseValue`](#basic_options-truevalue_falsevalue), some [placeholders](#placeholders), and some [Utility Methods](#utility_methods).
 
-### `keepWhitespace`<a name="basic_options-keepwhitespace">&nbsp;</a>
+### <a name="basic_options-keepwhitespace"></a>`keepWhitespace`
 
 _For `question*` and `prompt*` methods only_  
 *Type:* boolean  
@@ -401,14 +401,14 @@ _For `question*` and `prompt*` methods only_
 
 By default, remove the leading and trailing white spaces from the input text. If `true` is specified, don't remove those.
 
-### `encoding`<a name="basic_options-encoding">&nbsp;</a>
+### <a name="basic_options-encoding"></a>`encoding`
 
 *Type:* string  
 *Default:* `'utf8'`
 
 Set the encoding method of the input and output.
 
-### `bufferSize`<a name="basic_options-buffersize">&nbsp;</a>
+### <a name="basic_options-buffersize"></a>`bufferSize`
 
 *Type:* number  
 *Default:* `1024`
@@ -416,7 +416,7 @@ Set the encoding method of the input and output.
 When readlineSync reads from a console directly (without external program), use a size `bufferSize` buffer.  
 Even if the input by user exceeds it, it's usually no problem, because the buffer is used repeatedly. But some platforms's (e.g. Windows) console might not accept input that exceeds it. And set an enough size.
 
-### `print`<a name="basic_options-print">&nbsp;</a>
+### <a name="basic_options-print"></a>`print`
 
 *Type:* function or `undefined`  
 *Default:* `undefined`
@@ -492,7 +492,7 @@ May I have your name? :Oz
 Hi Oz! Where do you live? :Emerald City
 ```
 
-### `history`<a name="basic_options-history">&nbsp;</a>
+### <a name="basic_options-history"></a>`history`
 
 _For `question*` and `prompt*` methods only_  
 *Type:* boolean  
@@ -525,7 +525,7 @@ hello
 -- You said "bye"
 ```
 
-### `cd`<a name="basic_options-cd">&nbsp;</a>
+### <a name="basic_options-cd"></a>`cd`
 
 _For `question*` and `prompt*` methods only_  
 *Type:* boolean  
@@ -561,13 +561,13 @@ File :file-c.html
 -- Specified file is /path/to/foo-dir/bar-dir/file-c.html
 ```
 
-## Utility Methods<a name="utility_methods">&nbsp;</a>
+## <a name="utility_methods"></a>Utility Methods
 
 [`questionEMail`](#utility_methods-questionemail), [`questionNewPassword`](#utility_methods-questionnewpassword), [`questionInt`](#utility_methods-questionint), [`questionFloat`](#utility_methods-questionfloat), [`questionPath`](#utility_methods-questionpath), [`promptCL`](#utility_methods-promptcl), [`promptLoop`](#utility_methods-promptloop), [`promptCLLoop`](#utility_methods-promptclloop), [`promptSimShell`](#utility_methods-promptsimshell), [`keyInYN`](#utility_methods-keyinyn), [`keyInYNStrict`](#utility_methods-keyinynstrict), [`keyInPause`](#utility_methods-keyinpause), [`keyInSelect`](#utility_methods-keyinselect)
 
 These are convenient methods that are extended [Basic Methods](#basic_methods) to be used easily.
 
-### `questionEMail`<a name="utility_methods-questionemail">&nbsp;</a>
+### <a name="utility_methods-questionemail"></a>`questionEMail`
 
 ```js
 email = readlineSync.questionEMail([query[, options]])
@@ -594,7 +594,7 @@ Input e-mail address :mail@example.com
 -- E-mail is mail@example.com
 ```
 
-#### Options<a name="utility_methods-questionemail-options">&nbsp;</a>
+#### <a name="utility_methods-questionemail-options"></a>Options
 
 The following options have independent default value that is not affected by [Default Options](#basic_options).
 
@@ -613,7 +613,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 <tr><td><a href="#basic_options-print"><code>print</code></a></td><td><a href="#basic_options-history"><code>history</code></a></td></tr>
 </table>
 
-### `questionNewPassword`<a name="utility_methods-questionnewpassword">&nbsp;</a>
+### <a name="utility_methods-questionnewpassword"></a>`questionNewPassword`
 
 ```js
 password = readlineSync.questionNewPassword([query[, options]])
@@ -646,7 +646,7 @@ Reinput a same one to confirm it :*************
 -- Password is _my_password_
 ```
 
-#### Options<a name="utility_methods-questionnewpassword-options">&nbsp;</a>
+#### <a name="utility_methods-questionnewpassword-options"></a>Options
 
 The following options have independent default value that is not affected by [Default Options](#basic_options).
 
@@ -667,7 +667,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 
 And the following additional options are available.
 
-##### `charlist`<a name="utility_methods-questionnewpassword-options-charlist">&nbsp;</a>
+##### <a name="utility_methods-questionnewpassword-options-charlist"></a>`charlist`
 
 *Type:* string  
 *Default:* `'${!-~}'`
@@ -681,7 +681,7 @@ For example, let the user input a password that is created with alphabet and som
 password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '${a-z}#$@%'});
 ```
 
-##### `min`, `max`<a name="utility_methods-questionnewpassword-options-min_max">&nbsp;</a>
+##### <a name="utility_methods-questionnewpassword-options-min_max"></a>`min`, `max`
 
 *Type:* number  
 *Default:* `min`: `12`, `max`: `24`
@@ -689,7 +689,7 @@ password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '${a-z}#$@%
 `min`: A number as a minimum length of the password.  
 `max`: A number as a maximum length of the password.
 
-##### `confirmMessage`<a name="utility_methods-questionnewpassword-options-confirmmessage">&nbsp;</a>
+##### <a name="utility_methods-questionnewpassword-options-confirmmessage"></a>`confirmMessage`
 
 *Type:* string or others  
 *Default:* `'Reinput a same one to confirm it :'`
@@ -698,7 +698,7 @@ A message that lets the user input the same password again.
 It can include the [placeholders](#placeholders).  
 If this is not string, it is converted to string (i.e. `toString` method is called).
 
-##### `unmatchMessage`<a name="utility_methods-questionnewpassword-options-unmatchmessage">&nbsp;</a>
+##### <a name="utility_methods-questionnewpassword-options-unmatchmessage"></a>`unmatchMessage`
 
 *Type:* string or others  
 *Default:* `'It differs from first one. Hit only Enter key if you want to retry from first one.'`
@@ -706,19 +706,19 @@ If this is not string, it is converted to string (i.e. `toString` method is call
 A warning message that is displayed when the second input did not match first one.  
 This is converted the same as the [`confirmMessage`](#utility_methods-questionnewpassword-options-confirmmessage) option.
 
-#### Additional Placeholders<a name="utility_methods-questionnewpassword-additional_placeholders">&nbsp;</a>
+#### <a name="utility_methods-questionnewpassword-additional_placeholders"></a>Additional Placeholders
 
 The following additional [placeholder](#placeholders) parameters are available.
 
-##### `charlist`<a name="utility_methods-questionnewpassword-additional_placeholders-charlist">&nbsp;</a>
+##### <a name="utility_methods-questionnewpassword-additional_placeholders-charlist"></a>`charlist`
 
 A current value of [`charlist`](#utility_methods-questionnewpassword-options-charlist) option that is converted to human readable if possible. (e.g. `'A...Z'`)
 
-##### `length`<a name="utility_methods-questionnewpassword-additional_placeholders-length">&nbsp;</a>
+##### <a name="utility_methods-questionnewpassword-additional_placeholders-length"></a>`length`
 
 A current value of [`min` and `max`](#utility_methods-questionnewpassword-options-min_max) option that is converted to human readable. (e.g. `'12...24'`)
 
-### `questionInt`<a name="utility_methods-questionint">&nbsp;</a>
+### <a name="utility_methods-questionint"></a>`questionInt`
 
 ```js
 numInt = readlineSync.questionInt([query[, options]])
@@ -729,7 +729,7 @@ This parses the input as much as possible by `parseInt()`. For example, it inter
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.
 
-#### Options<a name="utility_methods-questionint-options">&nbsp;</a>
+#### <a name="utility_methods-questionint-options"></a>Options
 
 The following option has independent default value that is not affected by [Default Options](#basic_options).
 
@@ -744,7 +744,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 <tr><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td><td><a href="#basic_options-history"><code>history</code></a></td></tr>
 </table>
 
-### `questionFloat`<a name="utility_methods-questionfloat">&nbsp;</a>
+### <a name="utility_methods-questionfloat"></a>`questionFloat`
 
 ```js
 numFloat = readlineSync.questionFloat([query[, options]])
@@ -755,7 +755,7 @@ This parses the input as much as possible by `parseFloat()`. For example, it int
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.
 
-#### Options<a name="utility_methods-questionfloat-options">&nbsp;</a>
+#### <a name="utility_methods-questionfloat-options"></a>Options
 
 The following option has independent default value that is not affected by [Default Options](#basic_options).
 
@@ -770,7 +770,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 <tr><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td><td><a href="#basic_options-history"><code>history</code></a></td></tr>
 </table>
 
-### `questionPath`<a name="utility_methods-questionpath">&nbsp;</a>
+### <a name="utility_methods-questionpath"></a>`questionPath`
 
 ```js
 path = readlineSync.questionPath([query[, options]])
@@ -814,7 +814,7 @@ Save to :~/deploy/data
 -- saveDir: /home/user/deploy/data
 ```
 
-#### Options<a name="utility_methods-questionpath-options">&nbsp;</a>
+#### <a name="utility_methods-questionpath-options"></a>Options
 
 The following options have independent default value that is not affected by [Default Options](#basic_options).
 
@@ -836,7 +836,7 @@ And the following additional options are available.
 
 *Note:* It does not check the coherency about a combination of the options as the path requirement. For example, the `{exists: false, isFile: true}` never check that it is a file because it is limited to the path that does not exist.
 
-##### `exists`<a name="utility_methods-questionpath-options-exists">&nbsp;</a>
+##### <a name="utility_methods-questionpath-options-exists"></a>`exists`
 
 *Type:* boolean or others  
 *Default:* `true`
@@ -844,7 +844,7 @@ And the following additional options are available.
 If `true` is specified, accept only a file or directory path that exists. If `false` is specified, accept only a file or directory path that does *not* exist.  
 In any other case, the existence is not checked.
 
-##### `min`, `max`<a name="utility_methods-questionpath-options-min_max">&nbsp;</a>
+##### <a name="utility_methods-questionpath-options-min_max"></a>`min`, `max`
 
 *Type:* number or others  
 *Default:* `undefined`
@@ -853,7 +853,7 @@ In any other case, the existence is not checked.
 `max`: A number as a maximum size of the file that is accepted.  
 If it is not specified or `0` is specified, the size is not checked. (A size of directory is `0`.)
 
-##### `isFile`, `isDirectory`<a name="utility_methods-questionpath-options-isfile_isdirectory">&nbsp;</a>
+##### <a name="utility_methods-questionpath-options-isfile_isdirectory"></a>`isFile`, `isDirectory`
 
 *Type:* boolean  
 *Default:* `false`
@@ -861,7 +861,7 @@ If it is not specified or `0` is specified, the size is not checked. (A size of 
 `isFile`: If `true` is specified, accept only a file path.  
 `isDirectory`: If `true` is specified, accept only a directory path.
 
-##### `validate`<a name="utility_methods-questionpath-options-validate">&nbsp;</a>
+##### <a name="utility_methods-questionpath-options-validate"></a>`validate`
 
 *Type:* function or `undefined`  
 *Default:* `undefined`
@@ -879,7 +879,7 @@ imageFile = readlineSync.questionPath('Image File :', {
 });
 ```
 
-##### `create`<a name="utility_methods-questionpath-options-create">&nbsp;</a>
+##### <a name="utility_methods-questionpath-options-create"></a>`create`
 
 *Type:* boolean  
 *Default:* `false`
@@ -887,20 +887,20 @@ imageFile = readlineSync.questionPath('Image File :', {
 If `true` is specified, create a file or directory as a path that was input when it doesn't exist. If `true` is specified to the [`isDirectory`](#utility_methods-questionpath-options-isfile_isdirectory) option, create a directory, otherwise a file.  
 It does not affect the existence check. Therefore, you can get a new file or directory path anytime by specifying: `{exists: false, create: true}`
 
-#### Additional Placeholders<a name="utility_methods-questionpath-additional_placeholders">&nbsp;</a>
+#### <a name="utility_methods-questionpath-additional_placeholders"></a>Additional Placeholders
 
 The following additional [placeholder](#placeholders) parameters are available.
 
-##### `error`<a name="utility_methods-questionpath-additional_placeholders-error">&nbsp;</a>
+##### <a name="utility_methods-questionpath-additional_placeholders-error"></a>`error`
 
 An error message when the input was not accepted.  
 This value is set by readlineSync, or the function that was specified to [`validate`](#utility_methods-questionpath-options-validate) option.
 
-##### `min`, `max`<a name="utility_methods-questionpath-additional_placeholders-min_max">&nbsp;</a>
+##### <a name="utility_methods-questionpath-additional_placeholders-min_max"></a>`min`, `max`
 
 A current value of [`min` and `max`](#utility_methods-questionpath-options-min_max) option.
 
-### `promptCL`<a name="utility_methods-promptcl">&nbsp;</a>
+### <a name="utility_methods-promptcl"></a>`promptCL`
 
 ```js
 argsArray = readlineSync.promptCL([commandHandler[, options]])
@@ -928,7 +928,7 @@ arg
 arg
 ```
 
-#### `commandHandler`<a name="utility_methods-promptcl-commandhandler">&nbsp;</a>
+#### <a name="utility_methods-promptcl-commandhandler"></a>`commandHandler`
 
 By using the `commandHandler` argument, this method will come into its own. Specifying the Object to this argument has the more merit. And it has the more merit for [`promptCLLoop`](#utility_methods-promptclloop) method.  
 
@@ -999,7 +999,7 @@ readlineSync.promptCL({
 });
 ```
 
-#### Options<a name="utility_methods-promptcl-options">&nbsp;</a>
+#### <a name="utility_methods-promptcl-options"></a>Options
 
 The following options have independent default value that is not affected by [Default Options](#basic_options).
 
@@ -1017,7 +1017,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 <tr><td><a href="#basic_options-print"><code>print</code></a></td><td><a href="#basic_options-cd"><code>cd</code></a></td></tr>
 </table>
 
-### `promptLoop`<a name="utility_methods-promptloop">&nbsp;</a>
+### <a name="utility_methods-promptloop"></a>`promptLoop`
 
 ```js
 readlineSync.promptLoop(inputHandler[, options])
@@ -1056,7 +1056,7 @@ console.log('It\'s exited from loop.');
 It's exited from loop.
 ```
 
-#### Options<a name="utility_methods-promptloop-options">&nbsp;</a>
+#### <a name="utility_methods-promptloop-options"></a>Options
 
 The following options have independent default value that is not affected by [Default Options](#basic_options).
 
@@ -1070,7 +1070,7 @@ The following options have independent default value that is not affected by [De
 
 The other options work as shown in the [Basic Options](#basic_options) section.
 
-### `promptCLLoop`<a name="utility_methods-promptclloop">&nbsp;</a>
+### <a name="utility_methods-promptclloop"></a>`promptCLLoop`
 
 ```js
 readlineSync.promptCLLoop([commandHandler[, options]])
@@ -1118,7 +1118,7 @@ filesOnOld is copied to New Hard Disk.
 It's exited from loop.
 ```
 
-#### Options<a name="utility_methods-promptclloop-options">&nbsp;</a>
+#### <a name="utility_methods-promptclloop-options"></a>Options
 
 The following options have independent default value that is not affected by [Default Options](#basic_options).
 
@@ -1136,7 +1136,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 <tr><td><a href="#basic_options-print"><code>print</code></a></td><td><a href="#basic_options-cd"><code>cd</code></a></td></tr>
 </table>
 
-### `promptSimShell`<a name="utility_methods-promptsimshell">&nbsp;</a>
+### <a name="utility_methods-promptsimshell"></a>`promptSimShell`
 
 ```js
 input = readlineSync.promptSimShell([options])
@@ -1157,7 +1157,7 @@ On others:
 user@host:~/path/to/directory$ 
 ```
 
-#### Options<a name="utility_methods-promptsimshell-options">&nbsp;</a>
+#### <a name="utility_methods-promptsimshell-options"></a>Options
 
 The following options have independent default value that is not affected by [Default Options](#basic_options).
 
@@ -1168,7 +1168,7 @@ The following options have independent default value that is not affected by [De
 
 The other options other than [`prompt`](#basic_options-prompt) option work as shown in the [Basic Options](#basic_options) section.
 
-### `keyInYN`<a name="utility_methods-keyinyn">&nbsp;</a>
+### <a name="utility_methods-keyinyn"></a>`keyInYN`
 
 ```js
 boolYesOrEmpty = readlineSync.keyInYN([query[, options]])
@@ -1209,7 +1209,7 @@ if (readlineSync.keyInYN('Continue virus scan?') === false) {
 // Continue...
 ```
 
-#### Options<a name="utility_methods-keyinyn-options">&nbsp;</a>
+#### <a name="utility_methods-keyinyn-options"></a>Options
 
 The following options work as shown in the [Basic Options](#basic_options) section.
 
@@ -1219,7 +1219,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 
 And the following additional option is available.
 
-##### `guide`<a name="utility_methods-keyinyn-options-guide">&nbsp;</a>
+##### <a name="utility_methods-keyinyn-options-guide"></a>`guide`
 
 *Type:* boolean  
 *Default:* `true`
@@ -1238,7 +1238,7 @@ Do you like me? [y/n] :y
 Really? [y/n] :y
 ```
 
-### `keyInYNStrict`<a name="utility_methods-keyinynstrict">&nbsp;</a>
+### <a name="utility_methods-keyinynstrict"></a>`keyInYNStrict`
 
 ```js
 boolYes = readlineSync.keyInYNStrict([query[, options]])
@@ -1257,7 +1257,7 @@ A key other than `Y` and `N` is not accepted. That is, a return value has no def
 
 This method works same to [`keyInYN`](#utility_methods-keyinyn) method except that this accept only `Y` or `N` key (Therefore, a return value is boolean every time). The options also work same to [`keyInYN`](#utility_methods-keyinyn) method.
 
-### `keyInPause`<a name="utility_methods-keyinpause">&nbsp;</a>
+### <a name="utility_methods-keyinpause"></a>`keyInPause`
 
 ```js
 readlineSync.keyInPause([query[, options]])
@@ -1289,7 +1289,7 @@ Continue... (Hit any key)
 It's executing now...
 ```
 
-#### Options<a name="utility_methods-keyinpause-options">&nbsp;</a>
+#### <a name="utility_methods-keyinpause-options"></a>Options
 
 The following option has independent default value that is not affected by [Default Options](#basic_options).
 
@@ -1305,7 +1305,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 
 And the following additional option is available.
 
-##### `guide`<a name="utility_methods-keyinpause-options-guide">&nbsp;</a>
+##### <a name="utility_methods-keyinpause-options-guide"></a>`guide`
 
 *Type:* boolean  
 *Default:* `true`
@@ -1322,7 +1322,7 @@ readlineSync.keyInPause('It\'s pausing now...');
 It's pausing now... (Hit any key)
 ```
 
-### `keyInSelect`<a name="utility_methods-keyinselect">&nbsp;</a>
+### <a name="utility_methods-keyinselect"></a>`keyInSelect`
 
 ```js
 index = readlineSync.keyInSelect(items[, query[, options]])
@@ -1355,7 +1355,7 @@ Which framework? [1...5 / 0] :2
 hapi is enabled.
 ```
 
-#### Options<a name="utility_methods-keyinselect-options">&nbsp;</a>
+#### <a name="utility_methods-keyinselect-options"></a>Options
 
 The following option has independent default value that is not affected by [Default Options](#basic_options).
 
@@ -1371,21 +1371,21 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 
 And the following additional options are available.
 
-##### `guide`<a name="utility_methods-keyinselect-options-guide">&nbsp;</a>
+##### <a name="utility_methods-keyinselect-options-guide"></a>`guide`
 
 *Type:* boolean  
 *Default:* `true`
 
 If `true` is specified, a string like `'[1...5]'` as guide for the user is added to `query`. And `':'` is moved to the end of `query`, or it is added. This is the key list that corresponds to the item list.
 
-##### `cancel`<a name="utility_methods-keyinselect-options-cancel">&nbsp;</a>
+##### <a name="utility_methods-keyinselect-options-cancel"></a>`cancel`
 
 *Type:* boolean  
 *Default:* `true`
 
 If `true` is specified, an item to let the user tell "cancel" is added to the item list. "[0] CANCEL" is displayed, and if `0` key is pressed, `-1` is returned.
 
-## Placeholders<a name="placeholders">&nbsp;</a>
+## <a name="placeholders"></a>Placeholders
 
 [`hideEchoBack`, `mask`, `defaultInput`, `caseSensitive`, `keepWhitespace`, `encoding`, `bufferSize`, `history`, `cd`, `limit`, `trueValue`, `falseValue`](#placeholders-parameters-hideechoback_mask_defaultinput_casesensitive_keepwhitespace_encoding_buffersize_history_cd_limit_truevalue_falsevalue), [`limitCount`, `limitCountNotZero`](#placeholders-parameters-limitcount_limitcountnotzero), [`lastInput`](#placeholders-parameters-lastinput), [`history_mN`](#placeholders-parameters-historymn), [`cwd`, `CWD`, `cwdHome`](#placeholders-parameters-cwd_cwd_cwdhome), [`date`, `time`, `localeDate`, `localeTime`](#placeholders-parameters-date_time_localedate_localetime), [`C1-C2`](#placeholders-parameters-c1_c2)
 
@@ -1412,7 +1412,7 @@ The placeholders can be included in:
 * [`limit` option for `keyIn*` method](#basic_options-limit-for_keyin_method) and [`charlist`](#utility_methods-questionnewpassword-options-charlist) option for [`questionNewPassword`](#utility_methods-questionnewpassword) method ([`C1-C2`](#placeholders-parameters-c1_c2) parameter only)
 * And some additional options for the [Utility Methods](#utility_methods).
 
-### Syntax<a name="placeholders-syntax">&nbsp;</a>
+### <a name="placeholders-syntax"></a>Syntax
 
 ```
 ${parameter}
@@ -1468,11 +1468,11 @@ Refused . Please input another.
 
 (May be more better: `'${(Refused )lastInput( you requested. )}Please input another.'`)
 
-### Parameters<a name="placeholders-parameters">&nbsp;</a>
+### <a name="placeholders-parameters"></a>Parameters
 
 The following parameters are available. And some additional parameters are available in the [Utility Methods](#utility_methods).
 
-#### <a name="placeholders-parameters-hideechoback_mask_defaultinput_casesensitive_keepwhitespace_encoding_buffersize_history_cd_limit_truevalue_falsevalue">&nbsp;</a>`hideEchoBack`, `mask`, `defaultInput`, `caseSensitive`, `keepWhitespace`, `encoding`, `bufferSize`, `history`, `cd`, `limit`, `trueValue`, `falseValue`
+#### <a name="placeholders-parameters-hideechoback_mask_defaultinput_casesensitive_keepwhitespace_encoding_buffersize_history_cd_limit_truevalue_falsevalue"></a>`hideEchoBack`, `mask`, `defaultInput`, `caseSensitive`, `keepWhitespace`, `encoding`, `bufferSize`, `history`, `cd`, `limit`, `trueValue`, `falseValue`
 
 A current value of each option.  
 It is converted to human readable if possible. The boolean value is replaced to `'on'` or `'off'`, and the Array is replaced to the list of only string and number elements.  
@@ -1491,7 +1491,7 @@ input = readlineSync.question(
 Input something or Enter key as "hello" :
 ```
 
-#### `limitCount`, `limitCountNotZero`<a name="placeholders-parameters-limitcount_limitcountnotzero">&nbsp;</a>
+#### <a name="placeholders-parameters-limitcount_limitcountnotzero"></a>`limitCount`, `limitCountNotZero`
 
 A length of a current value of the [`limit`](#basic_options-limit) option.  
 When the value of the [`limit`](#basic_options-limit) option is empty, `'${limitCount}'` is replaced to `'0'`, `'${limitCountNotZero}'` is replaced to `''`.
@@ -1509,7 +1509,7 @@ action = readlineSync.question(
 Choose action from 5 actions :
 ```
 
-#### `lastInput`<a name="placeholders-parameters-lastinput">&nbsp;</a>
+#### <a name="placeholders-parameters-lastinput"></a>`lastInput`
 
 A last input from the user.  
 In any case, this is saved.
@@ -1528,7 +1528,7 @@ command = readlineSync.prompt({
 wrong-command is not available.
 ```
 
-#### `history_mN`<a name="placeholders-parameters-historymn">&nbsp;</a>
+#### <a name="placeholders-parameters-historymn"></a>`history_mN`
 
 When the history expansion feature is enabled (see [`history`](#basic_options-history) option), a current command line minus `N`.  
 *This feature keeps the previous input only.* That is, only `history_m1` is supported.
@@ -1550,7 +1550,7 @@ hello
 -- You said "hello"
 ```
 
-#### `cwd`, `CWD`, `cwdHome`<a name="placeholders-parameters-cwd_cwd_cwdhome">&nbsp;</a>
+#### <a name="placeholders-parameters-cwd_cwd_cwdhome"></a>`cwd`, `CWD`, `cwdHome`
 
 A current working directory.  
 
@@ -1568,7 +1568,7 @@ command = readlineSync.prompt({prompt: '[${cwdHome}]$ '});
 [~/foo/bar]$ 
 ```
 
-#### `date`, `time`, `localeDate`, `localeTime`<a name="placeholders-parameters-date_time_localedate_localetime">&nbsp;</a>
+#### <a name="placeholders-parameters-date_time_localedate_localetime"></a>`date`, `time`, `localeDate`, `localeTime`
 
 A string as current date or time.
 
@@ -1587,7 +1587,7 @@ command = readlineSync.prompt({prompt: '[${localeDate}]> '});
 [04/21/2015]> 
 ```
 
-#### `C1-C2`<a name="placeholders-parameters-c1_c2">&nbsp;</a>
+#### <a name="placeholders-parameters-c1_c2"></a>`C1-C2`
 
 _For [`limit` option for `keyIn*` method](#basic_options-limit-for_keyin_method) and [`charlist`](#utility_methods-questionnewpassword-options-charlist) option for [`questionNewPassword`](#utility_methods-questionnewpassword) method only_
 
@@ -1602,7 +1602,7 @@ password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '${a-z}'});
 
 See also [`limit` option for `keyIn*` method](#basic_options-limit-for_keyin_method).
 
-## With Task Runner<a name="with_task_runner">&nbsp;</a>
+## <a name="with_task_runner"></a>With Task Runner
 
 The easy way to control a flow of the task runner by the input from the user:
 
@@ -1649,9 +1649,9 @@ grunt.initConfig({
 });
 ```
 
-## Note<a name="note">&nbsp;</a>
+## <a name="note"></a>Note
 
-### Platforms<a name="note-platforms">&nbsp;</a>
+### <a name="note-platforms"></a>Platforms
 
 The TTY interfaces are different by the platforms. If the platform doesn't support the interactively reading from TTY, an error is thrown.
 
@@ -1664,7 +1664,7 @@ try {
 }
 ```
 
-### Reading by External Program<a name="note-reading_by_external_program">&nbsp;</a>
+### <a name="note-reading_by_external_program"></a>Reading by External Program
 
 readlineSync tries to read from a console by using the external program if it is needed (e.g. when the input stream is redirected on Windows XP). And if the running Node doesn't support the [Synchronous Process Execution](http://nodejs.org/api/child_process.html#child_process_synchronous_process_creation) (i.e. Node v0.10-), readlineSync uses "piping via files" for the synchronous execution.  
 As everyone knows, "piping via files" is no good. It blocks the event loop and a process. It might make the your script be slow.
@@ -1674,6 +1674,6 @@ Why did I choose it? :
 * The good modules (native addon) for the synchronous execution exist, but node-gyp can't compile those in some platforms or Node versions.
 * I think that the security is important more than the speed. Some modules have problem about security. Those don't protect the data. I think that the speed is not needed usually, because readlineSync is used while the user types keys.
 
-## Deprecated Methods and Options<a name="deprecated_methods_and_options">&nbsp;</a>
+## <a name="deprecated_methods_and_options"></a>Deprecated Methods and Options
 
 See [README-Deprecated.md](README-Deprecated.md).

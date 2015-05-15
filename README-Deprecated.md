@@ -7,8 +7,8 @@ The following methods and options are deprecated.
 
 ### <a name="deprecated_methods_and_options-setprint_method"></a>`setPrint` method
 
-Use the [`print`](#basic_options-print) option.  
-For the [Default Options](#basic_options), use:
+Use the [`print`](README.md#basic_options-print) option.  
+For the [Default Options](README.md#basic_options), use:
 
 ```js
 readlineSync.setDefaultOptions({print: value});
@@ -22,8 +22,8 @@ readlineSync.setPrint(value);
 
 ### <a name="deprecated_methods_and_options-setprompt_method"></a>`setPrompt` method
 
-Use the [`prompt`](#basic_options-prompt) option.  
-For the [Default Options](#basic_options), use:
+Use the [`prompt`](README.md#basic_options-prompt) option.  
+For the [Default Options](README.md#basic_options), use:
 
 ```js
 readlineSync.setDefaultOptions({prompt: value});
@@ -37,8 +37,8 @@ readlineSync.setPrompt(value);
 
 ### <a name="deprecated_methods_and_options-setencoding_method"></a>`setEncoding` method
 
-Use the [`encoding`](#basic_options-encoding) option.  
-For the [Default Options](#basic_options), use:
+Use the [`encoding`](README.md#basic_options-encoding) option.  
+For the [Default Options](README.md#basic_options), use:
 
 ```js
 readlineSync.setDefaultOptions({encoding: value});
@@ -52,8 +52,8 @@ readlineSync.setEncoding(value);
 
 ### <a name="deprecated_methods_and_options-setmask_method"></a>`setMask` method
 
-Use the [`mask`](#basic_options-mask) option.  
-For the [Default Options](#basic_options), use:
+Use the [`mask`](README.md#basic_options-mask) option.  
+For the [Default Options](README.md#basic_options), use:
 
 ```js
 readlineSync.setDefaultOptions({mask: value});
@@ -67,8 +67,8 @@ readlineSync.setMask(value);
 
 ### <a name="deprecated_methods_and_options-setbuffersize_method"></a>`setBufferSize` method
 
-Use the [`bufferSize`](#basic_options-buffersize) option.  
-For the [Default Options](#basic_options), use:
+Use the [`bufferSize`](README.md#basic_options-buffersize) option.  
+For the [Default Options](README.md#basic_options), use:
 
 ```js
 readlineSync.setDefaultOptions({bufferSize: value});
@@ -82,8 +82,8 @@ readlineSync.setBufferSize(value);
 
 ### <a name="deprecated_methods_and_options-noechoback_option"></a>`noEchoBack` option
 
-Use [`hideEchoBack`](#basic_options-hideechoback) option instead of it.
+Use [`hideEchoBack`](README.md#basic_options-hideechoback) option instead of it.
 
 ### <a name="deprecated_methods_and_options-notrim_option"></a>`noTrim` option
 
-Use [`keepWhitespace`](#basic_options-keepwhitespace) option instead of it.
+Use [`keepWhitespace`](README.md#basic_options-keepwhitespace) option instead of it.
