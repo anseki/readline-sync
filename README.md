@@ -410,6 +410,7 @@ Set the encoding method of the input and output.
 
 ### <a name="basic_options-buffersize"></a>`bufferSize`
 
+_For `question*` and `prompt*` methods only_  
 *Type:* number  
 *Default:* `1024`
 
@@ -740,8 +741,8 @@ The following option has independent default value that is not affected by [Defa
 The following options work as shown in the [Basic Options](#basic_options) section.
 
 <table>
-<tr><td><a href="#basic_options-hideechoback"><code>hideEchoBack</code></a></td><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-defaultinput"><code>defaultInput</code></a></td><td><a href="#basic_options-casesensitive"><code>caseSensitive</code></a></td><td><a href="#basic_options-keepwhitespace"><code>keepWhitespace</code></a></td></tr>
-<tr><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td><td><a href="#basic_options-history"><code>history</code></a></td></tr>
+<tr><td><a href="#basic_options-hideechoback"><code>hideEchoBack</code></a></td><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-defaultinput"><code>defaultInput</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td></tr>
+<tr><td><a href="#basic_options-print"><code>print</code></a></td><td><a href="#basic_options-history"><code>history</code></a></td></tr>
 </table>
 
 ### <a name="utility_methods-questionfloat"></a>`questionFloat`
@@ -766,8 +767,8 @@ The following option has independent default value that is not affected by [Defa
 The following options work as shown in the [Basic Options](#basic_options) section.
 
 <table>
-<tr><td><a href="#basic_options-hideechoback"><code>hideEchoBack</code></a></td><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-defaultinput"><code>defaultInput</code></a></td><td><a href="#basic_options-casesensitive"><code>caseSensitive</code></a></td><td><a href="#basic_options-keepwhitespace"><code>keepWhitespace</code></a></td></tr>
-<tr><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td><td><a href="#basic_options-history"><code>history</code></a></td></tr>
+<tr><td><a href="#basic_options-hideechoback"><code>hideEchoBack</code></a></td><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-defaultinput"><code>defaultInput</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td></tr>
+<tr><td><a href="#basic_options-print"><code>print</code></a></td><td><a href="#basic_options-history"><code>history</code></a></td></tr>
 </table>
 
 ### <a name="utility_methods-questionpath"></a>`questionPath`
@@ -828,8 +829,7 @@ The following options have independent default value that is not affected by [De
 The following options work as shown in the [Basic Options](#basic_options) section.
 
 <table>
-<tr><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-defaultinput"><code>defaultInput</code></a></td><td><a href="#basic_options-casesensitive"><code>caseSensitive</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td></tr>
-<tr><td><a href="#basic_options-print"><code>print</code></a></td></tr>
+<tr><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-defaultinput"><code>defaultInput</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
 </table>
 
 And the following additional options are available.
@@ -1214,7 +1214,7 @@ if (readlineSync.keyInYN('Continue virus scan?') === false) {
 The following options work as shown in the [Basic Options](#basic_options) section.
 
 <table>
-<tr><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
+<tr><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
 </table>
 
 And the following additional option is available.
@@ -1300,7 +1300,7 @@ The following option has independent default value that is not affected by [Defa
 The following options work as shown in the [Basic Options](#basic_options) section.
 
 <table>
-<tr><td><a href="#basic_options-casesensitive"><code>caseSensitive</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
+<tr><td><a href="#basic_options-casesensitive"><code>caseSensitive</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
 </table>
 
 And the following additional option is available.
@@ -1366,7 +1366,7 @@ The following option has independent default value that is not affected by [Defa
 The following options work as shown in the [Basic Options](#basic_options) section.
 
 <table>
-<tr><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-buffersize"><code>bufferSize</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
+<tr><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
 </table>
 
 And the following additional options are available.
