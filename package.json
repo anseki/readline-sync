@@ -1,6 +1,6 @@
 {
   "name": "readline-sync",
-  "version": "1.2.16",
+  "version": "1.2.17",
   "title": "readlineSync",
   "description": "Synchronous Readline for interactively running to have a conversation with the user via a console(TTY).",
   "keywords": [
@@ -23,7 +23,7 @@
     "url": "git://github.com/anseki/readline-sync.git"
   },
   "bugs": "https://github.com/anseki/readline-sync/issues",
-  "licenses": "MIT",
+  "license": "MIT",
   "author": {
     "name": "anseki",
     "url": "https://github.com/anseki"
