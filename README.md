@@ -8,7 +8,7 @@ readlineSync tries to let your script have a conversation with the user via a co
 <tr><td><a href="#basic_options">Basic Options</a></td><td><a href="#utility_methods">Utility Methods</a></td><td><a href="#placeholders">Placeholders</a></td></tr>
 </table>
 
-* Some simple cases:
+* Simple case:
 
 ```js
 var readlineSync = require('readline-sync');
@@ -31,7 +31,7 @@ What is your favorite food? :****
 Oh, CookieMonster loves tofu!
 ```
 
-* Enter key is not necessary:
+* Get user's response without Enter key:
 
 ```js
 var readlineSync = require('readline-sync');
@@ -85,12 +85,7 @@ while (true) {
 console.log('\nA value the user requested: ' + value);
 ```
 
-```console
-                   [Z] <- -> [X]  FIX: [SPACE]
-|---------------------------------------------------O---------| 51
-
-A value the user requested: 51
-```
+![sample](screen_03.gif)
 
 ## <a name="installation"></a>Installation
 
@@ -216,6 +211,12 @@ readlineSync.setDefaultOptions({
 });
 ```
 
+```console
+[13148kb]$ foo
+[13160kb]$ bar
+[13200kb]$
+```
+
 ### <a name="basic_options-hideechoback"></a>`hideEchoBack`
 
 *Type:* boolean  
@@ -252,7 +253,7 @@ secret = readlineSync.question('Please whisper sweet words :', {
 });
 ```
 
-![sample](cl_02.png)
+![sample](screen_02.gif)
 
 ### <a name="basic_options-limit"></a>`limit`
 
@@ -428,7 +429,7 @@ For example:
 
 * Pass the plain texts to the Logger (e.g. [log4js](https://github.com/nomiddlename/log4js-node)), after clean the colored texts.
 
-![sample](cl_01.png)
+![sample](screen_01.png)
 
 ```js
 var readlineSync = require('readline-sync'),
