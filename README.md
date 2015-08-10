@@ -121,13 +121,13 @@ npm install readline-sync
 
 ## <a name="quick_start"></a>Quick Start
 
-** How does the user input? **
+__ How does the user input? __
 
 - [Type a reply to a question, and press an Enter key](#quick_start-a) (A)
 - [Type a keyword like a command in prompt, and press an Enter key](#quick_start-b) (B)
 - [Press a single key without Enter key](#quick_start-c) (C)
 
-<a name="quick_start-a"></a>** (A) What does the user input? **
+<a name="quick_start-a"></a>__ (A) What does the user input? __
 
 - [E-mail address](#utility_methods-questionemail)
 - [New password](#utility_methods-questionnewpassword)
@@ -136,7 +136,7 @@ npm install readline-sync
 - [Local file/directory path](#utility_methods-questionpath)
 - [Others](#basic_methods-question)
 
-<a name="quick_start-b"></a>** (B) What does your script do? **
+<a name="quick_start-b"></a>__ (B) What does your script do? __
 
 - [Receive a parsed command-name and arguments](#utility_methods-promptcl)
 - [Receive an input repeatedly](#utility_methods-promptloop)
@@ -144,7 +144,7 @@ npm install readline-sync
 - [Receive an input with prompt that is similar to that of the user's shell](#utility_methods-promptsimshell)
 - [Others](#basic_methods-prompt)
 
-<a name="quick_start-c"></a>** (C) What does the user do? **
+<a name="quick_start-c"></a>__ (C) What does the user do? __
 
 - [Say "Yes" or "No"](#utility_methods-keyinyn)
 - [Say "Yes" or "No" explicitly](#utility_methods-keyinynstrict)
