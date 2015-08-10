@@ -17,9 +17,9 @@ var readlineSync = require('readline-sync');
 var userName = readlineSync.question('May I have your name? :');
 console.log('Hi ' + userName + '!');
 
-// Handle the secret text.
+// Handle the secret text (e.g. password).
 var favFood = readlineSync.question('What is your favorite food? :', {
-  hideEchoBack: true
+  hideEchoBack: true // The typed text on screen is hidden by `*` (default).
 });
 console.log('Oh, ' + userName + ' loves ' + favFood + '!');
 ```
@@ -31,7 +31,7 @@ What is your favorite food? :****
 Oh, CookieMonster loves tofu!
 ```
 
-* Get user's response without Enter key:
+* Get user's response by a single key without Enter key:
 
 ```js
 var readlineSync = require('readline-sync');
@@ -87,11 +87,70 @@ console.log('\nA value the user requested: ' + value);
 
 ![sample](screen_03.gif)
 
+* Command line tool:
+
+```js
+readlineSync.promptCLLoop({
+  add: function(target, into) {
+    console.log(target + ' is added into ' + into + '.');
+  },
+  remove: function(target) {
+    console.log(target + ' is removed.');
+  },
+  bye: function() { return true; }
+});
+console.log('Exited');
+```
+
+```console
+> add pic01.png archive
+pic01.png is added into archive.
+> delete pic01.png
+Requested command is not available.
+> remove pic01.png
+pic01.png is removed.
+> bye
+Exited
+```
+
 ## <a name="installation"></a>Installation
 
 ```shell
 npm install readline-sync
 ```
+
+## <a name="quick_start"></a>Quick Start
+
+** How does the user input? **
+
+- [Type a reply to a question, and press an Enter key](#quick_start-a) (A)
+- [Type a keyword like a command in prompt, and press an Enter key](#quick_start-b) (B)
+- [Press a single key without Enter key](#quick_start-c) (C)
+
+<a name="quick_start-a"></a>** (A) What does the user input? **
+
+- [E-mail address](#utility_methods-questionemail)
+- [New password](#utility_methods-questionnewpassword)
+- [Integer number](#utility_methods-questionint)
+- [Floating-point number](#utility_methods-questionfloat)
+- [Local file/directory path](#utility_methods-questionpath)
+- [Others](#basic_methods-question)
+
+<a name="quick_start-b"></a>** (B) What does your script do? **
+
+- [Receive a parsed command-name and arguments](#utility_methods-promptcl)
+- [Receive an input repeatedly](#utility_methods-promptloop)
+- [Receive a parsed command-name and arguments repeatedly](#utility_methods-promptclloop)
+- [Receive an input with prompt that is similar to that of the user's shell](#utility_methods-promptsimshell)
+- [Others](#basic_methods-prompt)
+
+<a name="quick_start-c"></a>** (C) What does the user do? **
+
+- [Say "Yes" or "No"](#utility_methods-keyinyn)
+- [Say "Yes" or "No" explicitly](#utility_methods-keyinynstrict)
+- [Make the running of script continue when ready](#utility_methods-keyinpause)
+- [Choose an item from a list](#utility_methods-keyinselect)
+- [Others](#basic_methods-keyin)
 
 ## <a name="basic_methods"></a>Basic Methods
 
