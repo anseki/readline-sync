@@ -87,7 +87,7 @@ console.log('\nA value the user requested: ' + value);
 
 ![sample](screen_03.gif)
 
-* Command line tool:
+* Handle the commands repeatedly, such as the shell interface:
 
 ```js
 readlineSync.promptCLLoop({
