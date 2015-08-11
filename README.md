@@ -31,15 +31,18 @@ What is your favorite food? :****
 Oh, CookieMonster loves tofu!
 ```
 
-* Get user's response by a single key without Enter key:
+* Get the user's response by a single key without the Enter key:
 
 ```js
 var readlineSync = require('readline-sync');
 if (readlineSync.keyInYN('Do you want this module?')) {
   // 'Y' key was pressed.
   console.log('Installing now...');
+  // Do something...
 } else {
+  // Another key was pressed.
   console.log('Searching another...');
+  // Do something...
 }
 ```
 
@@ -64,7 +67,7 @@ Which animal? [1...5 / 0] :2
 Ok, Elephant goes to your room.
 ```
 
-* A UI like the Range Slider:  
+* An UI like the Range Slider:  
 (Press `Z` or `X` key to change a value, and Space Bar to exit)
 
 ```js
@@ -93,9 +96,11 @@ console.log('\nA value the user requested: ' + value);
 readlineSync.promptCLLoop({
   add: function(target, into) {
     console.log(target + ' is added into ' + into + '.');
+    // Do something...
   },
   remove: function(target) {
     console.log(target + ' is removed.');
+    // Do something...
   },
   bye: function() { return true; }
 });
@@ -123,9 +128,9 @@ npm install readline-sync
 
 **How does the user input?**
 
-- [Type a reply to a question, and press an Enter key](#quick_start-a) (A)
-- [Type a keyword like a command in prompt, and press an Enter key](#quick_start-b) (B)
-- [Press a single key without Enter key](#quick_start-c) (C)
+- [Type a reply to a question, and press the Enter key](#quick_start-a) (A)
+- [Type a keyword like a command in prompt, and press the Enter key](#quick_start-b) (B)
+- [Press a single key without the Enter key](#quick_start-c) (C)
 
 <a name="quick_start-a"></a>**(A) What does the user input?**
 
@@ -162,7 +167,7 @@ These are used to control details of the behavior. It is recommended to use the 
 answer = readlineSync.question([query[, options]])
 ```
 
-Display a `query` to the user if it's specified, and then return the input from the user after it has been typed and an Enter key was pressed.  
+Display a `query` to the user if it's specified, and then return the input from the user after it has been typed and the Enter key was pressed.  
 You can specify an `options` (see [Basic Options](#basic_options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.). **If you let the user input the secret text (e.g. password), you should consider [`hideEchoBack`](#basic_options-hideechoback) option.**
 
 The `query` may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string (i.e. `toString` method is called) before it is displayed.  
@@ -182,7 +187,7 @@ program = readlineSync.question('Which program starts do you want? :', {
 input = readlineSync.prompt([options])
 ```
 
-Display a prompt-sign (see [`prompt`](#basic_options-prompt) option) to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
+Display a prompt-sign (see [`prompt`](#basic_options-prompt) option) to the user, and then return the input from the user after it has been typed and the Enter key was pressed.  
 You can specify an `options` (see [Basic Options](#basic_options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.).
 
 For example:
@@ -200,7 +205,7 @@ while (true) {
 pressedKey = readlineSync.keyIn([query[, options]])
 ```
 
-Display a `query` to the user if it's specified, and then return a character as a key immediately it was pressed by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.  
+Display a `query` to the user if it's specified, and then return a character as a key immediately it was pressed by the user, **without pressing the Enter key**. Note that the user has no chance to change the input.  
 You can specify an `options` (see [Basic Options](#basic_options)) to control the behavior (e.g. ignoring keys except some keys, checking target key, etc.).
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.
@@ -407,7 +412,7 @@ _For `question*` and `prompt*` methods only_
 *Type:* string  
 *Default:* `''`
 
-If the user input empty text (i.e. pressed an Enter key only), return this.
+If the user input empty text (i.e. pressed the Enter key only), return this.
 
 For example:
 
@@ -634,7 +639,7 @@ These are convenient methods that are extended [Basic Methods](#basic_methods) t
 email = readlineSync.questionEMail([query[, options]])
 ```
 
-Display a `query` to the user if it's specified, and then accept only a valid e-mail address, and then return it after an Enter key was pressed.
+Display a `query` to the user if it's specified, and then accept only a valid e-mail address, and then return it after the Enter key was pressed.
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
 The default value of `query` is `'Input e-mail address :'`.
@@ -680,7 +685,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 password = readlineSync.questionNewPassword([query[, options]])
 ```
 
-Display a `query` to the user if it's specified, and then accept only a valid password, and then request same one again, and then return it after an Enter key was pressed.  
+Display a `query` to the user if it's specified, and then accept only a valid password, and then request same one again, and then return it after the Enter key was pressed.  
 It's the password, or something that is the secret text like the password.  
 You can specify the valid password requirement to the options.
 
@@ -702,7 +707,7 @@ It can include: 0...9, A...Z, a...z, !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
 And the length must be: 12...24
 Input new password :*************
 Reinput a same one to confirm it :*************
-It differs from first one. Hit only Enter key if you want to retry from first one.
+It differs from first one. Hit only the Enter key if you want to retry from first one.
 Reinput a same one to confirm it :*************
 -- Password is _my_password_
 ```
@@ -762,7 +767,7 @@ If this is not string, it is converted to string (i.e. `toString` method is call
 ##### <a name="utility_methods-questionnewpassword-options-unmatchmessage"></a>`unmatchMessage`
 
 *Type:* string or others  
-*Default:* `'It differs from first one. Hit only Enter key if you want to retry from first one.'`
+*Default:* `'It differs from first one. Hit only the Enter key if you want to retry from first one.'`
 
 A warning message that is displayed when the second input did not match first one.  
 This is converted the same as the [`confirmMessage`](#utility_methods-questionnewpassword-options-confirmmessage) option.
@@ -785,7 +790,7 @@ A current value of [`min` and `max`](#utility_methods-questionnewpassword-option
 numInt = readlineSync.questionInt([query[, options]])
 ```
 
-Display a `query` to the user if it's specified, and then accept only an input that can be interpreted as an integer, and then return the number (not string) after an Enter key was pressed.  
+Display a `query` to the user if it's specified, and then accept only an input that can be interpreted as an integer, and then return the number (not string) after the Enter key was pressed.  
 This parses the input as much as possible by `parseInt()`. For example, it interprets `'   5   '`, `'5.6'`, `'005'`, `'5files'`, `'5kb'` and `'5px'` as `5`.
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.
@@ -811,7 +816,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 numFloat = readlineSync.questionFloat([query[, options]])
 ```
 
-Display a `query` to the user if it's specified, and then accept only an input that can be interpreted as a floating-point number, and then return the number (not string) after an Enter key was pressed.  
+Display a `query` to the user if it's specified, and then accept only an input that can be interpreted as a floating-point number, and then return the number (not string) after the Enter key was pressed.  
 This parses the input as much as possible by `parseFloat()`. For example, it interprets `'   3.14   '`, `'003.1400'`, `'314e-2'` and `'3.14PI'` as `3.14`.
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.
@@ -837,7 +842,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 path = readlineSync.questionPath([query[, options]])
 ```
 
-Display a `query` to the user if it's specified, and then accept only a valid local file or directory path, and then return an absolute path after an Enter key was pressed.  
+Display a `query` to the user if it's specified, and then accept only a valid local file or directory path, and then return an absolute path after the Enter key was pressed.  
 The `~` that is input by the user is replaced to the home directory.  
 You can specify the valid local file or directory path requirement to the options. And you can make it create a new file or directory when it doesn't exist.  
 
@@ -966,7 +971,7 @@ A current value of [`min` and `max`](#utility_methods-questionpath-options-min_m
 argsArray = readlineSync.promptCL([commandHandler[, options]])
 ```
 
-Display a prompt-sign (see [`prompt`](#basic_options-prompt) option) to the user, and then consider the input as a command-line and parse it, and then return a result after an Enter key was pressed.  
+Display a prompt-sign (see [`prompt`](#basic_options-prompt) option) to the user, and then consider the input as a command-line and parse it, and then return a result after the Enter key was pressed.  
 A return value is an Array that includes the tokens that were parsed. It parses the input from the user as the command-line, and it interprets whitespaces, quotes, etc., and it splits it to tokens properly. Usually, a first element of the Array is command-name, and remaining elements are arguments.
 
 For example:
@@ -1083,7 +1088,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 readlineSync.promptLoop(inputHandler[, options])
 ```
 
-Display a prompt-sign (see [`prompt`](#basic_options-prompt) option) to the user, and then call `inputHandler` function with the input from the user after it has been typed and an Enter key was pressed. Do these repeatedly until `inputHandler` function returns `true`.
+Display a prompt-sign (see [`prompt`](#basic_options-prompt) option) to the user, and then call `inputHandler` function with the input from the user after it has been typed and the Enter key was pressed. Do these repeatedly until `inputHandler` function returns `true`.
 
 For example, the following 2 codes work same:
 
@@ -1202,7 +1207,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 input = readlineSync.promptSimShell([options])
 ```
 
-Display a prompt-sign that is similar to that of the user's shell to the user, and then return the input from the user after it has been typed and an Enter key was pressed.  
+Display a prompt-sign that is similar to that of the user's shell to the user, and then return the input from the user after it has been typed and the Enter key was pressed.  
 This method displays a prompt-sign like:
 
 On Windows:
@@ -1234,7 +1239,7 @@ The other options other than [`prompt`](#basic_options-prompt) option work as sh
 boolYesOrEmpty = readlineSync.keyInYN([query[, options]])
 ```
 
-Display a `query` to the user if it's specified, and then return a boolean or an empty string immediately a key was pressed by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.  
+Display a `query` to the user if it's specified, and then return a boolean or an empty string immediately a key was pressed by the user, **without pressing the Enter key**. Note that the user has no chance to change the input.  
 This method works like the `window.confirm` method of web browsers. A return value means "Yes" or "No" the user said. It differ depending on the pressed key:
 
 * `Y`: `true`
@@ -1304,7 +1309,7 @@ Really? [y/n] :y
 boolYes = readlineSync.keyInYNStrict([query[, options]])
 ```
 
-Display a `query` to the user if it's specified, and then accept only `Y` or `N` key, and then return a boolean immediately it was pressed by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.  
+Display a `query` to the user if it's specified, and then accept only `Y` or `N` key, and then return a boolean immediately it was pressed by the user, **without pressing the Enter key**. Note that the user has no chance to change the input.  
 This method works like the `window.confirm` method of web browsers. A return value means "Yes" or "No" the user said. It differ depending on the pressed key:
 
 * `Y`: `true`
@@ -1388,7 +1393,7 @@ It's pausing now... (Hit any key)
 index = readlineSync.keyInSelect(items[, query[, options]])
 ```
 
-Display the list that was created with the `items` Array, and the `query` to the user if it's specified, and then return the number as an index of the `items` Array immediately it was chosen by pressing a key by the user, **without pressing an Enter key**. Note that the user has no chance to change the input.
+Display the list that was created with the `items` Array, and the `query` to the user if it's specified, and then return the number as an index of the `items` Array immediately it was chosen by pressing a key by the user, **without pressing the Enter key**. Note that the user has no chance to change the input.
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
 The default value of `query` is `'Choose one from list :'`.
@@ -1505,7 +1510,7 @@ Refused give-me-car you requested. Please input another.
 ```
 
 It looks like no problem.  
-But when the user input nothing (hit only Enter key), and then a message is displayed:
+But when the user input nothing (hit only the Enter key), and then a message is displayed:
 
 ```console
 > 
@@ -1542,13 +1547,13 @@ For example:
 
 ```js
 input = readlineSync.question(
-  'Input something or Enter key as "${defaultInput}" :',
+  'Input something or the Enter key as "${defaultInput}" :',
   {defaultInput: 'hello'}
 );
 ```
 
 ```console
-Input something or Enter key as "hello" :
+Input something or the Enter key as "hello" :
 ```
 
 #### <a name="placeholders-parameters-limitcount_limitcountnotzero"></a>`limitCount`, `limitCountNotZero`
