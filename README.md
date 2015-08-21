@@ -334,7 +334,7 @@ Accept only the input that matches value that is specified to this. If the user 
 * The string is compared with the input. It is affected by [`caseSensitive`](#basic_options-casesensitive) option.
 * The number is compared with the input that is converted to number by `parseFloat()`. For example, it interprets `'   3.14   '`, `'003.1400'`, `'314e-2'` and `'3.14PI'` as `3.14`. And it interprets `'005'`, `'5files'`, `'5kb'` and `'5px'` as `5`.
 * The RegExp tests the input.
-* The function that returns boolean to indicate whether it matches is called with the input.
+* The function that returns a boolean to indicate whether it matches is called with the input.
 
 One of above or an Array that includes multiple things (or Array includes Array) can be specified.
 
@@ -430,7 +430,7 @@ If the input matches `trueValue`, return `true`. If the input matches `falseValu
 * The string is compared with the input. It is affected by [`caseSensitive`](#basic_options-casesensitive) option.
 * The number is compared with the input that is converted to number by `parseFloat()`. For example, it interprets `'   3.14   '`, `'003.1400'`, `'314e-2'` and `'3.14PI'` as `3.14`. And it interprets `'005'`, `'5files'`, `'5kb'` and `'5px'` as `5`. Note that in `keyIn*` method, the input is every time one character (i.e. the number that is specified must be an integer within the range of `0` to `9`).
 * The RegExp tests the input.
-* The function that returns boolean to indicate whether it matches is called with the input.
+* The function that returns a boolean to indicate whether it matches is called with the input.
 
 One of above or an Array that includes multiple things (or Array includes Array) can be specified.
 
@@ -1339,7 +1339,7 @@ For example:
 
 ```js
 // Have made the preparations for something...
-console.log('==== Informations of Your Computer ====');
+console.log('==== Information of Your Computer ====');
 console.log(info); // This can be `query`.
 readlineSync.keyInPause();
 console.log('It\'s executing now...');
@@ -1347,7 +1347,7 @@ console.log('It\'s executing now...');
 ```
 
 ```console
-==== Informations of Your Computer ====
+==== Information of Your Computer ====
 FOO: 123456
 BAR: abcdef
 Continue... (Hit any key)
