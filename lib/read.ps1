@@ -45,18 +45,18 @@ foreach ($arg in $argList) {
 # **NOTE** Don't include special characters of DOS in $command when $getRes is True.
 # [string] $cmdPath = $Env:ComSpec
 # [string] $psPath = 'powershell.exe'
-function execWithTTY ($command, $getRes = $False, $errorThrow = $False) {
+function execWithTTY ($command, $getRes = $False, $throwError = $False) {
   if ($getRes) {
     $res = (cmd.exe /C "<CON powershell.exe -Command $command")
     if ($LastExitCode -ne 0) {
-      if ($errorThrow) { throw $LastExitCode }
+      if ($throwError) { throw $LastExitCode }
       else { exit $LastExitCode }
     }
     return $res
   } else {
     $command | cmd.exe /C ">CON powershell.exe -Command -"
     if ($LastExitCode -ne 0) {
-      if ($errorThrow) { throw $LastExitCode }
+      if ($throwError) { throw $LastExitCode }
       else { exit $LastExitCode }
     }
   }
@@ -73,6 +73,7 @@ if ($options.display) {
 if ($options.displayOnly) { return "''" }
 
 if (-not $options.keyIn -and $options.hideEchoBack -and $options.mask -eq '*') {
+  # It fails when it's not ready.
   try {
     $inputTTY = execWithTTY ('$text = Read-Host -AsSecureString;' +
       '$bstr = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($text);' +
