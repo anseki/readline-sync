@@ -455,7 +455,7 @@ if (answer === true) {
 *Type:* boolean  
 *Default:* `false`
 
-By default, the string comparisons is case-insensitive (i.e. `a` equals `A`). If `true` is specified, it is case-sensitive, the cases are not ignored (i.e. `a` is different from `A`).  
+By default, the string comparisons are case-insensitive (i.e. `a` equals `A`). If `true` is specified, it is case-sensitive, the cases are not ignored (i.e. `a` is different from `A`).  
 It affects: [`limit`](#basic_options-limit), [`trueValue`](#basic_options-truevalue_falsevalue), [`falseValue`](#basic_options-truevalue_falsevalue), some [placeholders](#placeholders), and some [Utility Methods](#utility_methods).
 
 ### <a name="basic_options-keepwhitespace"></a>`keepWhitespace`
