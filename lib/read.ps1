@@ -1,7 +1,7 @@
 # readlineSync
 # https://github.com/anseki/readline-sync
 #
-# Copyright (c) 2015 anseki
+# Copyright (c) 2016 anseki
 # Licensed under the MIT license.
 
 Param(

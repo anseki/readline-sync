@@ -1445,10 +1445,68 @@ If `true` is specified, a string like `'[1...5]'` as guide for the user is added
 
 ##### <a name="utility_methods-keyinselect-options-cancel"></a>`cancel`
 
-*Type:* boolean  
-*Default:* `true`
+*Type:* boolean, string or others  
+*Default:* `'CANCEL'`
 
-If `true` is specified, an item to let the user tell "cancel" is added to the item list. "[0] CANCEL" is displayed, and if `0` key is pressed, `-1` is returned.
+If a value other than `false` is specified, an item to let the user tell "cancel" is added to the item list. "[0] CANCEL" (default) is displayed, and if `0` key is pressed, `-1` is returned.  
+You can specify a label of this item other than `'CANCEL'`. A string such as `'Go back'` (empty string `''` also), something that is converted to string such as `Date`, a string that includes [placeholder](#placeholders) such as `'Next ${itemsCount} items'` are accepted.
+
+#### <a name="utility_methods-keyinselect-additional_placeholders"></a>Additional Placeholders
+
+The following additional [placeholder](#placeholders) parameters are available.
+
+##### <a name="utility_methods-keyinselect-additional_placeholders-itemscount"></a>`itemsCount`
+
+A length of a current `items` Array.
+
+For example:
+
+```js
+items = ['item-A', 'item-B', 'item-C', 'item-D', 'item-E'];
+index = readlineSync.keyInSelect(items, null,
+  {cancel: 'Show more items than ${itemsCount}'});
+```
+
+```console
+[1] item-A
+[2] item-B
+[3] item-C
+[4] item-D
+[5] item-E
+[0] Show more items than 5
+```
+
+##### <a name="utility_methods-keyinselect-additional_placeholders-firstitem"></a>`firstItem`
+
+A first item in a current `items` Array.
+
+For example:
+
+```js
+index = readlineSync.keyInSelect(items, 'Choose ${firstItem} or another :');
+```
+
+##### <a name="utility_methods-keyinselect-additional_placeholders-lastitem"></a>`lastItem`
+
+A last item in a current `items` Array.
+
+For example:
+
+```js
+items = ['January', 'February', 'March', 'April', 'May', 'June'];
+index = readlineSync.keyInSelect(items, null,
+  {cancel: 'In after ${lastItem}'});
+```
+
+```console
+[1] January
+[2] February
+[3] March
+[4] April
+[5] May
+[6] June
+[0] In after June
+```
 
 ## <a name="placeholders"></a>Placeholders
 
