@@ -213,7 +213,7 @@ The `query` is handled the same as that of the [`question`](#basic_methods-quest
 For example:
 
 ```js
-menuId = readlineSync.keyIn('Hit 1...5 key :', {limit: '${1-5}'});
+menuId = readlineSync.keyIn('Hit 1...5 key :', {limit: '$<1-5>'});
 ```
 
 ### <a name="basic_methods-setdefaultoptions"></a>`setDefaultOptions`
@@ -375,7 +375,7 @@ Accept only the key that matches value that is specified to this, ignore others.
 Specify the characters as the key. All strings or Array of those are decomposed into single characters. For example, `'abcde'` or `['a', 'bc', ['d', 'e']]` are the same as `['a', 'b', 'c', 'd', 'e']`.  
 These strings are compared with the input. It is affected by [`caseSensitive`](#basic_options-casesensitive) option.
 
-The [placeholders](#placeholders) like `'${a-e}'` are replaced to an Array that is the character list like `['a', 'b', 'c', 'd', 'e']`.
+The [placeholders](#placeholders) like `'$<a-e>'` are replaced to an Array that is the character list like `['a', 'b', 'c', 'd', 'e']`.
 
 For example:
 
@@ -385,14 +385,14 @@ direction = readlineSync.keyIn('Left or Right? :', {limit: 'lr'}); // 'l' or 'r'
 
 ```js
 dice = readlineSync.keyIn('Roll the dice, What will the result be? :',
-  {limit: '${1-6}'}); // range of '1' to '6'
+  {limit: '$<1-6>'}); // range of '1' to '6'
 ```
 
 ### <a name="basic_options-limitmessage"></a>`limitMessage`
 
 _For `question*` and `prompt*` methods only_  
 *Type:* string  
-*Default:* `'Input another, please.${( [)limit(])}'`
+*Default:* `'Input another, please.$<( [)limit(])>'`
 
 Display this to the user when the [`limit`](#basic_options-limit) option is specified and the user input others.  
 The [placeholders](#placeholders) can be included.
@@ -402,7 +402,7 @@ For example:
 ```js
 file = readlineSync.question('Name of Text File :', {
   limit: /\.txt$/i,
-  limitMessage: 'Sorry, ${lastInput} is not text file.'
+  limitMessage: 'Sorry, $<lastInput> is not text file.'
 });
 ```
 
@@ -720,7 +720,7 @@ The following options have independent default value that is not affected by [De
 |-------------------|---------------|
 | [`hideEchoBack`](#basic_options-hideechoback) | `true` |
 | [`mask`](#basic_options-mask) | `'*'` |
-| [`limitMessage`](#basic_options-limitmessage) | `'It can include: ${charlist}\nAnd the length must be: ${length}'` |
+| [`limitMessage`](#basic_options-limitmessage) | `'It can include: $<charlist>\nAnd the length must be: $<length>'` |
 | [`trueValue`](#basic_options-truevalue_falsevalue) | `null` |
 | [`falseValue`](#basic_options-truevalue_falsevalue) | `null` |
 | [`caseSensitive`](#basic_options-casesensitive) | `true` |
@@ -736,15 +736,15 @@ And the following additional options are available.
 ##### <a name="utility_methods-questionnewpassword-options-charlist"></a>`charlist`
 
 *Type:* string  
-*Default:* `'${!-~}'`
+*Default:* `'$<!-~>'`
 
 A string as the characters that can be included in the password. For example, if `'abc123'` is specified, the passwords that include any character other than these 6 characters are refused.  
-The [placeholders](#placeholders) like `'${a-e}'` are replaced to the characters like `'abcde'`.  
+The [placeholders](#placeholders) like `'$<a-e>'` are replaced to the characters like `'abcde'`.  
 
 For example, let the user input a password that is created with alphabet and some symbols:
 
 ```js
-password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '${a-z}#$@%'});
+password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '$<a-z>#$@%'});
 ```
 
 ##### <a name="utility_methods-questionnewpassword-options-min_max"></a>`min`, `max`
@@ -887,7 +887,7 @@ The following options have independent default value that is not affected by [De
 | Option Name       | Default Value |
 |-------------------|---------------|
 | [`hideEchoBack`](#basic_options-hideechoback) | `false` |
-| [`limitMessage`](#basic_options-limitmessage) | `'${error(\n)}Input valid path, please.${( Min:)min}${( Max:)max}'` |
+| [`limitMessage`](#basic_options-limitmessage) | `'$<error(\n)>Input valid path, please.$<( Min:)min>$<( Max:)max>'` |
 | [`history`](#basic_options-history) | `true` |
 | [`cd`](#basic_options-cd) | `true` |
 
@@ -1449,7 +1449,7 @@ If `true` is specified, a string like `'[1...5]'` as guide for the user is added
 *Default:* `'CANCEL'`
 
 If a value other than `false` is specified, an item to let the user tell "cancel" is added to the item list. "[0] CANCEL" (default) is displayed, and if `0` key is pressed, `-1` is returned.  
-You can specify a label of this item other than `'CANCEL'`. A string such as `'Go back'` (empty string `''` also), something that is converted to string such as `Date`, a string that includes [placeholder](#placeholders) such as `'Next ${itemsCount} items'` are accepted.
+You can specify a label of this item other than `'CANCEL'`. A string such as `'Go back'` (empty string `''` also), something that is converted to string such as `Date`, a string that includes [placeholder](#placeholders) such as `'Next $<itemsCount> items'` are accepted.
 
 #### <a name="utility_methods-keyinselect-additional_placeholders"></a>Additional Placeholders
 
@@ -1464,7 +1464,7 @@ For example:
 ```js
 items = ['item-A', 'item-B', 'item-C', 'item-D', 'item-E'];
 index = readlineSync.keyInSelect(items, null,
-  {cancel: 'Show more items than ${itemsCount}'});
+  {cancel: 'Show more items than $<itemsCount>'});
 ```
 
 ```console
@@ -1483,7 +1483,7 @@ A first item in a current `items` Array.
 For example:
 
 ```js
-index = readlineSync.keyInSelect(items, 'Choose ${firstItem} or another :');
+index = readlineSync.keyInSelect(items, 'Choose $<firstItem> or another :');
 ```
 
 ##### <a name="utility_methods-keyinselect-additional_placeholders-lastitem"></a>`lastItem`
@@ -1495,7 +1495,7 @@ For example:
 ```js
 items = ['January', 'February', 'March', 'April', 'May', 'June'];
 index = readlineSync.keyInSelect(items, null,
-  {cancel: 'In after ${lastItem}'});
+  {cancel: 'In after $<lastItem>'});
 ```
 
 ```console
@@ -1519,7 +1519,7 @@ For example, the [`limitMessage`](#basic_options-limitmessage) option to display
 ```js
 command = readlineSync.prompt({
   limit: ['add', 'remove'],
-  limitMessage: '${lastInput} is not available.'
+  limitMessage: '$<lastInput> is not available.'
 });
 ```
 
@@ -1538,18 +1538,18 @@ The placeholders can be included in:
 ### <a name="placeholders-syntax"></a>Syntax
 
 ```
-${parameter}
+$<parameter>
 ```
 
 Or
 
 ```
-${(text1)parameter(text2)}
+$<(text1)parameter(text2)>
 ```
 
 The placeholder is replaced to a string that is got by a `parameter`.  
 Both the `(text1)` and `(text2)` are optional.  
-A more added `'$'` at the left of the placeholder is used as an escape character, it disables a placeholder. For example, `'$${foo}'` is replaced to `'${foo}'`. If you want to put a `'$'` which is *not* an escape character at the left of a placeholder, specify it like `'${($)bufferSize}'`, then it is replaced to `'$1024'`.
+A more added `'$'` at the left of the placeholder is used as an escape character, it disables a placeholder. For example, `'$$<foo>'` is replaced to `'$<foo>'`. If you want to put a `'$'` which is *not* an escape character at the left of a placeholder, specify it like `'$<($)bufferSize>'`, then it is replaced to `'$1024'`.
 
 At the each position of `'(text1)'` and `'(text2)'`, `'text1'` and `'text2'` are put when a string that was got by a `parameter` has length more than 0. If that got string is `''`, a placeholder with or without `'(text1)'` and `'(text2)'` is replaced to `''`.
 
@@ -1558,7 +1558,7 @@ For example, a warning message that means that the command the user requested is
 ```js
 command = readlineSync.prompt({
   limit: ['add', 'remove'],
-  limitMessage: 'Refused ${lastInput} you requested. Please input another.'
+  limitMessage: 'Refused $<lastInput> you requested. Please input another.'
 });
 ```
 
@@ -1580,7 +1580,7 @@ This goes well:
 ```js
 command = readlineSync.prompt({
   limit: ['add', 'remove'],
-  limitMessage: 'Refused ${lastInput( you requested)}. Please input another.'
+  limitMessage: 'Refused $<lastInput( you requested)>. Please input another.'
 });
 ```
 
@@ -1589,7 +1589,9 @@ command = readlineSync.prompt({
 Refused . Please input another.
 ```
 
-(May be more better: `'${(Refused )lastInput( you requested. )}Please input another.'`)
+(May be more better: `'$<(Refused )lastInput( you requested. )>Please input another.'`)
+
+*Note:* The syntax `${parameter}` of older version is still supported, but this should not be used because it may be confused with ES6. And this will not be supported in due course of time.
 
 ### <a name="placeholders-parameters"></a>Parameters
 
@@ -1599,13 +1601,13 @@ The following parameters are available. And some additional parameters are avail
 
 A current value of each option.  
 It is converted to human readable if possible. The boolean value is replaced to `'on'` or `'off'`, and the Array is replaced to the list of only string and number elements.  
-And in the `keyIn*` method, the parts of the list as characters sequence are suppressed. For example, when `['a', 'b', 'c', 'd', 'e']` is specified to the [`limit`](#basic_options-limit) option, `'${limit}'` is replaced to `'a...e'`. If `true` is specified to the [`caseSensitive`](#basic_options-casesensitive) option, the characters are converted to lower case.
+And in the `keyIn*` method, the parts of the list as characters sequence are suppressed. For example, when `['a', 'b', 'c', 'd', 'e']` is specified to the [`limit`](#basic_options-limit) option, `'$<limit>'` is replaced to `'a...e'`. If `true` is specified to the [`caseSensitive`](#basic_options-casesensitive) option, the characters are converted to lower case.
 
 For example:
 
 ```js
 input = readlineSync.question(
-  'Input something or the Enter key as "${defaultInput}" :',
+  'Input something or the Enter key as "$<defaultInput>" :',
   {defaultInput: 'hello'}
 );
 ```
@@ -1617,13 +1619,13 @@ Input something or the Enter key as "hello" :
 #### <a name="placeholders-parameters-limitcount_limitcountnotzero"></a>`limitCount`, `limitCountNotZero`
 
 A length of a current value of the [`limit`](#basic_options-limit) option.  
-When the value of the [`limit`](#basic_options-limit) option is empty, `'${limitCount}'` is replaced to `'0'`, `'${limitCountNotZero}'` is replaced to `''`.
+When the value of the [`limit`](#basic_options-limit) option is empty, `'$<limitCount>'` is replaced to `'0'`, `'$<limitCountNotZero>'` is replaced to `''`.
 
 For example:
 
 ```js
 action = readlineSync.question(
-  'Choose action${( from )limitCountNotZero( actions)} :',
+  'Choose action$<( from )limitCountNotZero( actions)> :',
   {limit: availableActions}
 );
 ```
@@ -1642,7 +1644,7 @@ For example:
 ```js
 command = readlineSync.prompt({
   limit: availableCommands,
-  limitMessage: '${lastInput} is not available.'
+  limitMessage: '$<lastInput> is not available.'
 });
 ```
 
@@ -1660,7 +1662,7 @@ For example:
 
 ```js
 while (true) {
-  input = readlineSync.question('Something${( or "!!" as ")history_m1(")} :');
+  input = readlineSync.question('Something$<( or "!!" as ")history_m1(")> :');
   console.log('-- You said "' + input + '"');
 }
 ```
@@ -1684,7 +1686,7 @@ A current working directory.
 For example, like bash/zsh:
 
 ```js
-command = readlineSync.prompt({prompt: '[${cwdHome}]$ '});
+command = readlineSync.prompt({prompt: '[$<cwdHome>]$ '});
 ```
 
 ```console
@@ -1703,7 +1705,7 @@ A string as current date or time.
 For example:
 
 ```js
-command = readlineSync.prompt({prompt: '[${localeDate}]> '});
+command = readlineSync.prompt({prompt: '[$<localeDate>]> '});
 ```
 
 ```console
@@ -1715,12 +1717,12 @@ command = readlineSync.prompt({prompt: '[${localeDate}]> '});
 _For [`limit` option for `keyIn*` method](#basic_options-limit-for_keyin_method) and [`charlist`](#utility_methods-questionnewpassword-options-charlist) option for [`questionNewPassword`](#utility_methods-questionnewpassword) method only_
 
 A character list.  
-`C1` and `C2` are each single character as the start and the end. A sequence in ascending or descending order of characters ranging from `C1` to `C2` is created. For example, `'${a-e}'` is replaced to `'abcde'`. `'${5-1}'` is replaced to `'54321'`.
+`C1` and `C2` are each single character as the start and the end. A sequence in ascending or descending order of characters ranging from `C1` to `C2` is created. For example, `'$<a-e>'` is replaced to `'abcde'`. `'$<5-1>'` is replaced to `'54321'`.
 
 For example, let the user input a password that is created with alphabet:
 
 ```js
-password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '${a-z}'});
+password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '$<a-z>'});
 ```
 
 See also [`limit` option for `keyIn*` method](#basic_options-limit-for_keyin_method).
