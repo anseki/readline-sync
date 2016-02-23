@@ -1591,7 +1591,7 @@ Refused . Please input another.
 
 (May be more better: `'$<(Refused )lastInput( you requested. )>Please input another.'`)
 
-*Note:* The syntax `${parameter}` of older version is still supported, but this should not be used because it may be confused with ES6. And this will not be supported in due course of time.
+*Note:* The syntax `${parameter}` of older version is still supported, but this should not be used because it may be confused with template string syntax of ES6. And this will not be supported in due course of time.
 
 ### <a name="placeholders-parameters"></a>Parameters
 
