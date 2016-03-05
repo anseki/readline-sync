@@ -170,7 +170,7 @@ answer = readlineSync.question([query[, options]])
 Display a `query` to the user if it's specified, and then return the input from the user after it has been typed and the Enter key was pressed.  
 You can specify an `options` (see [Basic Options](#basic_options)) to control the behavior (e.g. refusing unexpected input, avoiding trimming white spaces, etc.). **If you let the user input the secret text (e.g. password), you should consider [`hideEchoBack`](#basic_options-hideechoback) option.**
 
-The `query` may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string (i.e. `toString` method is called) before it is displayed.  
+The `query` may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string (i.e. `toString` method is called) before it is displayed. (see [Note](#note) also)  
 It can include the [placeholders](#placeholders).
 
 For example:
@@ -253,8 +253,8 @@ _For `prompt*` methods only_
 *Type:* string or others  
 *Default:* `'> '`
 
-Set the prompt-sign that is displayed to the user by `prompt*` methods. For example you see `> ` that is Node's prompt-sign when you run `node` on the command line.  
-This may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string every time (i.e. `toString` method is called) before it is displayed.  
+Set the prompt-sign that is displayed to the user by `prompt*` methods. For example you see `> ` that is Node.js's prompt-sign when you run `node` on the command line.  
+This may be string, or may not be (e.g. number, Date, Object, etc.). It is converted to string every time (i.e. `toString` method is called) before it is displayed. (see [Note](#note) also)  
 It can include the [placeholders](#placeholders).
 
 For example:
@@ -1778,7 +1778,7 @@ grunt.initConfig({
 
 ### <a name="note-platforms"></a>Platforms
 
-The TTY interfaces are different by the platforms. If the platform doesn't support the interactively reading from TTY, an error is thrown.
+TTY interfaces are different by the platforms. If the platform doesn't support the interactively reading from TTY, an error is thrown.
 
 ```js
 try {
@@ -1789,16 +1789,21 @@ try {
 }
 ```
 
-### <a name="note-reading_by_external_program"></a>Reading by External Program
+### <a name="note-platforms"></a>Control characters
 
-readlineSync tries to read from a console by using the external program if it is needed (e.g. when the input stream is redirected on Windows XP). And if the running Node doesn't support the [Synchronous Process Execution](http://nodejs.org/api/child_process.html#child_process_synchronous_process_creation) (i.e. Node v0.10-), readlineSync uses "piping via files" for the synchronous execution.  
+TTY interfaces are different by the platforms. In some environments, ANSI escape sequences might be ignored. For example, in non-POSIX TTY such as Windows CMD does not support it (that of Windows 8 especially has problems). Since readlineSync does not use Node.js library that emulates POSIX TTY (but that is still incomplete), those characters may be not parsed. Then, using ANSI escape sequences is not recommended if you will support more environments.  
+Also, control characters user input might be not accepted or parsed. That behavior differs depending on the environment. And current Node.js does not support controlling a readline system library.
+
+### <a name="note-reading_by_external_program"></a>Reading by external program
+
+readlineSync tries to read from a console by using the external program if it is needed (e.g. when the input stream is redirected on Windows XP). And if the running Node.js doesn't support the [Synchronous Process Execution](http://nodejs.org/api/child_process.html#child_process_synchronous_process_creation) (i.e. Node.js v0.10-), readlineSync uses "piping via files" for the synchronous execution.  
 As everyone knows, "piping via files" is no good. It blocks the event loop and a process. It might make the your script be slow.
 
 Why did I choose it? :
 
-* The good modules (native addon) for the synchronous execution exist, but node-gyp can't compile those in some platforms or Node versions.
-* I think that the security is important more than the speed. Some modules have problem about security. Those don't protect the data. I think that the speed is not needed usually, because readlineSync is used while the user types keys.
+* Good modules (native addon) for the synchronous execution exist, but node-gyp can't compile those in some platforms or Node.js versions.
+* I think that the security is important more than the speed. Some modules have problem about security. Those don't protect the data. I think that the speed is not needed usually, because readlineSync is used while user types keys.
 
-## <a name="deprecated_methods_and_options"></a>Deprecated Methods and Options
+## <a name="deprecated_methods_and_options"></a>Deprecated methods and options
 
 See [README-Deprecated.md](README-Deprecated.md).
