@@ -408,7 +408,6 @@ file = readlineSync.question('Name of Text File :', {
 
 ### <a name="basic_options-defaultinput"></a>`defaultInput`
 
-_For `question*` and `prompt*` methods only_  
 *Type:* string  
 *Default:* `''`
 
@@ -1279,7 +1278,7 @@ if (readlineSync.keyInYN('Continue virus scan?') === false) {
 The following options work as shown in the [Basic Options](#basic_options) section.
 
 <table>
-<tr><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
+<tr><td><a href="#basic_options-defaultinput"><code>defaultInput</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
 </table>
 
 And the following additional option is available.
@@ -1365,7 +1364,7 @@ The following option has independent default value that is not affected by [Defa
 The following options work as shown in the [Basic Options](#basic_options) section.
 
 <table>
-<tr><td><a href="#basic_options-casesensitive"><code>caseSensitive</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
+<tr><td><a href="#basic_options-casesensitive"><code>caseSensitive</code></a></td><td><a href="#basic_options-defaultinput"><code>defaultInput</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
 </table>
 
 And the following additional option is available.
@@ -1431,7 +1430,7 @@ The following option has independent default value that is not affected by [Defa
 The following options work as shown in the [Basic Options](#basic_options) section.
 
 <table>
-<tr><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
+<tr><td><a href="#basic_options-mask"><code>mask</code></a></td><td><a href="#basic_options-defaultinput"><code>defaultInput</code></a></td><td><a href="#basic_options-encoding"><code>encoding</code></a></td><td><a href="#basic_options-print"><code>print</code></a></td></tr>
 </table>
 
 And the following additional options are available.
