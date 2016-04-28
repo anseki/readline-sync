@@ -481,7 +481,7 @@ _For `question*` and `prompt*` methods only_
 
 When readlineSync reads from a console directly (without external program), use a size `bufferSize` buffer.  
 Even if the input by user exceeds it, it's usually no problem, because the buffer is used repeatedly. But some platforms's (e.g. Windows) console might not accept input that exceeds it. And set an enough size.  
-Note that this might be limited by [version of Node.js](https://nodejs.org/api/buffer.html#buffer_class_method_buffer_alloc_size_fill_encoding) and environment running your script (Big buffer size is usually not required).
+Note that this might be limited by [version of Node.js](https://nodejs.org/api/buffer.html#buffer_class_method_buffer_alloc_size_fill_encoding) and environment running your script (Big buffer size is usually not required). (See also: [issue](https://github.com/nodejs/node/issues/4660), [PR](https://github.com/nodejs/node/pull/4682))
 
 ### <a name="basic_options-print"></a>`print`
 
