@@ -14,20 +14,20 @@ readlineSync tries to let your script have a conversation with the user via a co
 var readlineSync = require('readline-sync');
 
 // Wait for user's response.
-var userName = readlineSync.question('May I have your name? :');
+var userName = readlineSync.question('May I have your name? ');
 console.log('Hi ' + userName + '!');
 
 // Handle the secret text (e.g. password).
-var favFood = readlineSync.question('What is your favorite food? :', {
+var favFood = readlineSync.question('What is your favorite food? ', {
   hideEchoBack: true // The typed text on screen is hidden by `*` (default).
 });
 console.log('Oh, ' + userName + ' loves ' + favFood + '!');
 ```
 
 ```console
-May I have your name? :CookieMonster
+May I have your name? CookieMonster
 Hi CookieMonster!
-What is your favorite food? :****
+What is your favorite food? ****
 Oh, CookieMonster loves tofu!
 ```
 
@@ -63,7 +63,7 @@ console.log('Ok, ' + animals[index] + ' goes to your room.');
 [5] Hippo
 [0] CANCEL
 
-Which animal? [1...5 / 0] :2
+Which animal? [1...5 / 0]: 2
 Ok, Elephant goes to your room.
 ```
 
@@ -176,7 +176,7 @@ It can include the [placeholders](#placeholders).
 For example:
 
 ```js
-program = readlineSync.question('Which program starts do you want? :', {
+program = readlineSync.question('Which program starts do you want? ', {
   defaultInput: 'firefox'
 });
 ```
@@ -213,7 +213,7 @@ The `query` is handled the same as that of the [`question`](#basic_methods-quest
 For example:
 
 ```js
-menuId = readlineSync.keyIn('Hit 1...5 key :', {limit: '$<1-5>'});
+menuId = readlineSync.keyIn('Hit 1...5 key: ', {limit: '$<1-5>'});
 ```
 
 ### <a name="basic_methods-setdefaultoptions"></a>`setDefaultOptions`
@@ -236,13 +236,13 @@ For example:
 
 ```js
 readlineSync.setDefaultOptions({limit: ['green', 'yellow', 'red']});
-a1 = readlineSync.question('Which color of signal? :'); // Input is limited to 3 things.
-a2 = readlineSync.question('Which color of signal? :'); // It's limited yet.
-a3 = readlineSync.question('What is your favorite color? :', {limit: null}); // It's unlimited temporarily.
-a4 = readlineSync.question('Which color of signal? :'); // It's limited again.
+a1 = readlineSync.question('Which color of signal? '); // Input is limited to 3 things.
+a2 = readlineSync.question('Which color of signal? '); // It's limited yet.
+a3 = readlineSync.question('What is your favorite color? ', {limit: null}); // It's unlimited temporarily.
+a4 = readlineSync.question('Which color of signal? '); // It's limited again.
 readlineSync.setDefaultOptions({limit: ['beef', 'chicken']});
-a5 = readlineSync.question('Beef or Chicken? :');        // Input is limited to new 2 things.
-a6 = readlineSync.question('And you? :');                // It's limited to 2 things yet.
+a5 = readlineSync.question('Beef or Chicken? ');        // Input is limited to new 2 things.
+a6 = readlineSync.question('And you? ');                // It's limited to 2 things yet.
 ```
 
 The Object as `options` can have following properties.
@@ -291,12 +291,12 @@ If `true` is specified, hide the secret text (e.g. password) which is typed by u
 For example:
 
 ```js
-password = readlineSync.question('PASSWORD :', {hideEchoBack: true});
+password = readlineSync.question('PASSWORD: ', {hideEchoBack: true});
 console.log('Login ...');
 ```
 
 ```console
-PASSWORD :********
+PASSWORD: ********
 Login ...
 ```
 
@@ -311,7 +311,7 @@ Set the mask characters that are shown instead of the secret text (e.g. password
 For example:
 
 ```js
-secret = readlineSync.question('Please whisper sweet words :', {
+secret = readlineSync.question('Please whisper sweet words: ', {
   hideEchoBack: true,
   mask: require('chalk').magenta('\u2665')
 });
@@ -346,12 +346,12 @@ command = readlineSync.prompt({limit: ['add', 'remove', /^clear( all)?$/]});
 ```
 
 ```js
-file = readlineSync.question('Text File :', {limit: /\.txt$/i});
+file = readlineSync.question('Text File: ', {limit: /\.txt$/i});
 // ** But `questionPath` method should be used instead of this. **
 ```
 
 ```js
-ip = readlineSync.question('IP Address :', {limit: function(input) {
+ip = readlineSync.question('IP Address: ', {limit: function(input) {
   return require('net').isIP(input); // Valid IP Address
 }});
 ```
@@ -380,11 +380,11 @@ The [placeholders](#placeholders) like `'$<a-e>'` are replaced to an Array that 
 For example:
 
 ```js
-direction = readlineSync.keyIn('Left or Right? :', {limit: 'lr'}); // 'l' or 'r'
+direction = readlineSync.keyIn('Left or Right? ', {limit: 'lr'}); // 'l' or 'r'
 ```
 
 ```js
-dice = readlineSync.keyIn('Roll the dice, What will the result be? :',
+dice = readlineSync.keyIn('Roll the dice, What will the result be? ',
   {limit: '$<1-6>'}); // range of '1' to '6'
 ```
 
@@ -400,7 +400,7 @@ The [placeholders](#placeholders) can be included.
 For example:
 
 ```js
-file = readlineSync.question('Name of Text File :', {
+file = readlineSync.question('Name of Text File: ', {
   limit: /\.txt$/i,
   limitMessage: 'Sorry, $<lastInput> is not text file.'
 });
@@ -417,7 +417,7 @@ If the user input empty text (i.e. pressed the Enter key only), return this.
 For example:
 
 ```js
-lang = readlineSync.question('Which language? :', {defaultInput: 'javascript'});
+lang = readlineSync.question('Which language? ', {defaultInput: 'javascript'});
 ```
 
 ### <a name="basic_options-truevalue_falsevalue"></a>`trueValue`, `falseValue`
@@ -437,7 +437,7 @@ One of above or an Array that includes multiple things (or Array includes Array)
 For example:
 
 ```js
-answer = readlineSync.question('How do you like it? :', {
+answer = readlineSync.question('How do you like it? ', {
   trueValue: ['yes', 'yeah', 'yep'],
   falseValue: ['no', 'nah', 'nope']
 });
@@ -512,8 +512,8 @@ readlineSync.setDefaultOptions({
 });
 
 console.log(chalk.black.bold.bgYellow('    Your Account    '));
-user = readlineSync.question(chalk.gray.underline(' USER NAME ') + ' :');
-pw = readlineSync.question(chalk.gray.underline(' PASSWORD  ') + ' :',
+user = readlineSync.question(chalk.gray.underline(' USER NAME ') + ' : ');
+pw = readlineSync.question(chalk.gray.underline(' PASSWORD  ') + ' : ',
   {hideEchoBack: true});
 // Authorization ...
 console.log(chalk.green('Welcome, ' + user + '!'));
@@ -527,8 +527,8 @@ readlineSync.setDefaultOptions({
   print: function(display, encoding)
     { process.stdout.write(display, encoding); }
 });
-var name = readlineSync.question('May I have your name? :');
-var loc = readlineSync.question('Hi ' + name + '! Where do you live? :');
+var name = readlineSync.question('May I have your name? ');
+var loc = readlineSync.question('Hi ' + name + '! Where do you live? ');
 ```
 
 * Let somebody hear our conversation in real time.  
@@ -548,15 +548,15 @@ node conv.js >/tmp/fifo
 ```
 
 ```console
-May I have your name? :Oz
-Hi Oz! Where do you live? :Emerald City
+May I have your name? Oz
+Hi Oz! Where do you live? Emerald City
 ```
 
 And then, another terminal shows this synchronously:
 
 ```console
-May I have your name? :Oz
-Hi Oz! Where do you live? :Emerald City
+May I have your name? Oz
+Hi Oz! Where do you live? Emerald City
 ```
 
 ### <a name="basic_options-history"></a>`history`
@@ -611,20 +611,20 @@ For example:
 
 ```js
 while (true) {
-  file = readlineSync.questionPath('File :');
+  file = readlineSync.questionPath('File: ');
   console.log('-- Specified file is ' + file);
 }
 ```
 
 ```console
-File :cd foo-dir/bar-dir
-File :pwd
+File: cd foo-dir/bar-dir
+File: pwd
 /path/to/foo-dir/bar-dir
-File :file-a.js
+File: file-a.js
 -- Specified file is /path/to/foo-dir/bar-dir/file-a.js
-File :file-b.png
+File: file-b.png
 -- Specified file is /path/to/foo-dir/bar-dir/file-b.png
-File :file-c.html
+File: file-c.html
 -- Specified file is /path/to/foo-dir/bar-dir/file-c.html
 ```
 
@@ -643,7 +643,7 @@ email = readlineSync.questionEMail([query[, options]])
 Display a `query` to the user if it's specified, and then accept only a valid e-mail address, and then return it after the Enter key was pressed.
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
-The default value of `query` is `'Input e-mail address :'`.
+The default value of `query` is `'Input e-mail address: '`.
 
 *Note:* The valid e-mail address requirement is a willful violation of [RFC5322](http://tools.ietf.org/html/rfc5322), this is defined in [HTML5](http://www.w3.org/TR/html5/forms.html). This works enough to prevent the user mistaking. If you want to change it, specify [`limit`](#basic_options-limit) option.
 
@@ -655,9 +655,9 @@ console.log('-- E-mail is ' + email);
 ```
 
 ```console
-Input e-mail address :abc
+Input e-mail address: abc
 Input valid e-mail address, please.
-Input e-mail address :mail@example.com
+Input e-mail address: mail@example.com
 -- E-mail is mail@example.com
 ```
 
@@ -691,7 +691,7 @@ It's the password, or something that is the secret text like the password.
 You can specify the valid password requirement to the options.
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
-The default value of `query` is `'Input new password :'`.
+The default value of `query` is `'Input new password: '`.
 
 *Note:* Only the form of password is checked. Check it more if you want. For example, [zxcvbn](https://github.com/dropbox/zxcvbn) is password strength estimation library.
 
@@ -703,13 +703,13 @@ console.log('-- Password is ' + password);
 ```
 
 ```console
-Input new password :************
+Input new password: ************
 It can include: 0...9, A...Z, a...z, !"#$%&'()*+,-./:;<=>?@[\]^_`{|}~
 And the length must be: 12...24
-Input new password :*************
-Reinput a same one to confirm it :*************
+Input new password: *************
+Reinput a same one to confirm it: *************
 It differs from first one. Hit only the Enter key if you want to retry from first one.
-Reinput a same one to confirm it :*************
+Reinput a same one to confirm it: *************
 -- Password is _my_password_
 ```
 
@@ -745,7 +745,7 @@ The [placeholders](#placeholders) like `'$<a-e>'` are replaced to the characters
 For example, let the user input a password that is created with alphabet and some symbols:
 
 ```js
-password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '$<a-z>#$@%'});
+password = readlineSync.questionNewPassword('PASSWORD: ', {charlist: '$<a-z>#$@%'});
 ```
 
 ##### <a name="utility_methods-questionnewpassword-options-min_max"></a>`min`, `max`
@@ -759,7 +759,7 @@ password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '$<a-z>#$@%
 ##### <a name="utility_methods-questionnewpassword-options-confirmmessage"></a>`confirmMessage`
 
 *Type:* string or others  
-*Default:* `'Reinput a same one to confirm it :'`
+*Default:* `'Reinput a same one to confirm it: '`
 
 A message that lets the user input the same password again.  
 It can include the [placeholders](#placeholders).  
@@ -850,17 +850,17 @@ You can specify the valid local file or directory path requirement to the option
 It is recommended to use this method with the [`cd`](#basic_options-cd) option. (Default: `true`)
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
-The default value of `query` is `'Input path (you can "cd" and "pwd") :'`.
+The default value of `query` is `'Input path (you can "cd" and "pwd"): '`.
 
 For example:
 
 ```js
-sourceFile = readlineSync.questionPath('Read from :', {
+sourceFile = readlineSync.questionPath('Read from: ', {
   isFile: true
 });
 console.log('-- sourceFile: ' + sourceFile);
 
-saveDir = readlineSync.questionPath('Save to :', {
+saveDir = readlineSync.questionPath('Save to: ', {
   isDirectory: true,
   exists: null,
   create: true
@@ -869,15 +869,15 @@ console.log('-- saveDir: ' + saveDir);
 ```
 
 ```console
-Read from :~/fileA
+Read from: ~/fileA
 No such file or directory: /home/user/fileA
 Input valid path, please.
-Read from :pwd
+Read from: pwd
 /path/to/work
-Read from :cd ~/project-1
-Read from :fileA
+Read from: cd ~/project-1
+Read from: fileA
 -- sourceFile: /home/user/project-1/fileA
-Save to :~/deploy/data
+Save to: ~/deploy/data
 -- saveDir: /home/user/deploy/data
 ```
 
@@ -940,7 +940,7 @@ This is also a return value from this method.
 For example, accept only PNG file or tell it to the user:
 
 ```js
-imageFile = readlineSync.questionPath('Image File :', {
+imageFile = readlineSync.questionPath('Image File: ', {
   validate: function(path) { return /\.png$/i.test(path) || 'It is not PNG'; }
 });
 ```
@@ -1248,7 +1248,7 @@ This method works like the `window.confirm` method of web browsers. A return val
 * other: `''`
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
-The default value of `query` is `'Are you sure? :'`.
+The default value of `query` is `'Are you sure? '`.
 
 The keys other than `Y` and `N` are also accepted (If you want to know a user's wish explicitly, use [`keyInYNStrict`](#utility_methods-keyinynstrict) method). Therefore, if you let the user make an important decision (e.g. files are removed), check whether the return value is not *falsy*. That is, a default is "No".
 
@@ -1300,8 +1300,8 @@ readlineSync.keyInYN('Really? :'); // Colon already exists
 ```
 
 ``` console
-Do you like me? [y/n] :y
-Really? [y/n] :y
+Do you like me? [y/n]: y
+Really? [y/n]: y
 ```
 
 ### <a name="utility_methods-keyinynstrict"></a>`keyInYNStrict`
@@ -1317,7 +1317,7 @@ This method works like the `window.confirm` method of web browsers. A return val
 * `N`: `false`
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
-The default value of `query` is `'Are you sure? :'`.
+The default value of `query` is `'Are you sure? '`.
 
 A key other than `Y` and `N` is not accepted. That is, a return value has no default. Therefore, the user has to tell an own wish explicitly. If you want to know a user's wish easily, use [`keyInYN`](#utility_methods-keyinyn) method.
 
@@ -1397,7 +1397,7 @@ index = readlineSync.keyInSelect(items[, query[, options]])
 Display the list that was created with the `items` Array, and the `query` to the user if it's specified, and then return the number as an index of the `items` Array immediately it was chosen by pressing a key by the user, **without pressing the Enter key**. Note that the user has no chance to change the input.
 
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
-The default value of `query` is `'Choose one from list :'`.
+The default value of `query` is `'Choose one from list: '`.
 
 The minimum length of `items` Array is 1 and maximum length is 35. These elements are displayed as item list. A key to let the user choose an item is assigned to each item automatically in sequence like "1, 2, 3 ... 9, A, B, C ...". A number as an index of the `items` Array that corresponds to a chosen item by the user is returned.
 
@@ -1417,7 +1417,7 @@ console.log(frameworks[index] + ' is enabled.');
 [5] locomotive
 [0] CANCEL
 
-Which framework? [1...5 / 0] :2
+Which framework? [1...5 / 0]: 2
 hapi is enabled.
 ```
 
@@ -1484,7 +1484,7 @@ A first item in a current `items` Array.
 For example:
 
 ```js
-index = readlineSync.keyInSelect(items, 'Choose $<firstItem> or another :');
+index = readlineSync.keyInSelect(items, 'Choose $<firstItem> or another: ');
 ```
 
 ##### <a name="utility_methods-keyinselect-additional_placeholders-lastitem"></a>`lastItem`
@@ -1608,13 +1608,13 @@ For example:
 
 ```js
 input = readlineSync.question(
-  'Input something or the Enter key as "$<defaultInput>" :',
+  'Input something or the Enter key as "$<defaultInput>": ',
   {defaultInput: 'hello'}
 );
 ```
 
 ```console
-Input something or the Enter key as "hello" :
+Input something or the Enter key as "hello":
 ```
 
 #### <a name="placeholders-parameters-limitcount_limitcountnotzero"></a>`limitCount`, `limitCountNotZero`
@@ -1626,13 +1626,13 @@ For example:
 
 ```js
 action = readlineSync.question(
-  'Choose action$<( from )limitCountNotZero( actions)> :',
+  'Choose action$<( from )limitCountNotZero( actions)>: ',
   {limit: availableActions}
 );
 ```
 
 ```console
-Choose action from 5 actions :
+Choose action from 5 actions:
 ```
 
 #### <a name="placeholders-parameters-lastinput"></a>`lastInput`
@@ -1663,15 +1663,15 @@ For example:
 
 ```js
 while (true) {
-  input = readlineSync.question('Something$<( or "!!" as ")history_m1(")> :');
+  input = readlineSync.question('Something$<( or "!!" as ")history_m1(")>: ');
   console.log('-- You said "' + input + '"');
 }
 ```
 
 ```console
-Something :hello
+Something: hello
 -- You said "hello"
-Something or "!!" as "hello" :!!
+Something or "!!" as "hello": !!
 hello
 -- You said "hello"
 ```
@@ -1723,7 +1723,7 @@ A character list.
 For example, let the user input a password that is created with alphabet:
 
 ```js
-password = readlineSync.questionNewPassword('PASSWORD :', {charlist: '$<a-z>'});
+password = readlineSync.questionNewPassword('PASSWORD: ', {charlist: '$<a-z>'});
 ```
 
 See also [`limit` option for `keyIn*` method](#basic_options-limit-for_keyin_method).
@@ -1745,7 +1745,7 @@ Running "fileCopy" task
 Files already exist:
   file-a.png
   file-b.js
-Overwrite? [y/n] :y
+Overwrite? [y/n]: y
 file-a.png copied.
 file-b.js copied.
 Done.
@@ -1783,7 +1783,7 @@ TTY interfaces are different by the platforms. If the platform doesn't support t
 
 ```js
 try {
-  answer = readlineSync.question('What is your favorite food? :');
+  answer = readlineSync.question('What is your favorite food? ');
 } catch (e) {
   console.error(e);
   process.exit(1);
