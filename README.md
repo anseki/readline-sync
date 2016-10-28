@@ -479,7 +479,7 @@ _For `question*` and `prompt*` methods only_
 *Type:* number  
 *Default:* `1024`
 
-When readlineSync reads from a console directly (without external program), use a size `bufferSize` buffer.  
+When readlineSync reads from a console directly (without [external program](#note-reading_by_external_program)), use a size `bufferSize` buffer.  
 Even if the input by user exceeds it, it's usually no problem, because the buffer is used repeatedly. But some platforms's (e.g. Windows) console might not accept input that exceeds it. And set an enough size.  
 Note that this might be limited by [version of Node.js](https://nodejs.org/api/buffer.html#buffer_class_method_buffer_alloc_size_fill_encoding) and environment running your script (Big buffer size is usually not required). (See also: [issue](https://github.com/nodejs/node/issues/4660), [PR](https://github.com/nodejs/node/pull/4682))
 
@@ -1728,6 +1728,19 @@ password = readlineSync.questionNewPassword('PASSWORD: ', {charlist: '$<a-z>'});
 
 See also [`limit` option for `keyIn*` method](#basic_options-limit-for_keyin_method).
 
+## Special method `getRawInput`
+
+```js
+rawInput = readlineSync.getRawInput()
+```
+
+Return a raw input data of last method.  
+When the input was terminated with no data, a `NULL` is inserted to the data.
+
+This might contain control-codes (e.g. `LF`, `CR`, `EOF`, etc.), therefore, it might be used to get `^D` that was input. But you should understand each environments for that. Or, **you should not use this** if your script is used in multiple environments.  
+For example, when the user input `EOF` (`^D` in Unix like system, `^Z` in Windows), `x1A` (`EOF`) is returned in Windows, and `x00` (`NULL`) is returned in Unix like system. And `x04` (`EOT`) is returned in Unix like system with raw-mode. And also, when [external program](#note-reading_by_external_program) is used, nothing is returned. See also [Control characters](#note-control_characters).  
+You may examine each environment and you must test your script very much, if you want to handle the raw input data.
+
 ## <a name="with_task_runner"></a>With Task Runner
 
 The easy way to control a flow of the task runner by the input from the user:
@@ -1790,7 +1803,7 @@ try {
 }
 ```
 
-### <a name="note-platforms"></a>Control characters
+### <a name="note-control_characters"></a>Control characters
 
 TTY interfaces are different by the platforms. In some environments, ANSI escape sequences might be ignored. For example, in non-POSIX TTY such as Windows CMD does not support it (that of Windows 8 especially has problems). Since readlineSync does not use Node.js library that emulates POSIX TTY (but that is still incomplete), those characters may be not parsed. Then, using ANSI escape sequences is not recommended if you will support more environments.  
 Also, control characters user input might be not accepted or parsed. That behavior differs depending on the environment. And current Node.js does not support controlling a readline system library.
