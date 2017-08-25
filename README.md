@@ -1403,7 +1403,7 @@ The default value of `query` is `'Choose one from list: '`.
 
 The minimum length of `items` Array is 1 and maximum length is 35. These elements are displayed as item list. A key to let the user choose an item is assigned to each item automatically in sequence like "1, 2, 3 ... 9, A, B, C ...". A number as an index of the `items` Array that corresponds to a chosen item by the user is returned.
 
-*Note:* Even if the `items` Array has items less than 35, a long Array that forces an user to scroll the list may irritate the user. Remember, the user might be in a console environment that doesn't support scrolling the screen. If you want to use a long (e.g. items more than 10) `items` Array, you should consider a "Pagenation".
+*Note:* Even if the `items` Array has items less than 35, a long Array that forces an user to scroll the list may irritate the user. Remember, the user might be in a console environment that doesn't support scrolling the screen. If you want to use a long (e.g. items more than 10) `items` Array, you should consider a "Pagination".
 
 For example:
 
