@@ -308,7 +308,7 @@ Login ...
 *Default:* `'*'`
 
 Set the mask characters that are shown instead of the secret text (e.g. password) when `true` is specified to [`hideEchoBack`](#basic_options-hideechoback) option. If you want to show nothing, specify `''`. (But it might be not user friendly in some cases.)  
-*Note:* In some cases (e.g. when the input stream is redirected on Windows XP), `'*'` or `''` might be used whether other one is specified.
+**Note:** In some cases (e.g. when the input stream is redirected on Windows XP), `'*'` or `''` might be used whether other one is specified.
 
 For example:
 
@@ -647,7 +647,7 @@ Display a `query` to the user if it's specified, and then accept only a valid e-
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
 The default value of `query` is `'Input e-mail address: '`.
 
-*Note:* The valid e-mail address requirement is a willful violation of [RFC5322](http://tools.ietf.org/html/rfc5322), this is defined in [HTML5](http://www.w3.org/TR/html5/forms.html). This works enough to prevent the user mistaking. If you want to change it, specify [`limit`](#basic_options-limit) option.
+**Note:** The valid e-mail address requirement is a willful violation of [RFC5322](http://tools.ietf.org/html/rfc5322), this is defined in [HTML5](http://www.w3.org/TR/html5/forms.html). This works enough to prevent the user mistaking. If you want to change it, specify [`limit`](#basic_options-limit) option.
 
 For example:
 
@@ -695,7 +695,7 @@ You can specify the valid password requirement to the options.
 The `query` is handled the same as that of the [`question`](#basic_methods-question) method.  
 The default value of `query` is `'Input new password: '`.
 
-*Note:* Only the form of password is checked. Check it more if you want. For example, [zxcvbn](https://github.com/dropbox/zxcvbn) is password strength estimation library.
+**Note:** Only the form of password is checked. Check it more if you want. For example, [zxcvbn](https://github.com/dropbox/zxcvbn) is password strength estimation library.
 
 For example:
 
@@ -902,7 +902,7 @@ The following options work as shown in the [Basic Options](#basic_options) secti
 
 And the following additional options are available.
 
-*Note:* It does not check the coherency about a combination of the options as the path requirement. For example, the `{exists: false, isFile: true}` never check that it is a file because it is limited to the path that does not exist.
+**Note:** It does not check the coherency about a combination of the options as the path requirement. For example, the `{exists: false, isFile: true}` never check that it is a file because it is limited to the path that does not exist.
 
 ##### <a name="utility_methods-questionpath-options-exists"></a>`exists`
 
@@ -1403,7 +1403,7 @@ The default value of `query` is `'Choose one from list: '`.
 
 The minimum length of `items` Array is 1 and maximum length is 35. These elements are displayed as item list. A key to let the user choose an item is assigned to each item automatically in sequence like "1, 2, 3 ... 9, A, B, C ...". A number as an index of the `items` Array that corresponds to a chosen item by the user is returned.
 
-*Note:* Even if the `items` Array has items less than 35, a long Array that forces an user to scroll the list may irritate the user. Remember, the user might be in a console environment that doesn't support scrolling the screen. If you want to use a long (e.g. items more than 10) `items` Array, you should consider a "Pagination".
+**Note:** Even if the `items` Array has items less than 35, a long Array that forces an user to scroll the list may irritate the user. Remember, the user might be in a console environment that doesn't support scrolling the screen. If you want to use a long `items` Array (e.g. items more than 10), you should consider a "Pagination". (See [example](https://github.com/anseki/readline-sync/issues/60#issuecomment-324533678).)
 
 For example:
 
@@ -1596,7 +1596,7 @@ Refused . Please input another.
 
 (May be more better: `'$<(Refused )lastInput( you requested. )>Please input another.'`)
 
-*Note:* The syntax `${parameter}` of older version is still supported, but this should not be used because it may be confused with template string syntax of ES6. And this will not be supported in due course of time.
+**Note:** The syntax `${parameter}` of older version is still supported, but this should not be used because it may be confused with template string syntax of ES6. And this will not be supported in due course of time.
 
 ### <a name="placeholders-parameters"></a>Parameters
 
