@@ -1469,7 +1469,7 @@ For example:
 ```js
 items = ['item-A', 'item-B', 'item-C', 'item-D', 'item-E'];
 index = readlineSync.keyInSelect(items, null,
-  {cancel: 'Show more items than $<itemsCount>'});
+  {cancel: 'Show more than $<itemsCount> items'});
 ```
 
 ```console
@@ -1478,7 +1478,7 @@ index = readlineSync.keyInSelect(items, null,
 [3] item-C
 [4] item-D
 [5] item-E
-[0] Show more items than 5
+[0] Show more than 5 items
 ```
 
 ##### <a name="utility_methods-keyinselect-additional_placeholders-firstitem"></a>`firstItem`
@@ -1556,7 +1556,7 @@ The placeholder is replaced to a string that is got by a `parameter`.
 Both the `(text1)` and `(text2)` are optional.  
 A more added `'$'` at the left of the placeholder is used as an escape character, it disables a placeholder. For example, `'$$<foo>'` is replaced to `'$<foo>'`. If you want to put a `'$'` which is *not* an escape character at the left of a placeholder, specify it like `'$<($)bufferSize>'`, then it is replaced to `'$1024'`.
 
-At the each position of `'(text1)'` and `'(text2)'`, `'text1'` and `'text2'` are put when a string that was got by a `parameter` has length more than 0. If that got string is `''`, a placeholder with or without `'(text1)'` and `'(text2)'` is replaced to `''`.
+At the each position of `'(text1)'` and `'(text2)'`, `'text1'` and `'text2'` are put when a string that was got by a `parameter` has more than 0 length. If that got string is `''`, a placeholder with or without `'(text1)'` and `'(text2)'` is replaced to `''`.
 
 For example, a warning message that means that the command the user requested is not available:
 
