@@ -1403,7 +1403,7 @@ The default value of `query` is `'Choose one from list: '`.
 
 The minimum length of `items` Array is 1 and maximum length is 35. These elements are displayed as item list. A key to let the user choose an item is assigned to each item automatically in sequence like "1, 2, 3 ... 9, A, B, C ...". A number as an index of the `items` Array that corresponds to a chosen item by the user is returned.
 
-**Note:** Even if the `items` Array has items less than 35, a long Array that forces an user to scroll the list may irritate the user. Remember, the user might be in a console environment that doesn't support scrolling the screen. If you want to use a long `items` Array (e.g. items more than 10), you should consider a "Pagination". (See [example](https://github.com/anseki/readline-sync/issues/60#issuecomment-324533678).)
+**Note:** Even if the `items` Array has only less than 35 items, a long Array that forces an user to scroll the list may irritate the user. Remember, the user might be in a console environment that doesn't support scrolling the screen. If you want to use a long `items` Array (e.g. more than 10 items), you should consider a "Pagination". (See [example](https://github.com/anseki/readline-sync/issues/60#issuecomment-324533678).)
 
 For example:
 
