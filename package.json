@@ -19,7 +19,11 @@
     "block"
   ],
   "main": "./lib/readline-sync.js",
-  "files": ["lib"],
+  "files": [
+    "lib",
+    "LICENSE-MIT",
+    "README-Deprecated.md"
+  ],
   "engines": {
     "node": ">= 0.8.0"
   },
