@@ -20,7 +20,7 @@
   ],
   "main": "./lib/readline-sync.js",
   "files": [
-    "lib",
+    "lib/*.@(js|ps1|sh)",
     "LICENSE-MIT",
     "README-Deprecated.md"
   ],
