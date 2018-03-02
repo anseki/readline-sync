@@ -21,7 +21,6 @@
   "main": "./lib/readline-sync.js",
   "files": [
     "lib/*.@(js|ps1|sh)",
-    "LICENSE-MIT",
     "README-Deprecated.md"
   ],
   "engines": {
