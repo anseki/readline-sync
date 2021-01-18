@@ -29,7 +29,7 @@ console.log('Oh, ' + userName + ' loves ' + favFood + '!');
 ```console
 May I have your name? CookieMonster
 Hi CookieMonster!
-What is your favorite food? ****
+What is your favorite food? sausage
 Oh, CookieMonster loves tofu!
 ```
 
