@@ -1831,6 +1831,12 @@ Why did I choose it? :
 * Good modules (native addon) for the synchronous execution exist, but node-gyp can't compile those in some platforms or Node.js versions.
 * I think that the security is important more than the speed. Some modules have problem about security. Those don't protect the data. I think that the speed is not needed usually, because readlineSync is used while user types keys.
 
+## <a name="troubleshooting"></a>Troubleshooting
+
+### Errors
+- `Assertion '(argc) == (5)' failed.`
+  - If you are using [nodemon](https://github.com/remy/nodemon), add `--no-stdin` flag. 
+
 ## <a name="deprecated_methods_and_options"></a>Deprecated methods and options
 
 See [README-Deprecated.md](README-Deprecated.md).
